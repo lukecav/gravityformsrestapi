@@ -1,0 +1,23 @@
+language: php
+php:
+  - 5.2
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+  - hhvm
+env:
+  matrix:
+    - WP_VERSION=latest WP_MULTISITE=0
+    - WP_VERSION=4.4 WP_MULTISITE=0
+    - WP_VERSION=4.3 WP_MULTISITE=0
+    - WP_VERSION=4.2 WP_MULTISITE=0
+    - WP_VERSION=4.1 WP_MULTISITE=0
+    - WP_VERSION=4.0 WP_MULTISITE=0
+before_script:
+  - bash tests/bin/install.sh wordpress_unit_tests root '' localhost $WP_VERSION
+script: phpunit
+notifications:
+  slack:
+    secure: d/y3Uz57YmUF+5o2cl7PHqTHq/QFP8qvzI5jurokN9Cb6NKUDuqEZNZn4F6AKQLn+omkGZbOcx2Rbt53jtt2eckRjP+N+yMHUw3vdRZPKouAQf24RXsmcyPb5RbtKZeOrMi8PoyX/pFa6m8aX4SgcKClHgIlS41sOiY/mig/H9/AqzZEFEbBl6hbF48SrbYnwYmLOIbX2ScNKHqsmzR2EIPVZYBsNcQXRz4tEUs1f0d6tIB3BP/kn0+ci2ScX0XzfvkqR1psHeRmB2qt3mUj3S0B/J3VsA8DiakQLdjO0VuLpMdEYCiI7jPoY4rq9MxsILu2rB0w9emNpKrL488wIRyp/g2xmBepmCrFBclfeVJZRrxEGKOWma4cobYOOx5BDGrfBSVPr2S8fgBx3/o59oMauxnriCz8Ul3FtYjvIwd9uDISPCV4lHnD/glQUV+B5AG6usiw/5uuS7oFL5lffwzNzzI4kyfrAsXwdNwSq3T25vQB/rJscgxi97Lrl6J2LU+IOfwwaE74TdJhov1AiXHVBpILSi7Fk7FzcZoE41TYL7emUIF2ODln4A/sgo+j1Poul0jInm5REsUgTCPS89skTObFdCi49N3Ps9YL4WXVTtm2JVJ3oluPsCuiN2FDrdfYflRY3uh5ZEdWgiLmxuOb6ueQsb8vqhThIU2UEms=
