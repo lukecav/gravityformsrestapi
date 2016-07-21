@@ -32,15 +32,15 @@ define( 'GF_REST_API_VERSION', '1.0-alpha-1' );
 
 define( 'GF_REST_API_MIN_GF_VERSION', '1.9.17.8' );
 
-// After GF is loaded, load the CLI add-on
+// After GF is loaded, load the add-on
 add_action( 'gform_loaded', array( 'GF_REST_API_Bootstrap', 'load_addon' ), 1 );
 
 
 
 /**
- * Loads the Gravity Forms CLI add-on.
+ * Loads the Gravity Forms REST API add-on.
  *
- * Includes the main class, registers it with GFAddOn, and adds WPCLI commands.
+ * Includes the main class, registers it with GFAddOn, and initialises.
  *
  * @since 1.0-beta-1
  */
@@ -80,10 +80,10 @@ class GF_REST_API_Bootstrap {
 }
 
 /**
- * Returns an instance of the GF_CLI class
+ * Returns an instance of the GF_REST_API class
  *
  * @since 1.0-beta-1
- * @return object An instance of the GF_CLI class
+ * @return object An instance of the GF_REST_API class
  */
 function gf_rest_api() {
 	return GF_REST_API::get_instance();
