@@ -27,6 +27,14 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 				'args'            => $this->get_endpoint_args_for_item_schema( true ),
 			),
 		) );
+		register_rest_route( $namespace, '/' . $base . '/fields/(?P<field_ids>[\S]+)', array(
+			array(
+				'methods'         => WP_REST_Server::READABLE,
+				'callback'        => array( $this, 'get_items' ),
+				'permission_callback' => array( $this, 'get_items_permissions_check' ),
+				'args'            => array(),
+			),
+		) );
 		register_rest_route( $namespace, '/' . $base . '/schema', array(
 			'methods'         => WP_REST_Server::READABLE,
 			'callback'        => array( $this, 'get_public_item_schema' ),
@@ -43,6 +51,8 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 		$entry_id = $this->maybe_explode_url_param( $request, 'entry_id' );
 
+		$field_ids = $this->maybe_explode_url_param( $request, 'field_ids' );
+
 		$data = array();
 		if ( $entry_id ) {
 			foreach ( $entry_id as $id ) {
@@ -50,8 +60,8 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 				if ( ! is_wp_error( $result ) ) {
 					$result                = $this->maybe_json_encode_list_fields( $result );
 					$data[ $id ] = $result;
-					if ( ! empty( $field_id ) && ( ! empty( $data[ $id ] ) ) ) {
-						$data[ $id ] = $this->filter_entry_fields( $data[ $id ], $field_id );
+					if ( ! empty( $field_ids ) && ( ! empty( $data[ $id ] ) ) ) {
+						$data[ $id ] = $this->filter_entry_fields( $data[ $id ], $field_ids );
 					}
 				}
 			}
@@ -72,6 +82,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 			if ( ! is_wp_error( $entries ) ) {
 				foreach ( $entries as &$entry ) {
 					$entry = $this->maybe_json_encode_list_fields( $entry );
+					if ( ! empty( $field_ids ) && ! empty( $entry ) ) {
+						$entry = $this->filter_entry_fields( $entry, $field_ids );
+					}
 				}
 				$data = array( 'total_count' => $entry_count, 'entries' => $entries );
 			}
@@ -100,7 +113,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 		if ( is_wp_error( $entry_id ) ) {
 			$status = $this->get_error_status( $entry_id );
-			new WP_Error( $entry_id->get_error_code(), $entry_id->get_error_message(), array( 'status' => $status ) );
+			return new WP_Error( $entry_id->get_error_code(), $entry_id->get_error_message(), array( 'status' => $status ) );
 		}
 
 		return new WP_REST_Response( $entry_id, 201 );

@@ -120,6 +120,11 @@ class Tests_GF_REST_API_Forms extends GF_UnitTestCase {
 
 	function test_create_form() {
 
+		$request = new WP_REST_Request( 'POST', $this->namespace . '/forms' );
+		$response = $this->server->dispatch( $request );
+		$status = $response->get_status();
+		$this->assertEquals( 400, $status );
+
 		$form = GFAPI::get_form( $this->get_form_id() );
 		$form['title'] = 'REST test';
 		$request = new WP_REST_Request( 'POST', $this->namespace . '/forms' );

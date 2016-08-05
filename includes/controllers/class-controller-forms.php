@@ -134,11 +134,15 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 
 		$form = $this->prepare_item_for_database( $request );
 
+		if ( is_wp_error( $form ) ) {
+			return new WP_Error( 'missing_form', __( 'Missing form data', 'gravityforms' ), array( 'status' => 400 ) );
+		}
+
 		$form_id = GFAPI::add_form( $form );
 
 		if ( is_wp_error( $form_id ) ) {
 			$status = $this->get_error_status( $form_id );
-			new WP_Error( $form_id->get_error_code(), $form_id->get_error_message(), array( 'status' => $status ) );
+			return new WP_Error( $form_id->get_error_code(), $form_id->get_error_message(), array( 'status' => $status ) );
 		}
 
 		return new WP_REST_Response( $form_id, 201 );
@@ -158,7 +162,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 
 		if ( is_wp_error( $result ) ) {
 			$status = $this->get_error_status( $result );
-			new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => $status ) );
+			return new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => $status ) );
 		}
 
 		return new WP_REST_Response( __( 'Form updated successfully', 'gravityforms' ), 200 );
@@ -176,7 +180,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 
 		if ( is_wp_error( $result ) ) {
 			$status = $this->get_error_status( $result );
-			new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => $status ) );
+			return new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => $status ) );
 		}
 
 		return new WP_REST_Response( __( 'Form deleted successfully', 'gravityforms' ), 200 );

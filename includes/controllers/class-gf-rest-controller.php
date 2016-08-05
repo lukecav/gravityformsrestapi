@@ -139,11 +139,11 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 		if ( strpos( $param, ';' ) !== false ) {
 			$params = explode( ';', $param );
 			foreach ( $params as &$id ) {
-				$id = absint( $id );
+				$id = sanitize_text_field( $id );
 			}
 			$return = $params;
 		} else {
-			$return = array( absint( $param ) );
+			$return = array( sanitize_text_field( $param ) );
 		}
 
 		return $return;

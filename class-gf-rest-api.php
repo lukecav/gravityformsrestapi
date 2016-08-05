@@ -103,6 +103,7 @@ class GF_REST_API extends GFAddOn {
 	public function register_rest_routes() {
 		$controllers = array(
 			'GF_REST_Entries_Controller',
+			'GF_REST_Entry_Properties_Controller',
 			'GF_REST_Form_Entries_Controller',
 			'GF_REST_Forms_Controller',
 		);

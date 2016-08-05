@@ -63,7 +63,16 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 			),
 		) );
 
-		register_rest_route( $namespace, '/' . $base . '/(?P<entry_id>[\S]+)', array(
+		register_rest_route( $namespace, '/' . $base . '/(?P<entry_id>[0-9;]+$)', array(
+			array(
+				'methods'         => WP_REST_Server::READABLE,
+				'callback'        => array( $this, 'get_items' ),
+				'permission_callback' => array( $this, 'get_items_permissions_check' ),
+				'args'            => array(),
+			),
+		) );
+
+		register_rest_route( $namespace, '/' . $base . '/(?P<entry_id>[0-9;]+)/fields/(?P<field_ids>[\S]+)', array(
 			array(
 				'methods'         => WP_REST_Server::READABLE,
 				'callback'        => array( $this, 'get_items' ),
@@ -98,11 +107,13 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 		$entry_id = $request->get_param( 'entry_id' );
 
+		$field_ids = $this->maybe_explode_url_param( $request, 'field_ids' );
+
 		$item = GFAPI::get_entry( $entry_id );
 		if ( ! is_wp_error( $item ) ) {
 			$item = $this->maybe_json_encode_list_fields( $item );
-			if ( ! empty( $field_id ) && ( ! empty( $item ) ) ) {
-				$item = $this->filter_entry_fields( $item, $field_id );
+			if ( ! empty( $field_ids ) && ( ! empty( $item ) ) ) {
+				$item = $this->filter_entry_fields( $item, $field_ids );
 			}
 		}
 
@@ -134,7 +145,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 		if ( is_wp_error( $data ) ) {
 			$status = $this->get_error_status( $data );
-			new WP_Error( $data->get_error_code(), $data->get_error_message(), array( 'status' => $status ) );
+			return new WP_Error( $data->get_error_code(), $data->get_error_message(), array( 'status' => $status ) );
 		}
 
 		$message = empty( $data ) ? __( 'Entries updated successfully', 'gravityforms' ) : __( 'Entry updated successfully', 'gravityforms' );
@@ -154,7 +165,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 		if ( is_wp_error( $data ) ) {
 			$message = $data->get_error_message();
-			new WP_Error( 'gf_cannot_delete', $message, array( 'status' => 500 ) );
+			return new WP_Error( 'gf_cannot_delete', $message, array( 'status' => 500 ) );
 		}
 
 		return new WP_REST_Response( __( 'Entry deleted successfully', 'gravityforms' ), 200 );
