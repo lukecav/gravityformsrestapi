@@ -30,11 +30,10 @@ along with this program.  If not, see http://www.gnu.org/licenses.
 // Defines the current version of the REST API add-on
 define( 'GF_REST_API_VERSION', '1.0-alpha-1' );
 
-define( 'GF_REST_API_MIN_GF_VERSION', '1.9.17.8' );
+define( 'GF_REST_API_MIN_GF_VERSION', '2.0' );
 
 // After GF is loaded, load the add-on
 add_action( 'gform_loaded', array( 'GF_REST_API_Bootstrap', 'load_addon' ), 1 );
-
 
 
 /**
@@ -60,6 +59,8 @@ class GF_REST_API_Bootstrap {
 		// Requires the class file
 		require_once( $dir . '/class-gf-rest-api.php' );
 
+		require_once( $dir . '/includes/class-results-cache.php' );
+
 		// Registers the class name with GFAddOn
 		GFAddOn::register( 'GF_REST_API' );
 
@@ -72,9 +73,11 @@ class GF_REST_API_Bootstrap {
 		require_once( $dir . '/includes/controllers/class-gf-rest-controller.php' );
 
 		require_once( $dir . '/includes/controllers/class-controller-form-entries.php' );
+		require_once( $dir . '/includes/controllers/class-controller-form-results.php' );
 		require_once( $dir . '/includes/controllers/class-controller-entries.php' );
 		require_once( $dir . '/includes/controllers/class-controller-entry-properties.php' );
 		require_once( $dir . '/includes/controllers/class-controller-forms.php' );
+
 
 		gf_rest_api();
 	}

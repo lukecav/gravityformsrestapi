@@ -188,4 +188,8 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 
 		return $http_code;
 	}
+
+	public function log_debug( $message ) {
+		GFCommon::log_debug( $message );
+	}
 }
