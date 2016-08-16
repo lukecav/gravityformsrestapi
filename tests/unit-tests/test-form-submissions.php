@@ -9,7 +9,7 @@
  *
  * @group testsuite
  */
-class Tests_GF_REST_API_Entry_Fields extends GF_UnitTestCase {
+class Tests_GF_REST_API_Form_Submissions extends GF_UnitTestCase {
 
 	/**
 	 * @var GF_UnitTest_Factory
@@ -60,26 +60,34 @@ class Tests_GF_REST_API_Entry_Fields extends GF_UnitTestCase {
 		$this->assertEquals( 1, $t );
 	}
 
-	function test_get_entry_fields() {
+	function test_post_submission() {
 		$form_id = $this->get_form_id();
-		$this->_create_entries();
 
-		$entries = GFAPI::get_entries( $form_id );
+		$inital_count = GFAPI::count_entries( $form_id );
+		$this->assertEquals( 0, $inital_count );
 
-		$entry = $entries[0];
+		$request = new WP_REST_Request( 'POST', $this->namespace . '/forms/' . $form_id . '/submissions' );
 
-		$entry_id = $entry['id'];
-
-
-
-		$request = new WP_REST_Request( 'GET', $this->namespace . '/entries/' . $entry_id . '/fields/1;13.6' );
+		$body = array(
+			'input_values' => array(
+				'input_1' => 'First Choice',
+				'input_2_2' => 'Second Choice',
+				'input_5' => 'Testing the submissions endpoint',
+				'input_8' => '9',
+			),
+			'field_values' => array(),
+			'target_page'  => 0,
+			'source_page'  => 1,
+		);
+		$request->set_body_params( $body );
 
 		$response = $this->server->dispatch( $request );
 		$data = $response->get_data();
-		$verify_fields = $data[ $entry_id ];
-		$this->assertEquals( $entry[1], $verify_fields[1] );
-		$this->assertEquals( $entry['13.6'], $verify_fields['13.6'] );
-		$this->assertArrayNotHasKey( 'id', $verify_fields );
+		$this->assertEquals( 1, $data['is_valid'] );
+
+		$count = GFAPI::count_entries( $form_id );
+
+		$this->assertEquals( 1, $count );
 	}
 
 	/* HELPERS */

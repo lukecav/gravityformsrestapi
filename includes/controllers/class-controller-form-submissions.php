@@ -1,8 +1,8 @@
 <?php
 
-class GF_REST_Form_Results_Controller extends GF_REST_Controller {
+class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 
-	public $rest_base = 'forms/(?P<form_id>[\d]+)/results';
+	public $rest_base = 'forms/(?P<form_id>[\d]+)/submissions';
 
 	/**
 	 * Register the routes for the objects of the controller.
@@ -15,9 +15,9 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 
 		register_rest_route( $namespace, '/' . $base, array(
 			array(
-				'methods'         => WP_REST_Server::READABLE,
-				'callback'        => array( $this, 'get_items' ),
-				'permission_callback' => array( $this, 'get_items_permissions_check' ),
+				'methods'         => WP_REST_Server::CREATABLE,
+				'callback'        => array( $this, 'create_item' ),
+				'permission_callback' => array( $this, 'create_item_permissions_check' ),
 				'args'            => $this->get_collection_params(),
 			),
 		) );
@@ -29,38 +29,34 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * Get a collection of results
+	 * Create one item from the collection.
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
-	public function get_items( $request ) {
+	public function create_item( $request ) {
 		$form_id = $request['form_id'];
-		$search_criteria = $this->parse_entry_search_params( $request );
-		$args = array(
-			'page_size' => 100,
-			'time_limit' => 5,
-			'wait' => 5,
-		);
-		$data = gf_results_cache()->get_results( $form_id, $search_criteria, $args );
-		$response = $this->prepare_item_for_response( $data, $request );
+
+		$input_values = $request['input_values'];
+		$field_values = $request['field_values'];
+		$target_page  = $request['target_page'];
+		$source_page  = $request['source_page'];
+
+		$result = GFAPI::submit_form( $form_id, $input_values, $field_values, $target_page, $source_page );
+
+		$response = $this->prepare_item_for_response( $result, $request );
+
 		return $response;
 	}
 
 	/**
-	 * Check if a given request has access to get items
+	 * Check if a given request has access to create items.
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
-	 * @return WP_Error|bool
+	 * @return WP_Error|boolean
 	 */
-	public function get_items_permissions_check( $request ) {
-		/**
-		 * Filters the capability required to get form results via the web API.
-		 *
-		 * @since 1.9.2
-		 */
-		$capability = apply_filters( 'gform_web_api_capability_get_results', 'gravityforms_view_entries' );
-		return GFAPI::current_user_can_any( $capability );
+	public function create_item_permissions_check( $request ) {
+		return true;
 	}
 
 

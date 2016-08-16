@@ -723,62 +723,35 @@ class GF_Results_Cache {
 			$field_id = $field->id;
 			$field = GFFormsModel::get_field( $form, $field_id );
 
-			if ( is_array( $field['choices'] ) ) {
+			if ( is_array( $field->choices ) ) {
 				$label = array();
-				foreach ( $field['choices'] as $choice ) {
-					$label[ $choice['value'] ] = $choice['text'];
+				$choice_labels = array();
+				foreach ( $field->choices as $choice ) {
+					$choice_labels[ $choice['value'] ] = $choice['text'];
 				}
 
 				if ( $field instanceof GF_Field_Likert && $field->gsurveyLikertEnableMultipleRows ) {
 					/* @var GF_Field_Likert $field  */
-					$col_labels = $label;
 					$label = array(
-						'cols' => $col_labels,
+						'label' => $field->label,
+						'cols' => $choice_labels,
 						'rows' => array(),
 					);
 					foreach ( $field->gsurveyLikertRows as $row ) {
 						$label['rows'][ $row['value'] ] = $row['text'];
 					}
+				} else {
+					$label['label'] = $field->label;
+					$label['choices'] = $choice_labels;
 				}
 			} else {
-
 				$label = $field['label'];
-
 			}
 
 			$labels[ $field->id ] = $label;
 		}
 
 		return $labels;
-
-
-		foreach ( $choice_counts as $choice_value => $choice_count ) {
-			if ( class_exists( 'GFSurvey' ) && 'likert' == $type && $field->gsurveyLikertEnableMultipleRows ) {
-				/* @var GF_Field_Likert $field  */
-				$row_text       = gf_survey()->get_likert_row_text( $field, $i );
-				$counts_for_row = array();
-				foreach ( $choice_count as $col_val => $col_count ) {
-					$text = $field->get_column_text( $choice_value . ':' . $col_val, false, $i, $include_row_text = false );
-					$counts_for_row[ $col_val ] = array( 'text' => $text, 'data' => $col_count );
-				}
-				$counts_for_row[ $choice_value ]['data'] = $counts_for_row;
-				$field_data[ $field_id ][ $choice_value ]    = array(
-					'text'  => $row_text,
-					'value' => "$choice_value",
-					'count' => $counts_for_row,
-				);
-				$i++;
-			} else {
-				$text                                 = GFFormsModel::get_choice_text( $field, $choice_value );
-				$field_data[ $field_id ][ $choice_value ] = array(
-					'text'  => $text,
-					'value' => "$choice_value",
-					'count' => $choice_count,
-				);
-			}
-		}
-
-		return $field_data;
 	}
 
 	private function filter_fields( $form, $field_ids ) {

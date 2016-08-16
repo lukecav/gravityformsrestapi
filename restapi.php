@@ -74,6 +74,7 @@ class GF_REST_API_Bootstrap {
 
 		require_once( $dir . '/includes/controllers/class-controller-form-entries.php' );
 		require_once( $dir . '/includes/controllers/class-controller-form-results.php' );
+		require_once( $dir . '/includes/controllers/class-controller-form-submissions.php' );
 		require_once( $dir . '/includes/controllers/class-controller-entries.php' );
 		require_once( $dir . '/includes/controllers/class-controller-entry-properties.php' );
 		require_once( $dir . '/includes/controllers/class-controller-forms.php' );

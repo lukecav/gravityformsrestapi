@@ -9,7 +9,7 @@
  *
  * @group testsuite
  */
-class Tests_GF_REST_API_Entry_Fields extends GF_UnitTestCase {
+class Tests_GF_REST_API_Form_Results extends GF_UnitTestCase {
 
 	/**
 	 * @var GF_UnitTest_Factory
@@ -60,26 +60,16 @@ class Tests_GF_REST_API_Entry_Fields extends GF_UnitTestCase {
 		$this->assertEquals( 1, $t );
 	}
 
-	function test_get_entry_fields() {
+	function test_get_results() {
 		$form_id = $this->get_form_id();
 		$this->_create_entries();
 
-		$entries = GFAPI::get_entries( $form_id );
-
-		$entry = $entries[0];
-
-		$entry_id = $entry['id'];
-
-
-
-		$request = new WP_REST_Request( 'GET', $this->namespace . '/entries/' . $entry_id . '/fields/1;13.6' );
+		$request = new WP_REST_Request( 'GET', $this->namespace . '/forms/' . $form_id . '/results' );
 
 		$response = $this->server->dispatch( $request );
 		$data = $response->get_data();
-		$verify_fields = $data[ $entry_id ];
-		$this->assertEquals( $entry[1], $verify_fields[1] );
-		$this->assertEquals( $entry['13.6'], $verify_fields['13.6'] );
-		$this->assertArrayNotHasKey( 'id', $verify_fields );
+
+		$this->assertEquals( 30, $data['field_data'][2]['Second Choice'] );
 	}
 
 	/* HELPERS */
