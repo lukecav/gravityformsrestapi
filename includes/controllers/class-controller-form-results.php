@@ -84,16 +84,6 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 	 */
 	public function get_collection_params() {
 		return array(
-			'sorting'                   => array(
-				'description'        => 'Current page of the collection.',
-				'type'               => 'array',
-				'sanitize_callback'  => 'is_array',
-			),
-			'paging'               => array(
-				'description'        => 'Maximum number of items to be returned in result set.',
-				'type'               => 'array',
-				'sanitize_callback'  => 'is_array',
-			),
 			'search'                 => array(
 				'description'        => 'The search criteria.',
 				'type'               => 'string',

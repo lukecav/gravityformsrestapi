@@ -24,13 +24,13 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 				'methods'         => WP_REST_Server::CREATABLE,
 				'callback'        => array( $this, 'create_item' ),
 				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( true ),
+				'args'            => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 			),
 			array(
 				'methods'         => WP_REST_Server::EDITABLE,
 				'callback'        => array( $this, 'update_item' ),
 				'permission_callback' => array( $this, 'update_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( true ),
+				'args'            => $this->get_endpoint_args_for_item_schema( WP_REST_Server::EDITABLE ),
 			),
 		) );
 
@@ -39,11 +39,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 				'methods'         => WP_REST_Server::READABLE,
 				'callback'        => array( $this, 'get_item' ),
 				'permission_callback' => array( $this, 'get_item_permissions_check' ),
-				'args'            => array(
-					'context'          => array(
-						'default'      => 'view',
-					),
-				),
+				'args'            => array(),
 			),
 			array(
 				'methods'         => WP_REST_Server::EDITABLE,
@@ -55,11 +51,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 				'methods'  => WP_REST_Server::DELETABLE,
 				'callback' => array( $this, 'delete_item' ),
 				'permission_callback' => array( $this, 'delete_item_permissions_check' ),
-				'args'     => array(
-					'force'    => array(
-						'default'      => false,
-					),
-				),
+				'args'     => array(),
 			),
 		) );
 
@@ -81,10 +73,6 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 			),
 		) );
 
-		register_rest_route( $namespace, '/' . $base . '/schema', array(
-			'methods'         => WP_REST_Server::READABLE,
-			'callback'        => array( $this, 'get_public_item_schema' ),
-		) );
 	}
 
 	/**
@@ -249,30 +237,5 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 		$response = new WP_REST_Response( $item, 200 );
 		return $response;
-	}
-
-	/**
-	 * Get the query params for collections
-	 *
-	 * @return array
-	 */
-	public function get_collection_params() {
-		return array(
-			'sorting'                   => array(
-				'description'        => 'Current page of the collection.',
-				'type'               => 'array',
-				'sanitize_callback'  => 'is_array',
-			),
-			'paging'               => array(
-				'description'        => 'Maximum number of items to be returned in result set.',
-				'type'               => 'array',
-				'sanitize_callback'  => 'is_array',
-			),
-			'search'                 => array(
-				'description'        => 'The search criteria.',
-				'type'               => 'string',
-				'sanitize_callback'  => 'sanitize_text_field',
-			),
-		);
 	}
 }
