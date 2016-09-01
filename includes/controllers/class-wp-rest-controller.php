@@ -4,6 +4,8 @@
  * This is a copy of WP_REST_Controller which is not currently in the WordPress core.
  * https://github.com/WP-API/WP-API/blob/develop/lib/endpoints/class-wp-rest-controller.php
  *
+ * Last updated 17 August 2016
+ *
  * Class GF_REST_Controller
  */
 
@@ -134,7 +136,7 @@ abstract class WP_REST_Controller {
 	 * Prepare the item for create or update operation.
 	 *
 	 * @param WP_REST_Request $request Request object.
-	 * @return WP_Error|array $prepared_item
+	 * @return WP_Error|object $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {
 		return new WP_Error( 'invalid-method', sprintf( __( "Method '%s' not implemented. Must be over-ridden in subclass." ), __METHOD__ ), array( 'status' => 405 ) );
@@ -486,4 +488,161 @@ abstract class WP_REST_Controller {
 		return $endpoint_args;
 	}
 
+	/**
+	 * Retrieves post data given a post ID or post object.
+	 *
+	 * This is a subset of the functionality of the `get_post()` function, with
+	 * the additional functionality of having `the_post` action done on the
+	 * resultant post object. This is done so that plugins may manipulate the
+	 * post that is used in the REST API.
+	 *
+	 * @see get_post()
+	 * @global WP_Query $wp_query
+	 *
+	 * @param int|WP_Post $post Post ID or post object. Defaults to global $post.
+	 * @return WP_Post|null A `WP_Post` object when successful.
+	 */
+	public function get_post( $post ) {
+		$post_obj = get_post( $post );
+
+		/**
+		 * Filter the post.
+		 *
+		 * Allows plugins to filter the post object as returned by `\WP_REST_Controller::get_post()`.
+		 *
+		 * @param WP_Post|null $post_obj  The post object as returned by `get_post()`.
+		 * @param int|WP_Post  $post      The original value used to obtain the post object.
+		 */
+		$post = apply_filters( 'rest_the_post', $post_obj, $post );
+
+		return $post;
+	}
+}
+
+
+if ( ! function_exists( 'rest_sanitize_request_arg' ) ) {
+	/**
+	 * Sanitize a request argument based on details registered to the route.
+	 *
+	 * @param  mixed            $value
+	 * @param  WP_REST_Request  $request
+	 * @param  string           $param
+	 * @return mixed
+	 */
+	function rest_sanitize_request_arg( $value, $request, $param ) {
+
+		$attributes = $request->get_attributes();
+		if ( ! isset( $attributes['args'][ $param ] ) || ! is_array( $attributes['args'][ $param ] ) ) {
+			return $value;
+		}
+		$args = $attributes['args'][ $param ];
+
+		if ( 'integer' === $args['type'] ) {
+			return (int) $value;
+		}
+
+		if ( isset( $args['format'] ) ) {
+			switch ( $args['format'] ) {
+				case 'date-time' :
+					return sanitize_text_field( $value );
+
+				case 'email' :
+					/*
+					 * sanitize_email() validates, which would be unexpected
+					 */
+					return sanitize_text_field( $value );
+
+				case 'uri' :
+					return esc_url_raw( $value );
+			}
+		}
+
+		return $value;
+	}
+
+}
+
+if ( ! function_exists( 'rest_validate_request_arg' ) ) {
+	/**
+	 * Validate a request argument based on details registered to the route.
+	 *
+	 * @param  mixed            $value
+	 * @param  WP_REST_Request  $request
+	 * @param  string           $param
+	 * @return WP_Error|boolean
+	 */
+	function rest_validate_request_arg( $value, $request, $param ) {
+
+		$attributes = $request->get_attributes();
+		if ( ! isset( $attributes['args'][ $param ] ) || ! is_array( $attributes['args'][ $param ] ) ) {
+			return true;
+		}
+		$args = $attributes['args'][ $param ];
+
+		if ( ! empty( $args['enum'] ) ) {
+			if ( ! in_array( $value, $args['enum'] ) ) {
+				return new WP_Error( 'rest_invalid_param', sprintf( __( '%s is not one of %s' ), $param, implode( ', ', $args['enum'] ) ) );
+			}
+		}
+
+		if ( 'integer' === $args['type'] && ! is_numeric( $value ) ) {
+			return new WP_Error( 'rest_invalid_param', sprintf( __( '%s is not of type %s' ), $param, 'integer' ) );
+		}
+
+		if ( 'string' === $args['type'] && ! is_string( $value ) ) {
+			return new WP_Error( 'rest_invalid_param', sprintf( __( '%s is not of type %s' ), $param, 'string' ) );
+		}
+
+		if ( isset( $args['format'] ) ) {
+			switch ( $args['format'] ) {
+				case 'date-time' :
+					if ( ! rest_parse_date( $value ) ) {
+						return new WP_Error( 'rest_invalid_date', __( 'The date you provided is invalid.' ) );
+					}
+					break;
+
+				case 'email' :
+					if ( ! is_email( $value ) ) {
+						return new WP_Error( 'rest_invalid_email', __( 'The email address you provided is invalid.' ) );
+					}
+					break;
+			}
+		}
+
+		if ( in_array( $args['type'], array( 'numeric', 'integer' ) ) && ( isset( $args['minimum'] ) || isset( $args['maximum'] ) ) ) {
+			if ( isset( $args['minimum'] ) && ! isset( $args['maximum'] ) ) {
+				if ( ! empty( $args['exclusiveMinimum'] ) && $value <= $args['minimum'] ) {
+					return new WP_Error( 'rest_invalid_param', sprintf( __( '%s must be greater than %d (exclusive)' ), $param, $args['minimum'] ) );
+				} else if ( empty( $args['exclusiveMinimum'] ) && $value < $args['minimum'] ) {
+					return new WP_Error( 'rest_invalid_param', sprintf( __( '%s must be greater than %d (inclusive)' ), $param, $args['minimum'] ) );
+				}
+			} else if ( isset( $args['maximum'] ) && ! isset( $args['minimum'] ) ) {
+				if ( ! empty( $args['exclusiveMaximum'] ) && $value >= $args['maximum'] ) {
+					return new WP_Error( 'rest_invalid_param', sprintf( __( '%s must be less than %d (exclusive)' ), $param, $args['maximum'] ) );
+				} else if ( empty( $args['exclusiveMaximum'] ) && $value > $args['maximum'] ) {
+					return new WP_Error( 'rest_invalid_param', sprintf( __( '%s must be less than %d (inclusive)' ), $param, $args['maximum'] ) );
+				}
+			} else if ( isset( $args['maximum'] ) && isset( $args['minimum'] ) ) {
+				if ( ! empty( $args['exclusiveMinimum'] ) && ! empty( $args['exclusiveMaximum'] ) ) {
+					if ( $value >= $args['maximum'] || $value <= $args['minimum'] ) {
+						return new WP_Error( 'rest_invalid_param', sprintf( __( '%s must be between %d (exclusive) and %d (exclusive)' ), $param, $args['minimum'], $args['maximum'] ) );
+					}
+				} else if ( empty( $args['exclusiveMinimum'] ) && ! empty( $args['exclusiveMaximum'] ) ) {
+					if ( $value >= $args['maximum'] || $value < $args['minimum'] ) {
+						return new WP_Error( 'rest_invalid_param', sprintf( __( '%s must be between %d (inclusive) and %d (exclusive)' ), $param, $args['minimum'], $args['maximum'] ) );
+					}
+				} else if ( ! empty( $args['exclusiveMinimum'] ) && empty( $args['exclusiveMaximum'] ) ) {
+					if ( $value > $args['maximum'] || $value <= $args['minimum'] ) {
+						return new WP_Error( 'rest_invalid_param', sprintf( __( '%s must be between %d (exclusive) and %d (inclusive)' ), $param, $args['minimum'], $args['maximum'] ) );
+					}
+				} else if ( empty( $args['exclusiveMinimum'] ) && empty( $args['exclusiveMaximum'] ) ) {
+					if ( $value > $args['maximum'] || $value < $args['minimum'] ) {
+						return new WP_Error( 'rest_invalid_param', sprintf( __( '%s must be between %d (inclusive) and %d (inclusive)' ), $param, $args['minimum'], $args['maximum'] ) );
+					}
+				}
+			}
+		}
+
+		return true;
+	}
 }
