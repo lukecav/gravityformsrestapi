@@ -21,11 +21,6 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 				'args'            => $this->get_endpoint_args_for_item_schema( true ),
 			),
 		) );
-
-		register_rest_route( $namespace, '/' . $base . '/schema', array(
-			'methods'         => WP_REST_Server::READABLE,
-			'callback'        => array( $this, 'get_public_item_schema' ),
-		) );
 	}
 
 	/**
@@ -83,6 +78,10 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	 */
 	protected function prepare_item_for_database( $request ) {
 		$properties = $request->get_body_params();
+		if ( empty( $properties ) ) {
+			$properties = $request->get_body_params();
+		}
+
 		return $properties;
 	}
 
@@ -92,22 +91,15 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	 * @return array
 	 */
 	public function get_collection_params() {
-		return array(
-			'sorting'                   => array(
-				'description'        => 'Current page of the collection.',
-				'type'               => 'array',
-				'sanitize_callback'  => 'is_array',
-			),
-			'paging'               => array(
-				'description'        => 'Maximum number of items to be returned in result set.',
-				'type'               => 'array',
-				'sanitize_callback'  => 'is_array',
-			),
-			'search'                 => array(
-				'description'        => 'The search criteria.',
-				'type'               => 'string',
-				'sanitize_callback'  => 'sanitize_text_field',
-			),
-		);
+		return array();
+	}
+
+	/**
+	 * Get the Entry Property schema, conforming to JSON Schema.
+	 *
+	 * @return array
+	 */
+	public function get_item_schema() {
+		return array();
 	}
 }

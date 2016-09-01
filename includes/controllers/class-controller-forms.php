@@ -249,7 +249,11 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|object $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {
-		$form = $request->get_body_params();
+		$form = $request->get_json_params();
+		if ( ! $form ) {
+			$form = $request->get_body_params();
+		}
+
 		return $form;
 	}
 

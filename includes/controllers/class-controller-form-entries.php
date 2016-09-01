@@ -18,13 +18,13 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 				'methods'         => WP_REST_Server::READABLE,
 				'callback'        => array( $this, 'get_items' ),
 				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				'args'            => array(),
+				'args'            => $this->get_collection_params(),
 			),
 			array(
 				'methods'         => WP_REST_Server::CREATABLE,
 				'callback'        => array( $this, 'create_item' ),
 				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( true ),
+				'args'            => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 			),
 		) );
 		register_rest_route( $namespace, '/' . $base . '/fields/(?P<field_ids>[\S]+)', array(
@@ -34,10 +34,6 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 				'permission_callback' => array( $this, 'get_items_permissions_check' ),
 				'args'            => array(),
 			),
-		) );
-		register_rest_route( $namespace, '/' . $base . '/schema', array(
-			'methods'         => WP_REST_Server::READABLE,
-			'callback'        => array( $this, 'get_public_item_schema' ),
 		) );
 	}
 
@@ -149,8 +145,136 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	 * @return WP_Error|array $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {
-		$entry = $request->get_body_params();
+		$entry = $request->get_json_params();
+		if ( empty( $entry ) ) {
+			$entry = $request->get_body_params();
+		}
+
 		$entry = $this->maybe_serialize_list_fields( $entry );
 		return $entry;
+	}
+
+	/**
+	 * Get the query params for collections
+	 *
+	 * @return array
+	 */
+	public function get_collection_params() {
+		return array(
+			'sorting'                   => array(
+				'description'        => 'The sorting criteria.',
+				'type'               => 'array',
+			),
+			'paging'               => array(
+				'description'        => 'The paging criteria.',
+				'type'               => 'array',
+			),
+			'search'                 => array(
+				'description'        => 'The search criteria.',
+				'type'               => 'string',
+			),
+		);
+	}
+
+	/**
+	 * Get the Entry schema, conforming to JSON Schema.
+	 *
+	 * @return array
+	 */
+	public function get_item_schema() {
+		$schema = array(
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'title'      => 'entry',
+			'type'       => 'object',
+			'properties' => array(
+				'id' => array(
+					'description' => __( 'Unique identifier for the resource.', 'gravityforms' ),
+					'type'        => 'integer',
+					'readonly'    => true,
+				),
+				'form_id' => array(
+					'description' => __( 'The Form ID for the entry.', 'gravityforms' ),
+					'type'        => 'integer',
+					'required'    => true,
+					'readonly'    => false,
+				),
+				'date_created' => array(
+					'description' => __( 'The date the entry was created, in UTC.', 'gravityforms' ),
+					'type'        => 'date-time',
+					'readonly'    => false,
+				),
+				'is_starred' => array(
+					'description' => __( 'Whether the entry is starred.', 'gravityforms' ),
+					'type'        => 'integer',
+					'readonly'    => false,
+				),
+				'is_read' => array(
+					'description' => __( 'Whether the entry has been read.', 'gravityforms' ),
+					'type'        => 'integer',
+					'readonly'    => false,
+				),
+				'ip' => array(
+					'description' => __( 'The IP address of the entry creator.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'source_url' => array(
+					'description' => __( 'The URL where the form was embedded.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'user_agent' => array(
+					'description' => __( 'The user agent string for the browser used to submit the entry.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'payment_status' => array(
+					'description' => __( 'The status of the payment, if applicable.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'payment_date' => array(
+					'description' => __( 'The date of the payment, if applicable.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'payment_amount' => array(
+					'description' => __( 'The amount of the payment, if applicable.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'payment_method' => array(
+					'description' => __( 'The payment method for the payment, if applicable.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'transaction_id' => array(
+					'description' => __( 'The transaction ID for the payment, if applicable.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'is_fulfilled' => array(
+					'description' => __( 'Whether the transaction has been fulfilled, if applicable.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'created_by' => array(
+					'description' => __( 'The user ID of the entry submitter.', 'gravityforms' ),
+					'type'        => 'integer',
+					'readonly'    => false,
+				),
+				'transaction_type' => array(
+					'description' => __( 'The type of the transaction, if applicable.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+				'status' => array(
+					'description' => __( 'The status of the entry.', 'gravityforms' ),
+					'type'        => 'string',
+					'readonly'    => false,
+				),
+			),
+		);
+		return $schema;
 	}
 }

@@ -18,14 +18,10 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 				'methods'         => WP_REST_Server::CREATABLE,
 				'callback'        => array( $this, 'create_item' ),
 				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'            => $this->get_collection_params(),
+				'args'            => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 			),
 		) );
 
-		register_rest_route( $namespace, '/' . $base . '/schema', array(
-			'methods'         => WP_REST_Server::READABLE,
-			'callback'        => array( $this, 'get_public_item_schema' ),
-		) );
 	}
 
 	/**
@@ -37,10 +33,15 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 	public function create_item( $request ) {
 		$form_id = $request['form_id'];
 
-		$input_values = $request['input_values'];
-		$field_values = $request['field_values'];
-		$target_page  = $request['target_page'];
-		$source_page  = $request['source_page'];
+		$params = $request->get_json_params();
+		if ( empty( $params ) ) {
+			$params = $request->get_body_params();
+		}
+
+		$input_values = $params['input_values'];
+		$field_values = isset( $params['field_values'] ) ? $params['field_values'] : array();
+		$target_page  = isset( $params['target_page'] ) ? $params['target_page'] : 0;
+		$source_page  = isset( $params['source_page'] ) ? $params['source_page'] : 0;
 
 		$result = GFAPI::submit_form( $form_id, $input_values, $field_values, $target_page, $source_page );
 
@@ -79,23 +80,39 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 	 * @return array
 	 */
 	public function get_collection_params() {
-		return array(
-			'sorting'                   => array(
-				'description'        => 'Current page of the collection.',
-				'type'               => 'array',
-				'sanitize_callback'  => 'is_array',
-			),
-			'paging'               => array(
-				'description'        => 'Maximum number of items to be returned in result set.',
-				'type'               => 'array',
-				'sanitize_callback'  => 'is_array',
-			),
-			'search'                 => array(
-				'description'        => 'The search criteria.',
-				'type'               => 'string',
-				'sanitize_callback'  => 'sanitize_text_field',
+		return array();
+	}
+
+	/**
+	 * Get the Entry schema, conforming to JSON Schema.
+	 *
+	 * @return array
+	 */
+	public function get_item_schema() {
+		$schema = array(
+			'$schema'    => 'http://json-schema.org/draft-04/schema#',
+			'title'      => 'form-submission',
+			'type'       => 'object',
+			'properties' => array(
+				'input_values'                   => array(
+					'description'        => __( 'An array of input values', 'gravityforms' ),
+					'type'               => 'array',
+				),
+				'field_values'               => array(
+					'description'        => __( 'The field values.', 'gravityforms' ),
+					'type'               => 'array',
+				),
+				'target_page'                 => array(
+					'description'        => 'The target page number.',
+					'type'               => 'integer',
+				),
+				'source_page'                 => array(
+					'description'        => 'The source page number.',
+					'type'               => 'integer',
+				),
 			),
 		);
+		return $schema;
 	}
 }
 
