@@ -35,13 +35,17 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 
 		$params = $request->get_json_params();
 		if ( empty( $params ) ) {
-			$params = $request->get_body_params();
+			$input_values = $request->get_body_params();
+			$field_values = isset( $input_values['field_values'] ) ? $input_values['field_values'] : array();
+			$target_page = isset( $input_values['target_page'] ) ? $input_values['target_page'] : 0;
+			$source_page = isset( $input_values['source_page'] ) ? $input_values['source_page'] : 1;
+			$input_values = array(); // The input values are already in $_POST
+		} else {
+			$input_values = $params;
+			$field_values = isset( $params['field_values'] ) ? $params['field_values'] : array();
+			$target_page  = isset( $params['target_page'] ) ? $params['target_page'] : 0;
+			$source_page  = isset( $params['source_page'] ) ? $params['source_page'] : 1;
 		}
-
-		$input_values = $params['input_values'];
-		$field_values = isset( $params['field_values'] ) ? $params['field_values'] : array();
-		$target_page  = isset( $params['target_page'] ) ? $params['target_page'] : 0;
-		$source_page  = isset( $params['source_page'] ) ? $params['source_page'] : 0;
 
 		$result = GFAPI::submit_form( $form_id, $input_values, $field_values, $target_page, $source_page );
 

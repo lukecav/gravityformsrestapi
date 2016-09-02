@@ -63,23 +63,23 @@ class Tests_GF_REST_API_Form_Submissions extends GF_UnitTestCase {
 	function test_post_submission() {
 		$form_id = $this->get_form_id();
 
-		$inital_count = GFAPI::count_entries( $form_id );
-		$this->assertEquals( 0, $inital_count );
+		$initial_count = GFAPI::count_entries( $form_id );
+		$this->assertEquals( 0, $initial_count );
 
 		$request = new WP_REST_Request( 'POST', $this->namespace . '/forms/' . $form_id . '/submissions' );
 
 		$body = array(
-			'input_values' => array(
-				'input_1' => 'First Choice',
-				'input_2_2' => 'Second Choice',
-				'input_5' => 'Testing the submissions endpoint',
-				'input_8' => '9',
-			),
-			'field_values' => array(),
+			'input_1' => 'First Choice',
+			'input_2_2' => 'Second Choice',
+			'input_5' => 'Testing the submissions endpoint',
+			'input_8' => '9',
+			'field_values' => '',
 			'target_page'  => 0,
 			'source_page'  => 1,
 		);
 		$request->set_body_params( $body );
+
+		$_POST = $body;
 
 		$response = $this->server->dispatch( $request );
 		$data = $response->get_data();
