@@ -135,7 +135,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 		$form = $this->prepare_item_for_database( $request );
 
 		if ( is_wp_error( $form ) ) {
-			return new WP_Error( 'missing_form', __( 'Missing form data', 'gravityforms' ), array( 'status' => 400 ) );
+			return new WP_Error( $form->get_error_code(), $form->get_error_message(), array( 'status' => 400 ) );
 		}
 
 		$form_id = GFAPI::add_form( $form );
@@ -243,7 +243,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * Prepare the item for create or update operation
+	 * Prepare the item for create or update operation.
+	 *
+	 * The Form object must be sent as a JSON string in order to preserve boolean values.
 	 *
 	 * @param WP_REST_Request $request Request object
 	 * @return WP_Error|object $prepared_item
@@ -251,7 +253,14 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	protected function prepare_item_for_database( $request ) {
 		$form = $request->get_json_params();
 		if ( ! $form ) {
-			$form = $request->get_body_params();
+
+			$form_json = $request->get_body_params();
+
+			if ( empty( $form_json ) || is_array( $form_json ) ) {
+				return new WP_Error( 'missing_form_json', __( 'The Form object must be sent as a JSON string in the request body with the content-type header set to application/json.', 'gravityforms' ) );
+			}
+
+			$form = json_decode( $form_json, true );
 		}
 
 		return $form;

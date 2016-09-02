@@ -128,7 +128,10 @@ class Tests_GF_REST_API_Forms extends GF_UnitTestCase {
 		$form = GFAPI::get_form( $this->get_form_id() );
 		$form['title'] = 'REST test';
 		$request = new WP_REST_Request( 'POST', $this->namespace . '/forms' );
-		$request->set_body_params( $form );
+		$form_json = json_encode( $form );
+		$request->set_body_params( $form_json );
+		$request->set_header( 'content-type', 'application/json' );
+
 		$response = $this->server->dispatch( $request );
 		$new_form_id = $response->get_data();
 
@@ -143,7 +146,7 @@ class Tests_GF_REST_API_Forms extends GF_UnitTestCase {
 		$form = GFAPI::get_form( $form_id );
 		$form['title'] = 'REST test';
 		$request = new WP_REST_Request( 'PUT', $this->namespace . '/forms/' . absint( $form_id ) );
-		$request->set_body_params( $form );
+		$request->set_body_params( json_encode( $form ) );
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 200, $response->get_status() );
