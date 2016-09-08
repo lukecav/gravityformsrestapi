@@ -1,8 +1,10 @@
-Gravity Forms REST API Add-On
+Gravity Forms REST API Feature Add-On
 ==============================
 
 [![Build Status](https://travis-ci.com/gravityforms/gravityformsrestapi.svg?token=dWdigWFPjUjwVzDjbyxv&branch=master)](https://travis-ci.com/gravityforms/gravityformsrestapi)
 
+## Introduction
+This is the development version of the Gravity Forms Web API version 2. When it's ready it'll be integrated into the Gravity Forms core.
 
 ## Unit Tests
 

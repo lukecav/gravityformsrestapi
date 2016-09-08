@@ -2,8 +2,8 @@
 /*
 Plugin Name: Gravity Forms REST API
 Plugin URI: http://www.gravityforms.com
-Description: Gravity Forms REST API.
-Version: 1.0-alpha-1
+Description: Gravity Forms REST API Feature Add-On.
+Version: 1.0-beta-1
 Author: Rocketgenius
 Author URI: http://www.gravityforms.com
 License: GPL-3.0+
@@ -28,7 +28,7 @@ along with this program.  If not, see http://www.gnu.org/licenses.
 */
 
 // Defines the current version of the REST API add-on
-define( 'GF_REST_API_VERSION', '1.0-alpha-1' );
+define( 'GF_REST_API_VERSION', '1.0-beta-1' );
 
 define( 'GF_REST_API_MIN_GF_VERSION', '2.0' );
 
