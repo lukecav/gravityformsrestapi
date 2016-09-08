@@ -15,10 +15,10 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 
 		register_rest_route( $namespace, '/' . $base, array(
 			array(
-				'methods'         => WP_REST_Server::CREATABLE,
-				'callback'        => array( $this, 'create_item' ),
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => array( $this, 'create_item' ),
 				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
+				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 			),
 		) );
 
@@ -28,6 +28,7 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 	 * Create one item from the collection.
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function create_item( $request ) {
@@ -37,8 +38,8 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 		if ( empty( $params ) ) {
 			$input_values = $request->get_body_params();
 			$field_values = isset( $input_values['field_values'] ) ? $input_values['field_values'] : array();
-			$target_page = isset( $input_values['target_page'] ) ? $input_values['target_page'] : 0;
-			$source_page = isset( $input_values['source_page'] ) ? $input_values['source_page'] : 1;
+			$target_page  = isset( $input_values['target_page'] ) ? $input_values['target_page'] : 0;
+			$source_page  = isset( $input_values['source_page'] ) ? $input_values['source_page'] : 1;
 			$input_values = array(); // The input values are already in $_POST
 		} else {
 			$input_values = $params;
@@ -58,6 +59,7 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 	 * Check if a given request has access to create items.
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|boolean
 	 */
 	public function create_item_permissions_check( $request ) {
@@ -70,11 +72,13 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 	 *
 	 * @param mixed $item WordPress representation of the item.
 	 * @param WP_REST_Request $request Request object.
+	 *
 	 * @return mixed
 	 */
 	public function prepare_item_for_response( $item, $request ) {
 
 		$response = new WP_REST_Response( $item, 200 );
+
 		return $response;
 	}
 
@@ -98,24 +102,25 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 			'title'      => 'form-submission',
 			'type'       => 'object',
 			'properties' => array(
-				'input_values'                   => array(
-					'description'        => __( 'An array of input values', 'gravityforms' ),
-					'type'               => 'array',
+				'input_[Field ID]' => array(
+					'description' => __( 'The input values.', 'gravityforms' ),
+					'type'        => 'string',
 				),
-				'field_values'               => array(
-					'description'        => __( 'The field values.', 'gravityforms' ),
-					'type'               => 'array',
+				'field_values' => array(
+					'description' => __( 'The field values.', 'gravityforms' ),
+					'type'        => 'string',
 				),
-				'target_page'                 => array(
-					'description'        => 'The target page number.',
-					'type'               => 'integer',
+				'target_page'  => array(
+					'description' => 'The target page number.',
+					'type'        => 'integer',
 				),
-				'source_page'                 => array(
-					'description'        => 'The source page number.',
-					'type'               => 'integer',
+				'source_page'  => array(
+					'description' => 'The source page number.',
+					'type'        => 'integer',
 				),
 			),
 		);
+
 		return $schema;
 	}
 }
