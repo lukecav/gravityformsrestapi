@@ -66,6 +66,11 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	 * @return WP_Error|bool
 	 */
 	public function update_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to update entries via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_put_entries', 'gravityforms_edit_entries' );
 		return GFAPI::current_user_can_any( $capability );
 	}

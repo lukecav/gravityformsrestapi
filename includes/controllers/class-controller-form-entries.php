@@ -49,16 +49,25 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 		$field_ids = $this->maybe_explode_url_param( $request, 'field_ids' );
 
+		$labels = $request['labels'];
+
 		$data = array();
 		if ( $entry_id ) {
 			foreach ( $entry_id as $id ) {
 				$result = GFAPI::get_entry( $id );
 				if ( ! is_wp_error( $result ) ) {
-					$result                = $this->maybe_json_encode_list_fields( $result );
-					$data[ $id ] = $result;
-					if ( ! empty( $field_ids ) && ( ! empty( $data[ $id ] ) ) ) {
-						$data[ $id ] = $this->filter_entry_fields( $data[ $id ], $field_ids );
+					$entry                = $this->maybe_json_encode_list_fields( $result );
+
+					if ( ! empty( $field_ids ) && ( ! empty( $entry ) ) ) {
+						$entry = $this->filter_entry_fields( $data[ $id ], $field_ids );
 					}
+
+					if ( $labels ) {
+						$form = GFAPI::get_form( $entry['form_id'] );
+						$entry['labels'] = $this->get_entry_labels( $form );
+					}
+
+					$data[ $id ] = $entry;
 				}
 			}
 		} else {
@@ -66,13 +75,13 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 			$entry_count = 0;
 
-			$form_id = $this->maybe_explode_url_param( $request, 'form_id' );
+			$form_ids = $this->maybe_explode_url_param( $request, 'form_id' );
 
-			if ( empty( $form_id ) ) {
-				$form_id = 0;
+			if ( empty( $form_ids ) ) {
+				$form_ids = 0;
 			}
 
-			$entries = GFAPI::get_entries( $form_id, $entry_search_params['search_criteria'], $entry_search_params['sorting'], $entry_search_params['paging'], $entry_count );
+			$entries = GFAPI::get_entries( $form_ids, $entry_search_params['search_criteria'], $entry_search_params['sorting'], $entry_search_params['paging'], $entry_count );
 
 			$data = array();
 			if ( ! is_wp_error( $entries ) ) {
@@ -81,8 +90,17 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 					if ( ! empty( $field_ids ) && ! empty( $entry ) ) {
 						$entry = $this->filter_entry_fields( $entry, $field_ids );
 					}
+					if ( $labels && ! empty( $form_ids ) && count( $form_ids ) > 1 ) {
+						$form = GFAPI::get_form( $entry['form_id'] );
+						$entry['labels'] = $this->get_entry_labels( $form );
+					}
 				}
 				$data = array( 'total_count' => $entry_count, 'entries' => $entries );
+
+				if ( $labels && ! empty( $form_ids ) && count( $form_ids ) == 1 ) {
+					$form = GFAPI::get_form( $form_ids[0] );
+					$data['labels'] = $this->get_entry_labels( $form );
+				}
 			}
 		}
 
@@ -122,7 +140,11 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function get_items_permissions_check( $request ) {
-
+		/**
+		 * Filters the capability required to get entries via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_get_entries', 'gravityforms_view_entries', $request );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -134,6 +156,11 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function create_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to create entries via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_post_entries', 'gravityforms_edit_entries' );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -172,6 +199,10 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 			'search'                 => array(
 				'description'        => 'The search criteria.',
 				'type'               => 'string',
+			),
+			'labels'                 => array(
+				'description'        => 'Whether to include the labels.',
+				'type'               => 'integer',
 			),
 		);
 	}
@@ -276,5 +307,74 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 			),
 		);
 		return $schema;
+	}
+
+	protected function get_entry_labels( $form, $args = array() ) {
+		$defaults = array(
+			'field_ids' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$fields = $this->filter_fields( $form, $args['field_ids'] );
+
+		$labels = array();
+
+		// replace the values/ids with text labels
+		foreach ( $fields as $field ) {
+			/* @var GF_Field $field */
+			$field_id = $field->id;
+			$field = GFFormsModel::get_field( $form, $field_id );
+			$input_type = $field->get_input_type();
+			if ( in_array( $input_type , array( 'likert', 'rank', 'rating' ) ) ) {
+				$label = array();
+				$choice_labels = array();
+				foreach ( $field->choices as $choice ) {
+					$choice_labels[ $choice['value'] ] = $choice['text'];
+				}
+				if ( $input_type = 'likert' && $field->gsurveyLikertEnableMultipleRows ) {
+					/* @var GF_Field_Likert $field  */
+					$label = array(
+						'label' => $field->label,
+						'cols' => $choice_labels,
+						'rows' => array(),
+					);
+					foreach ( $field->gsurveyLikertRows as $row ) {
+						$label['rows'][ $row['value'] ] = $row['text'];
+					}
+				} else {
+					$label['label'] = $field->label;
+					$label['choices'] = $choice_labels;
+				}
+			} else {
+				$inputs = $field->get_entry_inputs();
+
+				if ( empty( $inputs ) ) {
+					$label = $field->get_field_label( false, null );
+				} else {
+					$label = array();
+					foreach ( $inputs as $input ) {
+						$label[ (string) $input['id'] ] = $input['label'];
+					}
+				}
+			}
+
+			$labels[ $field->id ] = $label;
+		}
+
+		return $labels;
+	}
+
+	private function filter_fields( $form, $field_ids ) {
+		$fields = $form['fields'];
+		if ( is_array( $field_ids ) && ! empty( $field_ids ) ) {
+			foreach ( $fields as $key => $field ) {
+				if ( ! in_array( $field->id, $field_ids ) ) {
+					unset( $fields[ $key ] );
+				}
+			}
+			$fields = array_values( $fields );
+		}
+		return $fields;
 	}
 }

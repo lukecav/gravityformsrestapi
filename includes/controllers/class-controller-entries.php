@@ -97,15 +97,22 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 		$field_ids = $this->maybe_explode_url_param( $request, 'field_ids' );
 
-		$item = GFAPI::get_entry( $entry_id );
-		if ( ! is_wp_error( $item ) ) {
-			$item = $this->maybe_json_encode_list_fields( $item );
-			if ( ! empty( $field_ids ) && ( ! empty( $item ) ) ) {
-				$item = $this->filter_entry_fields( $item, $field_ids );
+		$labels = $request['labels'];
+
+		$entry = GFAPI::get_entry( $entry_id );
+		if ( ! is_wp_error( $entry ) ) {
+			$entry = $this->maybe_json_encode_list_fields( $entry );
+			if ( ! empty( $field_ids ) && ( ! empty( $entry ) ) ) {
+				$entry = $this->filter_entry_fields( $entry, $field_ids );
 			}
 		}
 
-		$data = $this->prepare_item_for_response( $item, $request );
+		if ( $labels ) {
+			$form = GFAPI::get_form( $entry['form_id'] );
+			$entry['labels'] = $this->get_entry_labels( $form );
+		}
+
+		$data = $this->prepare_item_for_response( $entry, $request );
 
 		return $data;
 	}
@@ -166,7 +173,11 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function get_items_permissions_check( $request ) {
-
+		/**
+		 * Filters the capability required to get entries via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_get_entries', 'gravityforms_view_entries', $request );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -188,6 +199,11 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function create_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to create entries via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_post_entries', 'gravityforms_edit_entries' );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -199,6 +215,11 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function update_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to update entries via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_put_entries', 'gravityforms_edit_entries' );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -210,6 +231,11 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function delete_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to delete entries via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_delete_entries', 'gravityforms_delete_entries' );
 		return GFAPI::current_user_can_any( $capability );
 	}

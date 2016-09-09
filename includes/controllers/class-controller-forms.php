@@ -193,7 +193,11 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function get_items_permissions_check( $request ) {
-
+		/**
+		 * Filters the capability required to get forms via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_get_forms', 'gravityforms_edit_forms' );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -205,6 +209,11 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function get_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to get forms via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_get_forms', 'gravityforms_edit_forms' );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -216,6 +225,11 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function create_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to create forms via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_post_forms', 'gravityforms_create_form' );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -227,6 +241,11 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function update_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to update forms via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_put_forms', 'gravityforms_create_form' );
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -238,6 +257,11 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function delete_item_permissions_check( $request ) {
+		/**
+		 * Filters the capability required to delete forms via the REST API.
+		 *
+		 * @since 1.9.2
+		 */
 		$capability = apply_filters( 'gform_web_api_capability_delete_forms', 'gravityforms_delete_forms' );
 		return GFAPI::current_user_can_any( $capability );
 	}
