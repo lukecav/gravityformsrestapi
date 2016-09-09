@@ -59,7 +59,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 					$entry                = $this->maybe_json_encode_list_fields( $result );
 
 					if ( ! empty( $field_ids ) && ( ! empty( $entry ) ) ) {
-						$entry = $this->filter_entry_fields( $data[ $id ], $field_ids );
+						$entry = $this->filter_entry_fields( $entry, $field_ids );
 					}
 
 					if ( $labels ) {
