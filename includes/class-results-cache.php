@@ -576,6 +576,10 @@ class GF_Results_Cache {
 		$count_search_leads  = GFAPI::count_entries( $form_id, $search_criteria );
 		$data['entry_count'] = $count_search_leads;
 
+		if ( $count_search_leads == 0 ) {
+			$data['status'] = 'complete';
+		}
+
 		$entries_left = $count_search_leads - $offset;
 
 		while ( $entries_left > 0 ) {
