@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class GF_REST_Authentication {
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -23,7 +22,6 @@ class GF_REST_Authentication {
 	public $namespace = 'gf/v2';
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -68,6 +66,7 @@ class GF_REST_Authentication {
 	 * @access public
 	 *
 	 * @param int|false $user_id User ID if one has been determined, false otherwise.
+	 *
 	 * @return int|false
 	 */
 	public function authenticate( $user_id ) {
@@ -86,6 +85,7 @@ class GF_REST_Authentication {
 	 * @access public
 	 *
 	 * @param WP_Error|null|bool $error
+	 *
 	 * @return WP_Error|null|bool
 	 */
 	public function check_authentication_error( $error ) {
@@ -152,6 +152,7 @@ class GF_REST_Authentication {
 	 * @access private
 	 *
 	 * @param $private_key
+	 *
 	 * @return null|WP_Error
 	 */
 	private function check_oauth_signature( $private_key ) {
@@ -194,7 +195,6 @@ class GF_REST_Authentication {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access private
 	 *
@@ -217,6 +217,7 @@ class GF_REST_Authentication {
 	 * @access private
 	 *
 	 * @param string $public_key
+	 *
 	 * @return array
 	 */
 	private function get_user_data_by_api_key( $public_key ) {

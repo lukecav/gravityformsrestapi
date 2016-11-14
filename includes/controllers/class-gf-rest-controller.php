@@ -86,7 +86,6 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -116,7 +115,6 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -133,7 +131,6 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -159,6 +156,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 
 	/**
 	 * Parses a url parameter from the request object. If the string contains semicolons it is split up.
+	 *
 	 * Returns an array of positive integers.
 	 *
 	 * @since  1.0-beta-1
@@ -191,7 +189,6 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -222,7 +219,6 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -239,7 +235,6 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -259,7 +254,6 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *

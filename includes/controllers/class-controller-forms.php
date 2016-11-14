@@ -3,7 +3,6 @@
 class GF_REST_Forms_Controller extends GF_REST_Controller {
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -88,6 +87,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
@@ -124,6 +124,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
@@ -147,6 +148,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Request
 	 */
 	public function create_item( $request ) {
@@ -174,6 +176,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Request
 	 */
 	public function update_item( $request ) {
@@ -197,6 +200,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Request
 	 */
 	public function delete_item( $request ) {
@@ -218,6 +222,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|bool
 	 */
 	public function get_items_permissions_check( $request ) {
@@ -237,6 +242,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|bool
 	 */
 	public function get_item_permissions_check( $request ) {
@@ -256,6 +262,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|bool
 	 */
 	public function create_item_permissions_check( $request ) {
@@ -275,6 +282,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|bool
 	 */
 	public function update_item_permissions_check( $request ) {
@@ -294,6 +302,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|bool
 	 */
 	public function delete_item_permissions_check( $request ) {
@@ -315,6 +324,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object
+	 *
 	 * @return WP_Error|object $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {
@@ -341,6 +351,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 *
 	 * @param mixed $item WordPress representation of the item.
 	 * @param WP_REST_Request $request Request object.
+	 *
 	 * @return mixed
 	 */
 	public function prepare_item_for_response( $item, $request ) {

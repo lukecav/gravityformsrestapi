@@ -3,7 +3,6 @@
 class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controller {
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -40,6 +39,7 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Request
 	 */
 	public function update_items( $request ) {
@@ -79,6 +79,7 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|bool
 	 */
 	public function update_item_permissions_check( $request ) {
@@ -98,6 +99,7 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object
+	 *
 	 * @return WP_Error|array $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {

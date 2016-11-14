@@ -454,8 +454,6 @@ class GF_Results_Cache {
 	}
 
 	/**
-	 *
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
@@ -476,7 +474,7 @@ class GF_Results_Cache {
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
-	 * @param int $form_id
+	 * @param int   $form_id
 	 * @param array $search_criteria
 	 * @param array $args
 	 *
@@ -774,7 +772,6 @@ class GF_Results_Cache {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access private
 	 *
@@ -792,7 +789,6 @@ class GF_Results_Cache {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access private
 	 *
@@ -809,7 +805,6 @@ class GF_Results_Cache {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access private
 	 *
@@ -863,7 +858,6 @@ class GF_Results_Cache {
 	}
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access private
 	 *

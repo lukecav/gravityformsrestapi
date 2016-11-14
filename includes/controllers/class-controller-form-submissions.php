@@ -3,7 +3,6 @@
 class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 
 	/**
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 *

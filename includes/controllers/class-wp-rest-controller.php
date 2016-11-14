@@ -48,6 +48,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|boolean
 	 */
 	public function get_items_permissions_check( $request ) {
@@ -61,6 +62,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_items( $request ) {
@@ -74,6 +76,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|boolean
 	 */
 	public function get_item_permissions_check( $request ) {
@@ -87,6 +90,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
@@ -100,6 +104,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|boolean
 	 */
 	public function create_item_permissions_check( $request ) {
@@ -113,6 +118,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function create_item( $request ) {
@@ -126,6 +132,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|boolean
 	 */
 	public function update_item_permissions_check( $request ) {
@@ -139,6 +146,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function update_item( $request ) {
@@ -152,6 +160,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|boolean
 	 */
 	public function delete_item_permissions_check( $request ) {
@@ -165,6 +174,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 *
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function delete_item( $request ) {
@@ -178,6 +188,7 @@ abstract class WP_REST_Controller {
 	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object.
+	 *
 	 * @return WP_Error|object $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {
@@ -192,6 +203,7 @@ abstract class WP_REST_Controller {
 	 *
 	 * @param mixed $item WordPress representation of the item.
 	 * @param WP_REST_Request $request Request object.
+	 *
 	 * @return WP_REST_Response $response
 	 */
 	public function prepare_item_for_response( $item, $request ) {
@@ -205,6 +217,7 @@ abstract class WP_REST_Controller {
 	 * @access public
 	 *
 	 * @param WP_REST_Response $response Response object.
+	 *
 	 * @return array Response data, ready for insertion into collection data.
 	 */
 	public function prepare_response_for_collection( $response ) {
@@ -234,8 +247,9 @@ abstract class WP_REST_Controller {
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
-	 * @param array $data
+	 * @param array  $data
 	 * @param string $context
+	 *
 	 * @return array
 	 */
 	public function filter_response_by_context( $data, $context ) {
@@ -345,7 +359,8 @@ abstract class WP_REST_Controller {
 	 * @since  1.0-beta-1
 	 * @access public
 	 *
-	 * @param array     $args
+	 * @param array $args
+	 *
 	 * @return array
 	 */
 	public function get_context_param( $args = array() ) {
@@ -378,8 +393,9 @@ abstract class WP_REST_Controller {
 	 * @since  1.0-beta-1
 	 * @access protected
 	 *
-	 * @param array  $object
+	 * @param array           $object
 	 * @param WP_REST_Request $request
+	 *
 	 * @return array modified object with additional fields.
 	 */
 	protected function add_additional_fields_to_object( $object, $request ) {
@@ -404,7 +420,7 @@ abstract class WP_REST_Controller {
 	 * @since  1.0-beta-1
 	 * @access protected
 	 *
-	 * @param array  $object
+	 * @param array           $object
 	 * @param WP_REST_Request $request
 	 */
 	protected function update_additional_fields_for_object( $object, $request ) {
@@ -465,7 +481,8 @@ abstract class WP_REST_Controller {
 	 * @since  1.0-beta-1
 	 * @access protected
 	 *
-	 * @param  string $object_type
+	 * @param string $object_type
+	 *
 	 * @return array
 	 */
 	protected function get_additional_fields( $object_type = null ) {
@@ -516,6 +533,7 @@ abstract class WP_REST_Controller {
 	 *                       values and may fall-back to a given default, this
 	 *                       is not done on `EDITABLE` requests. Default is
 	 *                       WP_REST_Server::CREATABLE.
+	 *
 	 * @return array $endpoint_args
 	 */
 	public function get_endpoint_args_for_item_schema( $method = WP_REST_Server::CREATABLE ) {
@@ -584,6 +602,7 @@ abstract class WP_REST_Controller {
 	 * @global WP_Query $wp_query
 	 *
 	 * @param int|WP_Post $post Post ID or post object. Defaults to global $post.
+	 *
 	 * @return WP_Post|null A `WP_Post` object when successful.
 	 */
 	public function get_post( $post ) {
@@ -614,6 +633,7 @@ if ( ! function_exists( 'rest_sanitize_request_arg' ) ) {
 	 * @param  mixed            $value
 	 * @param  WP_REST_Request  $request
 	 * @param  string           $param
+	 *
 	 * @return mixed
 	 */
 	function rest_sanitize_request_arg( $value, $request, $param ) {
@@ -659,6 +679,7 @@ if ( ! function_exists( 'rest_validate_request_arg' ) ) {
 	 * @param  mixed            $value
 	 * @param  WP_REST_Request  $request
 	 * @param  string           $param
+	 *
 	 * @return WP_Error|boolean
 	 */
 	function rest_validate_request_arg( $value, $request, $param ) {
