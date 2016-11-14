@@ -7,8 +7,9 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Contains an instance of this class, if available.
 	 *
-	 * @since 1.0-beta-1
+	 * @since  1.0-beta-1
 	 * @access private
+	 *
 	 * @var object $_instance If available, contains an instance of this class
 	 */
 	private static $_instance = null;
@@ -16,48 +17,55 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Defines the version of the REST API add-on.
 	 *
-	 * @since 1.0-beta-1
+	 * @since  1.0-beta-1
 	 * @access protected
+	 *
 	 * @var string $_version Contains the version, defined from restapi.php
 	 */
 	protected $_version = GF_REST_API_VERSION;
 	/**
 	 * Defines the minimum Gravity Forms version required.
-	 * @since 1.0-beta-1
+	 *
+	 * @since  1.0-beta-1
 	 * @access protected
+	 *
 	 * @var string $_min_gravityforms_version The minimum version required.
 	 */
 	protected $_min_gravityforms_version = GF_REST_API_MIN_GF_VERSION;
 	/**
 	 * Defines the plugin slug.
 	 *
-	 * @since 1.0-beta-1
+	 * @since  1.0-beta-1
 	 * @access protected
+	 *
 	 * @var string $_slug The slug used for this plugin.
 	 */
 	protected $_slug = 'gravityformsrestapi';
 	/**
 	 * Defines the main plugin file.
 	 *
-	 * @since 1.0-beta-1
+	 * @since  1.0-beta-1
 	 * @access protected
+	 *
 	 * @var string $_path The path to the main plugin file, relative to the plugins folder.
 	 */
 	protected $_path = 'gravityformsrestapi/restapi.php';
 	/**
 	 * Defines the full path to this class file.
 	 *
-	 * @since 1.0-beta-1
+	 * @since  1.0-beta-1
 	 * @access protected
+	 *
 	 * @var string $_full_path The full path.
 	 */
 	protected $_full_path = __FILE__;
 	/**
 	 * Defines the URL where this add-on can be found.
 	 *
-	 * @since 1.0-beta-1
+	 * @since  1.0-beta-1
 	 * @access protected
-	 * @var string
+	 *
+	 * @var string $_url The add-on URL.
 	 */
 	protected $_url = 'http://www.gravityforms.com';
 	/**
@@ -65,6 +73,7 @@ class GF_REST_API extends GFAddOn {
 	 *
 	 * @since 1.0-beta-1
 	 * @access protected
+	 *
 	 * @var string $_title The title of the add-on.
 	 */
 	protected $_title = 'Gravity Forms REST API Add-On';
@@ -73,6 +82,7 @@ class GF_REST_API extends GFAddOn {
 	 *
 	 * @since 1.0-beta-1
 	 * @access protected
+	 *
 	 * @var string $_short_title The short title.
 	 */
 	protected $_short_title = 'REST API';
