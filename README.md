@@ -11,12 +11,12 @@ Gravity Forms core.
 
 The unit tests can be installed from the terminal using:
 
-    bash tests/bin/install.sh [DB_NAME] [DB_USER] [DB_PASSWORD] [DB_HOST]
+    ./tests/bin/install.sh [DB_NAME] [DB_USER] [DB_PASSWORD] [DB_HOST]
 
 
 If you're using VVV you can use this command:
 
-	bash tests/bin/install.sh wordpress_unit_tests root root localhost
+	./tests/bin/install.sh wordpress_unit_tests root root localhost
 
 ## Upgrading to Version 2
 
