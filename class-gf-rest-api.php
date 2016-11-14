@@ -104,8 +104,6 @@ class GF_REST_API extends GFAddOn {
 	}
 
 	/**
-	 *
-	 *
 	 * @since  1.0-beta-1
 	 * @access private
 	 */
@@ -123,8 +121,6 @@ class GF_REST_API extends GFAddOn {
 	}
 
 	/**
-	 *
-	 *
 	 * @since  1.0-beta-1
 	 * @access public
 	 */

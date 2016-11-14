@@ -43,6 +43,7 @@ class GF_Results_Cache {
 	 *
 	 * @since  1.0-beta-1
 	 * @access public
+	 *
 	 * @return GF_Results_Cache $_instance
 	 */
 	public static function get_instance() {
@@ -65,6 +66,7 @@ class GF_Results_Cache {
 	 * callbacks            - An array of callbacks. One supported callback: 'calculation' $cache_data, $form, $fields, $entries
 	 * wait                 - Time in seconds to wait between each cron task.
 	 * field_ids            - An array of field IDs to include in the results.
+	 *
 	 * @return array
 	 */
 	public function get_default_args() {
@@ -158,6 +160,7 @@ class GF_Results_Cache {
 
 	/**
 	 * When entries are added or updated the cache needs to be expired and rebuilt.
+	 *
 	 * This cache meta records the last updated time for each form and a hash of the fields array.
 	 * Each time results are requested this value is checked to make sure the cache is still valid.
 	 *
