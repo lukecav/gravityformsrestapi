@@ -103,13 +103,31 @@ class GF_REST_API extends GFAddOn {
 		return self::$_instance;
 	}
 
+	/**
+	 *
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 */
 	private function __clone() {
 	} /* do nothing */
 
+	/**
+	 * GF_REST_API constructor.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 */
 	public function __construct() {
 		add_action( 'rest_api_init', array( $this, 'register_rest_routes' ) );
 	}
 
+	/**
+	 *
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 */
 	public function register_rest_routes() {
 		$controllers = array(
 			'GF_REST_Entries_Controller',

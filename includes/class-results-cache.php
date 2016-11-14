@@ -31,7 +31,9 @@ class GF_Results_Cache {
 	/**
 	 * Contains an instance of this class, if available.
 	 *
+	 * @since  1.0-beta-1
 	 * @access private
+	 *
 	 * @var GF_Results_Cache $_instance If available, contains an instance of this class.
 	 */
 	private static $_instance = null;
@@ -39,6 +41,7 @@ class GF_Results_Cache {
 	/**
 	 * Returns an instance of this class, and stores it in the $_instance property.
 	 *
+	 * @since  1.0-beta-1
 	 * @access public
 	 * @static
 	 * @return GF_Results_Cache $_instance
@@ -53,6 +56,9 @@ class GF_Results_Cache {
 
 	/**
 	 * Returns the default args for the results cache process.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * time_limit           - Max seconds allowed per batch.
 	 * time_limit_cron      - Max seconds allowed per batch while inside the cron task.
@@ -78,6 +84,9 @@ class GF_Results_Cache {
 	/**
 	 * Callback for the gform_update_status action.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param $lead_id
 	 */
 	public function update_entry_status( $lead_id ) {
@@ -90,6 +99,9 @@ class GF_Results_Cache {
 	/**
 	 * Callback for the gform_after_update_entry action.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param $form
 	 * @param $lead_id
 	 */
@@ -101,6 +113,9 @@ class GF_Results_Cache {
 	/**
 	 * Callback for the gform_entry_created action.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param $entry
 	 * @param $form
 	 */
@@ -110,6 +125,9 @@ class GF_Results_Cache {
 
 	/**
 	 * Callback for the gform_after_save_form action.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param $form
 	 * @param $is_new
@@ -144,6 +162,9 @@ class GF_Results_Cache {
 	 * This cache meta records the last updated time for each form and a hash of the fields array.
 	 * Each time results are requested this value is checked to make sure the cache is still valid.
 	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
 	 * @param $form
 	 */
 	private function maybe_update_results_cache_meta( $form ) {
@@ -159,6 +180,9 @@ class GF_Results_Cache {
 
 	/**
 	 * Updates the results cache meta containing a hash of the all the fields and a timestamp.
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
 	 *
 	 * @param $form_id
 	 * @param $fields
@@ -179,6 +203,9 @@ class GF_Results_Cache {
 	/**
 	 * Deletes the cache meta.
 	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
 	 * @param $form_id
 	 */
 	private function delete_results_cache_meta( $form_id ) {
@@ -192,6 +219,9 @@ class GF_Results_Cache {
 	/**
 	 * Returns the cache meta key.
 	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
 	 * @param $form_id
 	 *
 	 * @return string
@@ -204,6 +234,9 @@ class GF_Results_Cache {
 
 	/**
 	 * Returns the cache meta.
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
 	 *
 	 * @param $form_id
 	 *
@@ -219,6 +252,9 @@ class GF_Results_Cache {
 
 	/**
 	 * Updates the results cache.
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
 	 *
 	 * @param $key
 	 * @param $data
@@ -244,6 +280,9 @@ class GF_Results_Cache {
 	/**
 	 * Checks whether a cache exists for the given form ID.
 	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
 	 * @param $form_id
 	 *
 	 * @return bool
@@ -265,6 +304,9 @@ class GF_Results_Cache {
 
 	/**
 	 * Deletes all the cached results for the given form ID.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param $form_id
 	 *
@@ -292,6 +334,9 @@ class GF_Results_Cache {
 	/**
 	 * Returns the prefix for the results cache option name.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param $form_id
 	 *
 	 * @return string
@@ -310,8 +355,10 @@ class GF_Results_Cache {
 	/**
 	 * Generates a unique key for the cache meta based on form ID, fields and
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param $form_id
-	 * @param $fields
 	 * @param $search_criteria
 	 *
 	 * @return string
@@ -326,6 +373,9 @@ class GF_Results_Cache {
 
 	/**
 	 * Recursive wp_cron task to continue the calculation of results.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param $form_id
 	 * @param $search_criteria
@@ -367,6 +417,9 @@ class GF_Results_Cache {
 	/**
 	 * Schedules the cron task.
 	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
 	 * @param $form_id
 	 * @param $search_criteria
 	 * @param $args
@@ -382,6 +435,9 @@ class GF_Results_Cache {
 	/**
 	 *
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param $form_id
 	 * @param $search_criteria
 	 * @param $args
@@ -395,16 +451,28 @@ class GF_Results_Cache {
 		return wp_next_scheduled( $this->get_results_cron_hook(), $cron_args );
 	}
 
+	/**
+	 *
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @return string
+	 */
 	public function get_results_cron_hook() {
 		return 'gravityforms_results_cron';
 	}
 
 	/**
 	 * Returns an array with the results for all the fields in the form.
+	 *
 	 * If the results can be calculated within the time allowed in GFResults then the results are returned and nothing is cached.
 	 * If the calculation has not finished then a single recursive wp_cron task will be scheduled for immediate execution.
 	 * While the cache is being built by the wp_cron task this function will return the expired cache results if available or the latest step in the cache build.
 	 * Add-On-specific results are not included e.g. grade frequencies in the Quiz Add-On.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param int $form_id
 	 * @param array $search_criteria
@@ -504,6 +572,9 @@ class GF_Results_Cache {
 
 	/**
 	 * Calculate a batch of entry results.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param $form
 	 * @param array $search_criteria
@@ -700,6 +771,17 @@ class GF_Results_Cache {
 		return $data;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
+	 * @param $row_val
+	 * @param $field
+	 * @param $entry
+	 *
+	 * @return float|int
+	 */
 	private function get_likert_row_score( $row_val, $field, $entry ) {
 		return is_callable( array(
 			'GFSurvey',
@@ -707,6 +789,16 @@ class GF_Results_Cache {
 		) ) ? GFSurvey::get_likert_row_score( $row_val, $field, $entry ) : 0;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
+	 * @param $field
+	 * @param $entry
+	 *
+	 * @return float|int
+	 */
 	private function get_likert_score( $field, $entry ) {
 		return is_callable( array(
 			'GFSurvey',
@@ -714,6 +806,16 @@ class GF_Results_Cache {
 		) ) ? GFSurvey::get_field_score( $field, $entry ) : 0;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
+	 * @param $form
+	 * @param $args
+	 *
+	 * @return array
+	 */
 	private function get_labels( $form, $args ) {
 
 		$args = wp_parse_args( $args, $this->get_default_args() );
@@ -758,6 +860,16 @@ class GF_Results_Cache {
 		return $labels;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
+	 * @param $form
+	 * @param $field_ids
+	 *
+	 * @return array
+	 */
 	private function filter_fields( $form, $field_ids ) {
 		$fields = $form['fields'];
 		if ( is_array( $field_ids ) && ! empty( $field_ids ) ) {
@@ -772,6 +884,9 @@ class GF_Results_Cache {
 	}
 }
 
+/**
+ * @return GF_Results_Cache
+ */
 function gf_results_cache() {
 	return GF_Results_Cache::get_instance();
 }

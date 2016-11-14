@@ -2,10 +2,20 @@
 
 class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @var string
+	 */
 	public $rest_base = 'forms/(?P<form_id>[\S]+)/entries';
 
 	/**
 	 * Register the routes for the objects of the controller.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 */
 	public function register_routes() {
 
@@ -39,6 +49,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 	/**
 	 * Get a collection of entries
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
@@ -110,6 +123,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Create one item from the collection
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Request
 	 */
@@ -136,6 +152,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Check if a given request has access to get items
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
 	 */
@@ -151,6 +170,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 	/**
 	 * Check if a given request has access to create items
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
@@ -168,6 +190,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Prepare the item for create or update operation
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @param WP_REST_Request $request Request object
 	 * @return WP_Error|array $prepared_item
 	 */
@@ -183,6 +208,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 	/**
 	 * Get the query params for collections
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @return array
 	 */
@@ -209,6 +237,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 	/**
 	 * Get the Entry schema, conforming to JSON Schema.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @return array
 	 */
@@ -309,6 +340,17 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 		return $schema;
 	}
 
+	/**
+	 *
+	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
+	 * @param       $form
+	 * @param array $args
+	 *
+	 * @return array
+	 */
 	protected function get_entry_labels( $form, $args = array() ) {
 		$defaults = array(
 			'field_ids' => false,
@@ -365,6 +407,17 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 		return $labels;
 	}
 
+	/**
+	 *
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
+	 * @param $form
+	 * @param $field_ids
+	 *
+	 * @return array
+	 */
 	private function filter_fields( $form, $field_ids ) {
 		$fields = $form['fields'];
 		if ( is_array( $field_ids ) && ! empty( $field_ids ) ) {

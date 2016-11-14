@@ -2,10 +2,20 @@
 
 class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @var string
+	 */
 	public $rest_base = 'forms/(?P<form_id>[\d]+)/results';
 
 	/**
 	 * Register the routes for the objects of the controller.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 */
 	public function register_routes() {
 
@@ -29,7 +39,10 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * Get a collection of results
+	 * Get a collection of results.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
@@ -50,6 +63,9 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 	/**
 	 * Check if a given request has access to get items
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
 	 */
@@ -67,6 +83,9 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 	/**
 	 * Prepare the item for the REST response
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param mixed $item WordPress representation of the item.
 	 * @param WP_REST_Request $request Request object.
 	 * @return mixed
@@ -79,6 +98,9 @@ class GF_REST_Form_Results_Controller extends GF_REST_Controller {
 
 	/**
 	 * Get the query params for collections
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @return array
 	 */

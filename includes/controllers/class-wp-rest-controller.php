@@ -14,6 +14,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * The namespace of this controller's route.
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @var string
 	 */
 	protected $namespace;
@@ -21,12 +24,18 @@ abstract class WP_REST_Controller {
 	/**
 	 * The base of this controller's route.
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @var string
 	 */
 	protected $rest_base;
 
 	/**
 	 * Register the routes for the objects of the controller.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 */
 	public function register_routes() {
 		_doing_it_wrong( 'WP_REST_Controller::register_routes', __( 'The register_routes() method must be overriden' ), 'WPAPI-2.0' );
@@ -34,6 +43,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Check if a given request has access to get items.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|boolean
@@ -45,6 +57,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Get a collection of items.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
@@ -54,6 +69,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Check if a given request has access to get a specific item.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|boolean
@@ -65,6 +83,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Get one item from the collection.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
@@ -74,6 +95,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Check if a given request has access to create items.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|boolean
@@ -85,6 +109,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Create one item from the collection.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
@@ -94,6 +121,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Check if a given request has access to update a specific item.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|boolean
@@ -105,6 +135,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Update one item from the collection.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
@@ -114,6 +147,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Check if a given request has access to delete a specific item.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|boolean
@@ -125,6 +161,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Delete one item from the collection.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
@@ -134,6 +173,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Prepare the item for create or update operation.
+	 *
+	 * @since  1.0-beta-1
+	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_Error|object $prepared_item
@@ -145,6 +187,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Prepare the item for the REST response.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param mixed $item WordPress representation of the item.
 	 * @param WP_REST_Request $request Request object.
 	 * @return WP_REST_Response $response
@@ -155,6 +200,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Prepare a response for inserting into a collection.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Response $response Response object.
 	 * @return array Response data, ready for insertion into collection data.
@@ -182,6 +230,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Filter a response based on the context defined in the schema.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param array $data
 	 * @param string $context
@@ -219,6 +270,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Get the item's schema, conforming to JSON Schema.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @return array
 	 */
 	public function get_item_schema() {
@@ -227,6 +281,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Get the item's schema for display / public consumption purposes.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @return array
 	 */
@@ -245,6 +302,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Get the query params for collections.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @return array
 	 */
@@ -282,6 +342,9 @@ abstract class WP_REST_Controller {
 	 *
 	 * Ensures consistent description between endpoints, and populates enum from schema.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param array     $args
 	 * @return array
 	 */
@@ -312,6 +375,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Add the values from additional fields to a data object.
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @param array  $object
 	 * @param WP_REST_Request $request
 	 * @return array modified object with additional fields.
@@ -334,6 +400,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Update the values of additional fields added to a data object.
+	 *
+	 * @since  1.0-beta-1
+	 * @access protected
 	 *
 	 * @param array  $object
 	 * @param WP_REST_Request $request
@@ -361,6 +430,9 @@ abstract class WP_REST_Controller {
 	 * Add the schema from additional fields to an schema array.
 	 *
 	 * The type of object is inferred from the passed schema.
+	 *
+	 * @since  1.0-beta-1
+	 * @access protected
 	 *
 	 * @param array $schema Schema array.
 	 */
@@ -390,6 +462,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Get all the registered additional fields for a given object-type.
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @param  string $object_type
 	 * @return array
 	 */
@@ -415,6 +490,9 @@ abstract class WP_REST_Controller {
 	/**
 	 * Get the object type this controller is responsible for managing.
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @return string
 	 */
 	protected function get_object_type() {
@@ -429,6 +507,9 @@ abstract class WP_REST_Controller {
 
 	/**
 	 * Get an array of endpoint arguments from the item schema for the controller.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param string $method HTTP method of the request. The arguments
 	 *                       for `CREATABLE` requests are checked for required
@@ -496,6 +577,9 @@ abstract class WP_REST_Controller {
 	 * resultant post object. This is done so that plugins may manipulate the
 	 * post that is used in the REST API.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @see get_post()
 	 * @global WP_Query $wp_query
 	 *
@@ -523,6 +607,9 @@ abstract class WP_REST_Controller {
 if ( ! function_exists( 'rest_sanitize_request_arg' ) ) {
 	/**
 	 * Sanitize a request argument based on details registered to the route.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param  mixed            $value
 	 * @param  WP_REST_Request  $request
@@ -565,6 +652,9 @@ if ( ! function_exists( 'rest_sanitize_request_arg' ) ) {
 if ( ! function_exists( 'rest_validate_request_arg' ) ) {
 	/**
 	 * Validate a request argument based on details registered to the route.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param  mixed            $value
 	 * @param  WP_REST_Request  $request

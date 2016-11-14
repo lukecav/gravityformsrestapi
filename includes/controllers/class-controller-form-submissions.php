@@ -2,10 +2,20 @@
 
 class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @var string
+	 */
 	public $rest_base = 'forms/(?P<form_id>[\d]+)/submissions';
 
 	/**
 	 * Register the routes for the objects of the controller.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 */
 	public function register_routes() {
 
@@ -26,6 +36,9 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 
 	/**
 	 * Create one item from the collection.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 *
@@ -58,6 +71,9 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 	/**
 	 * Check if a given request has access to create items.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 *
 	 * @return WP_Error|boolean
@@ -69,6 +85,9 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 
 	/**
 	 * Prepare the item for the REST response
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param mixed $item WordPress representation of the item.
 	 * @param WP_REST_Request $request Request object.
@@ -85,6 +104,9 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 	/**
 	 * Get the query params for collections
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @return array
 	 */
 	public function get_collection_params() {
@@ -93,6 +115,9 @@ class GF_REST_Form_Submissions_Controller extends GF_REST_Controller {
 
 	/**
 	 * Get the Entry schema, conforming to JSON Schema.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @return array
 	 */

@@ -2,10 +2,21 @@
 
 class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
+	/**
+	 *
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @var string
+	 */
 	public $rest_base = 'entries';
 
 	/**
 	 * Register the routes for the objects of the controller.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 */
 	public function register_routes() {
 
@@ -78,6 +89,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Get a collection of entries
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
 	 */
@@ -87,6 +101,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 	/**
 	 * Get one item from the collection
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
@@ -120,6 +137,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Create one item from the collection
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Request
 	 */
@@ -129,6 +149,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 	/**
 	 * Update one item from the collection
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Request
@@ -151,6 +174,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Delete one item from the collection
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Request
 	 */
@@ -169,6 +195,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Check if a given request has access to get items
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
 	 */
@@ -185,6 +214,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Check if a given request has access to get a specific item
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
 	 */
@@ -194,6 +226,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 	/**
 	 * Check if a given request has access to create items
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
@@ -211,6 +246,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Check if a given request has access to update a specific item
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
 	 */
@@ -226,6 +264,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 	/**
 	 * Check if a given request has access to delete a specific item
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
@@ -243,6 +284,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Prepare the item for create or update operation
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @param WP_REST_Request $request Request object
 	 * @return WP_Error|array $prepared_item
 	 */
@@ -254,6 +298,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 	/**
 	 * Prepare the item for the REST response
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param mixed $item WordPress representation of the item.
 	 * @param WP_REST_Request $request Request object.

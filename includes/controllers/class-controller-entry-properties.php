@@ -2,10 +2,20 @@
 
 class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controller {
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @var string
+	 */
 	public $rest_base = 'entries/(?P<entry_id>[\d]+)/properties';
 
 	/**
 	 * Register the routes for the objects of the controller.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 */
 	public function register_routes() {
 
@@ -25,6 +35,9 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 
 	/**
 	 * Update one item from the collection
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Request
@@ -62,6 +75,9 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	/**
 	 * Check if a given request has access to update a specific item
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
 	 */
@@ -78,6 +94,9 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	/**
 	 * Prepare the item for create or update operation
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @param WP_REST_Request $request Request object
 	 * @return WP_Error|array $prepared_item
 	 */
@@ -93,6 +112,9 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	/**
 	 * Get the query params for collections
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @return array
 	 */
 	public function get_collection_params() {
@@ -101,6 +123,9 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 
 	/**
 	 * Get the Entry Property schema, conforming to JSON Schema.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @return array
 	 */

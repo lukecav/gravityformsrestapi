@@ -13,12 +13,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class GF_REST_Authentication {
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @var string
+	 */
 	public $namespace = 'gf/v2';
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @var null
+	 */
 	public $authentication_error = null;
 
 	/**
 	 * Initialize authentication actions.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 */
 	public function __construct() {
 		add_filter( 'determine_current_user', array( $this, 'authenticate' ), 20 );
@@ -27,6 +44,9 @@ class GF_REST_Authentication {
 
 	/**
 	 * Check if is request to our REST API.
+	 *
+	 * @since  1.0-beta-1
+	 * @access protected
 	 *
 	 * @return bool
 	 */
@@ -44,6 +64,9 @@ class GF_REST_Authentication {
 	/**
 	 * Authenticate user.
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param int|false $user_id User ID if one has been determined, false otherwise.
 	 * @return int|false
 	 */
@@ -58,6 +81,9 @@ class GF_REST_Authentication {
 
 	/**
 	 * Check for authentication error.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_Error|null|bool $error
 	 * @return WP_Error|null|bool
@@ -84,6 +110,9 @@ class GF_REST_Authentication {
 	 *    This is because there is no cross-OS function within PHP to get the raw Authorization header.
 	 *
 	 * @link http://tools.ietf.org/html/rfc5849 for the full spec.
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
 	 *
 	 * @return int|bool
 	 */
@@ -118,6 +147,9 @@ class GF_REST_Authentication {
 	/**
 	 * Verify that the consumer-provided request signature matches our generated signature,
 	 * this ensures the consumer has a valid key/secret.
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
 	 *
 	 * @param $private_key
 	 * @return null|WP_Error
@@ -161,6 +193,16 @@ class GF_REST_Authentication {
 		return $is_valid;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
+	 *
+	 * @param $string
+	 * @param $private_key
+	 *
+	 * @return string
+	 */
 	private function calculate_signature( $string, $private_key ) {
 		$hash = hash_hmac( 'sha1', $string, $private_key, true );
 		$sig  = base64_encode( $hash );
@@ -170,6 +212,9 @@ class GF_REST_Authentication {
 
 	/**
 	 * Return the user data for the given consumer_key.
+	 *
+	 * @since  1.0-beta-1
+	 * @access private
 	 *
 	 * @param string $public_key
 	 * @return array

@@ -17,6 +17,9 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Endpoint namespace.
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @var string
 	 */
 	protected $namespace = 'gf/v2';
@@ -24,11 +27,18 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Route base.
 	 *
+	 * @since  1.0-beta-1
+	 * @access protected
+	 *
 	 * @var string
 	 */
 	protected $rest_base = '';
 
 	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 *
 	 * @return array
@@ -75,6 +85,15 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 		return $params;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @param $entry
+	 *
+	 * @return mixed
+	 */
 	public function maybe_json_encode_list_fields( $entry ) {
 		$form_id = $entry['form_id'];
 		$form    = GFAPI::get_form( $form_id );
@@ -96,6 +115,15 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 		return $entry;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @param $value
+	 *
+	 * @return bool
+	 */
 	public static function is_json( $value ) {
 		if ( is_string( $value ) && in_array( substr( $value, 0, 1 ), array( '{', '[' ) ) && is_array( json_decode( $value, ARRAY_A ) ) ) {
 			return true;
@@ -104,6 +132,16 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 		return false;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @param $entry
+	 * @param $field_ids
+	 *
+	 * @return array
+	 */
 	public static function filter_entry_fields( $entry, $field_ids ) {
 
 		if ( ! is_array( $field_ids ) ) {
@@ -122,6 +160,9 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Parses a url parameter from the request object. If the string contains semicolons it is split up.
 	 * Returns an array of positive integers.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @param string $param_key
@@ -149,6 +190,16 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 		return $return;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @param      $entry
+	 * @param null $form_id
+	 *
+	 * @return mixed
+	 */
 	public function maybe_serialize_list_fields( $entry, $form_id = null ) {
 		if ( empty( $form_id ) ) {
 			$form_id = $entry['form_id'];
@@ -170,6 +221,15 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 		return $entry;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @param $value
+	 *
+	 * @return array|mixed|object
+	 */
 	public static function maybe_decode_json( $value ) {
 		if ( self::is_json( $value ) ) {
 			return json_decode( $value, ARRAY_A );
@@ -178,6 +238,15 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 		return $value;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @param $wp_error
+	 *
+	 * @return int|mixed
+	 */
 	public function get_error_status( $wp_error ) {
 		$error_code = $wp_error->get_error_code();
 		$mappings   = array(
@@ -189,6 +258,13 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 		return $http_code;
 	}
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @param $message
+	 */
 	public function log_debug( $message ) {
 		GFCommon::log_debug( $message );
 	}

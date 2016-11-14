@@ -2,10 +2,20 @@
 
 class GF_REST_Forms_Controller extends GF_REST_Controller {
 
+	/**
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
+	 * @var string
+	 */
 	public $rest_base = 'forms';
 
 	/**
 	 * Register the routes for the objects of the controller.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 */
 	public function register_routes() {
 
@@ -72,7 +82,10 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * Get a collection of items
+	 * Get a collection of items.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
@@ -105,7 +118,10 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * Get one item from the collection
+	 * Get one item from the collection.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Response
@@ -125,7 +141,10 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * Create one item from the collection
+	 * Create one item from the collection.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Request
@@ -151,6 +170,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Update one item from the collection
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Request
 	 */
@@ -171,6 +193,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Delete one item from the collection
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|WP_REST_Request
 	 */
@@ -189,6 +214,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Check if a given request has access to get items
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
 	 */
@@ -204,6 +232,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 
 	/**
 	 * Check if a given request has access to get a specific item
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
@@ -221,6 +252,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Check if a given request has access to create items
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
 	 */
@@ -235,7 +269,10 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * Check if a given request has access to update a specific item
+	 * Check if a given request has access to update a specific item.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
@@ -251,7 +288,10 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * Check if a given request has access to delete a specific item
+	 * Check if a given request has access to delete a specific item.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 * @return WP_Error|bool
@@ -270,6 +310,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * Prepare the item for create or update operation.
 	 *
 	 * The Form object must be sent as a JSON string in order to preserve boolean values.
+	 *
+	 * @since  1.0-beta-1
+	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object
 	 * @return WP_Error|object $prepared_item
@@ -293,6 +336,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Prepare the item for the REST response
 	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 *
 	 * @param mixed $item WordPress representation of the item.
 	 * @param WP_REST_Request $request Request object.
 	 * @return mixed
@@ -305,6 +351,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 
 	/**
 	 * Get the query params for collections
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
 	 *
 	 * @return array
 	 */
