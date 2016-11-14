@@ -89,7 +89,7 @@ class GF_REST_API_Bootstrap {
  * @since  1.0-beta-1
  * @access public
  *
- * @return object An instance of the GF_REST_API class
+ * @return GF_REST_API An instance of the GF_REST_API class
  */
 function gf_rest_api() {
 	return GF_REST_API::get_instance();
