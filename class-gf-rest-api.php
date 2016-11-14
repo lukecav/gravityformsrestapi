@@ -90,10 +90,10 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Returns an instance of this class, and stores it in the $_instance property.
 	 *
-	 * @since 1.0-beta-1
+	 * @since  1.0-beta-1
 	 * @access public
-	 * @static
-	 * @return object $_instance An instance of the GF_REST_API class
+	 *
+	 * @return GF_REST_API $_instance An instance of the GF_REST_API class
 	 */
 	public static function get_instance() {
 		if ( self::$_instance == null ) {
