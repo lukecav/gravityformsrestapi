@@ -50,7 +50,6 @@ class GF_REST_API_Bootstrap {
 	 *
 	 * @since 1.0-beta-1
 	 * @access public
-	 * @static
 	 */
 	public static function load_addon() {
 

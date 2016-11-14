@@ -43,7 +43,6 @@ class GF_Results_Cache {
 	 *
 	 * @since  1.0-beta-1
 	 * @access public
-	 * @static
 	 * @return GF_Results_Cache $_instance
 	 */
 	public static function get_instance() {
