@@ -16,6 +16,13 @@ if ( ! class_exists( 'GFForms' ) ) {
  * @access     public
  */
 class GF_Results_Cache {
+
+	/**
+	 * GF_Results_Cache constructor.
+	 *
+	 * @since  1.0-beta-1
+	 * @access public
+	 */
 	public function __construct() {
 		if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
 			add_action( 'gravityforms_results_cron', array( $this, 'results_cron' ), 10, 4 );
