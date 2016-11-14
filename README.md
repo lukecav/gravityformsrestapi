@@ -4,7 +4,8 @@ Gravity Forms REST API Feature Add-On
 [![Build Status](https://travis-ci.com/gravityforms/gravityformsrestapi.svg?token=dWdigWFPjUjwVzDjbyxv&branch=master)](https://travis-ci.com/gravityforms/gravityformsrestapi)
 
 ## Introduction
-This is the development version of the Gravity Forms Web API version 2. When it's ready it'll be integrated into the Gravity Forms core.
+This is the development version of the Gravity Forms Web API version 2. When it's ready it'll be integrated into the
+Gravity Forms core.
 
 ## Unit Tests
 
@@ -27,19 +28,23 @@ The content-type application/json must be specified when sending JSON.
 
 ### No Response Envelope
 
-The response will not be enveloped by default. This means that the response with not be a JSON string containing the "status" and "response" - the body will contain the response and the HTTP code will contain the status. 
+The response will not be enveloped by default. This means that the response with not be a JSON string containing the
+"status" and "response" - the body will contain the response and the HTTP code will contain the status. 
 
 The request will be enveloped by the WP-API if the _envelope param is included in the request.
 
 ### WordPress Cookie Authentication Nonce
 
-Create the nonce using wp_create_nonce( 'wp_rest' ) and send it in the _wpnonce data parameter (either POST data or in the query for GET requests), or via the X-WP-Nonce header.
+Create the nonce using wp_create_nonce( 'wp_rest' ) and send it in the _wpnonce data parameter (either POST data or in 
+the query for GET requests), or via the X-WP-Nonce header.
 
 ### Form Submissions
 
-The Form Submissions endpoint now accepts application/json, application/x-www-form-urlencoded and multipart/form-data content types. 
+The Form Submissions endpoint now accepts application/json, application/x-www-form-urlencoded and multipart/form-data 
+content types. 
 
-Request values should be sent all together instead of in separate elements for input_values, field_values, target_page and source_page.
+Request values should be sent all together instead of in separate elements for input_values, field_values, target_page 
+and source_page.
 
 Example body of a JSON request:
 
