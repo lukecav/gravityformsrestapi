@@ -23,6 +23,7 @@ class GF_REST_API extends GFAddOn {
 	 * @var string $_version Contains the version, defined from restapi.php
 	 */
 	protected $_version = GF_REST_API_VERSION;
+
 	/**
 	 * Defines the minimum Gravity Forms version required.
 	 *
@@ -32,6 +33,7 @@ class GF_REST_API extends GFAddOn {
 	 * @var string $_min_gravityforms_version The minimum version required.
 	 */
 	protected $_min_gravityforms_version = GF_REST_API_MIN_GF_VERSION;
+
 	/**
 	 * Defines the plugin slug.
 	 *
@@ -41,6 +43,7 @@ class GF_REST_API extends GFAddOn {
 	 * @var string $_slug The slug used for this plugin.
 	 */
 	protected $_slug = 'gravityformsrestapi';
+
 	/**
 	 * Defines the main plugin file.
 	 *
@@ -50,6 +53,7 @@ class GF_REST_API extends GFAddOn {
 	 * @var string $_path The path to the main plugin file, relative to the plugins folder.
 	 */
 	protected $_path = 'gravityformsrestapi/restapi.php';
+
 	/**
 	 * Defines the full path to this class file.
 	 *
