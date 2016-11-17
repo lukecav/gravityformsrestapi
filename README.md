@@ -29,19 +29,21 @@ WordPress' authentication, the following resources are available:
 
 #### PHP
 
-    function calculate_signature($string, $private_key) {
-        $hash = hash_hmac("sha1", $string, $private_key, true);
-        $sig = rawurlencode(base64_encode($hash));
-        return $sig;
-    }
+```php
+function calculate_signature($string, $private_key) {
+    $hash = hash_hmac("sha1", $string, $private_key, true);
+    $sig = rawurlencode(base64_encode($hash));
+    return $sig;
+}
     
-    $api_key        = "1234";
-    $private_key    = "abcd";
-    $method         = "GET";
-    $route          = "forms/1/entries";
-    $expires        = strtotime("+60 mins");
-    $string_to_sign = sprintf("%s:%s:%s:%s", $api_key, $method, $route, $expires);
-    $sig            = calculate_signature($string_to_sign, $private_key);
+$api_key        = "1234";
+$private_key    = "abcd";
+$method         = "GET";
+$route          = "forms/1/entries";
+$expires        = strtotime("+60 mins");
+$string_to_sign = sprintf("%s:%s:%s:%s", $api_key, $method, $route, $expires);
+$sig            = calculate_signature($string_to_sign, $private_key);
+```
 
 The signature would then be located within the *$sig* variable.
 
