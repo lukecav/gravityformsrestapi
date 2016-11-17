@@ -146,7 +146,7 @@ For example, to obtain the Gravity Forms entry with ID 5, your request would be 
 
     https://localhost/wp-json/gf/v2/entries/5
 
-## Endpoints
+## Routes
 
 ### /entries
 
