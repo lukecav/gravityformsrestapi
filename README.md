@@ -405,7 +405,9 @@ Submits the specified form ID with the specified values.
 
 ## Upgrading to Version 2
 
-The API is largely the same as version 1. The following breaking changes are required by clients to consume version 2:
+The API is largely the same as version 1. The endpoints are the same and the same "one-legged" OAuth 1.0a authentication mechanism is still supported.
+
+The following breaking changes are required by clients to consume version 2:
 
 ### Specify the Content Type when appropriate
 
@@ -420,7 +422,7 @@ The content-type application/json must be specified when sending JSON.
 The response will not be enveloped by default. This means that the response will not be a JSON string containing the
 "status" and "response" - the body will contain the response and the HTTP code will contain the status. 
 
-The request will be enveloped by the WP-API if the _envelope param is included in the request.
+The WP-API will be envelope the response if the _envelope param is included in the request.
 
 #### Example
 
@@ -482,13 +484,13 @@ The request will be enveloped by the WP-API if the _envelope param is included i
 
 ### WordPress Cookie Authentication Nonce
 
-Create the nonce using wp_create_nonce( 'wp_rest' ) and send it in the _wpnonce data parameter (either POST data or in 
+The "gf_api" nonce is no longer supported. Use the WordPress cookie authentication provided by the WP API instead. Create the nonce using wp_create_nonce( 'wp_rest' ) and send it in the _wpnonce data parameter (either POST data or in 
 the query for GET requests), or via the X-WP-Nonce header.
 
 ### Form Submissions
 
 The Form Submissions endpoint now accepts application/json, application/x-www-form-urlencoded and multipart/form-data 
-content types. 
+content types. With the introduction of support for multipart/form-data now files can be sent to single file upload fields.
 
 Request values should be sent all together instead of in separate elements for input_values, field_values, target_page 
 and source_page.
@@ -503,6 +505,10 @@ and source_page.
         "source_page": 1,
         "target_page": 0
      }
+
+### POST Single Resources
+
+In order to maintain consistency with the WP API, the POST /entries and POST /forms endpoints no longer accept collections. This means that it's no longer possible to create multiple entries or forms in a single request.
 
 ## Unit Tests
 
