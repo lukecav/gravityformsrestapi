@@ -24,9 +24,120 @@ WordPress' authentication, the following resources are available:
 * [WP REST API: Setting Up and Using Basic Authentication](https://code.tutsplus.com/tutorials/wp-rest-api-setting-up-and-using-basic-authentication--cms-24762)
 * [WP REST API: Setting Up and Using OAuth 1.0a Authentication](https://code.tutsplus.com/tutorials/wp-rest-api-setting-up-and-using-oauth-10a-authentication--cms-24797)
 
+### Signature Generation
+
+#### PHP
+
+    function calculate_signature($string, $private_key) {
+        $hash = hash_hmac("sha1", $string, $private_key, true);
+        $sig = rawurlencode(base64_encode($hash));
+        return $sig;
+    }
+    
+    $api_key        = "1234";
+    $private_key    = "abcd";
+    $method         = "GET";
+    $route          = "forms/1/entries";
+    $expires        = strtotime("+60 mins");
+    $string_to_sign = sprintf("%s:%s:%s:%s", $api_key, $method, $route, $expires);
+    $sig            = calculate_signature($string_to_sign, $private_key);
+
+The signature would then be located within the *$sig* variable.
+
+#### JavaScript
+
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+    <script type="text/javascript">
+    
+        function CalculateSig(stringToSign, privateKey){
+            var hash = CryptoJS.HmacSHA1(stringToSign, privateKey);
+            var base64 = hash.toString(CryptoJS.enc.Base64);
+            return encodeURIComponent(base64);
+        }
+    
+        var d = new Date,
+             expiration = 3600 // 1 hour,
+             unixtime = parseInt(d.getTime() / 1000),
+             future_unixtime = unixtime + expiration,
+             publicKey = "1234",
+             privateKey = "abcd",
+             method = "GET",
+             route = "forms/1/entries";
+    
+        stringToSign = publicKey + ":" + method + ":" + route + ":" + future_unixtime;
+        sig = CalculateSig(stringToSign, privateKey);
+    </script>
+    
+The signature would then be located within the *sig* variable.
+
+#### CLI
+
+    echo -n "PUBLIC_KEY:METHOD:ROUTE:EXPIRES" | openssl dgst -sha1 -hmac "PRIVATE_KEY"
+
+    echo -n "1234:GET:forms/1/entries:3600" | openssl dgst -sha1 -hmac "abcd"
+    
+Here, the signature would be output within your terminal.
+    
+Note that the string will still need to be URL encoded. Encoding can be done using the --data-urlencode flag in curl.
+
+#### C#
+
+    using System;
+    using System.Web;
+    using System.Security.Cryptography;
+    using System.Text;
+    
+    namespace GravityForms
+    {
+        public class Sample
+        {
+            public static GenerateSignature()
+            {
+                string publicKey = "1234";
+                string privateKey = "abcd";
+                string method = "GET";
+                string route = "forms/1/entries";
+                string expires = Security.UtcTimestamp(new TimeSpan(0,1,0));
+                string stringToSign = string.Format("{0}:{1}:{2}:{3}", publicKey, method, route, expires);
+
+                var sig = Security.Sign(stringToSign, privateKey);
+            }
+        }
+    
+        public class Security
+        {
+    
+            public static string UrlEncodeTo64(byte[] bytesToEncode)
+            {
+                string returnValue
+                    = System.Convert.ToBase64String(bytesToEncode);
+    
+                return HttpUtility.UrlEncode(returnValue);
+            }
+    
+            public static string Sign(string value, string key)
+            {
+                using (var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(key)))
+                {
+                    return UrlEncodeTo64(hmac.ComputeHash(Encoding.ASCII.GetBytes(value)));
+                }
+            }
+    
+            public static int UtcTimestamp( TimeSpan timeSpanToAdd)
+            {
+                TimeSpan ts = (DateTime.UtcNow.Add(timeSpanToAdd) - new DateTime(1970,1,1,0,0,0));
+                int expires_int =  (int) ts.TotalSeconds;
+                return expires_int;
+            }
+        }
+    }
+    
+The signature would then be located within the *sig* variable.
+
 ## API Path
 
-The API can be accessed as an endpoint from the WordPress REST API. This should look something like this:
+The API can be accessed as route from the WordPress REST API. This should look something like this:
 
     https://localhost/wp-json/gf/v2/
     
