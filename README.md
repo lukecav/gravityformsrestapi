@@ -145,6 +145,39 @@ The API can be accessed as route from the WordPress REST API. This should look s
 For example, to obtain the Gravity Forms entry with ID 5, your request would be made to the following:
 
     https://localhost/wp-json/gf/v2/entries/5
+    
+## Sending Requests
+
+### PHP
+
+    // Replace the value of this variable with your signature.
+    // See the Signature Generation section for more information.
+    $signature = '';
+    
+    // Define the URL that will be accessed.
+    $url = 'https://localhost/wp-json/gf/v2/entries';
+    
+    // Make the request to the API.
+    $response = wp_remote_request( urlencode( $url ), array( 'method' => 'GET' ) );
+    
+    // Check the response code.
+    if ( wp_remote_retrieve_response_code( $response ) != 200 || ( empty( wp_remote_retrieve_body( $response ) ) ) ){
+        // If not a 200, HTTP request failed.
+        die( 'There was an error attempting to access the API.' );
+    }
+    
+    // Result is in the response body and is json encoded.
+    $body = json_decode( wp_remote_retrieve_body( $response ), true );
+    
+    // Check the response body.
+    if( $body['status'] > 202 ){
+        die( "Could not retrieve forms." );
+    }
+    
+    // Forms retrieved successfully
+    $forms = $body['response'];
+    
+In this example, the *$forms* variable contains the response from the API request.
 
 ## Routes
 
