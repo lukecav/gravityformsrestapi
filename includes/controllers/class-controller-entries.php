@@ -156,7 +156,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 *
-	 * @return WP_Error|WP_REST_Request
+	 * @return WP_Error|WP_REST_Response
 	 */
 	public function update_item( $request ) {
 		$item = $this->prepare_item_for_database( $request );
@@ -181,7 +181,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 *
-	 * @return WP_Error|WP_REST_Request
+	 * @return WP_Error|WP_REST_Response
 	 */
 	public function delete_item( $request ) {
 		$entry_id = $request['entry_id'];
