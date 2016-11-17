@@ -13,8 +13,12 @@ possible risks that may be encountered when running beta software.**
 
 ## Authentication
 
-Authentication can be performed using the same methods as the WordPress REST API. For further information on
-authentication, the following resources are available:
+The recommended and supported method of authentication is using OAuth 1.0a. For information on this, see the following:
+
+[Gravity Forms REST API Authentication](https://www.gravityhelp.com/documentation/article/web-api/#authentication)
+
+Authentication can also be performed using the same methods as the WordPress REST API. For further information on
+WordPress' authentication, the following resources are available:
 
 * [WordPress REST API authentication documentation](http://v2.wp-api.org/guide/authentication/)
 * [WP REST API: Setting Up and Using Basic Authentication](https://code.tutsplus.com/tutorials/wp-rest-api-setting-up-and-using-basic-authentication--cms-24762)
