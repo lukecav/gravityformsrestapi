@@ -13,7 +13,7 @@ possible risks that may be encountered when running beta software.**
 
 ## Authentication
 
-The recommended and supported method of authentication is using OAuth 1.0a. For information on this, see the following:
+The recommended and supported methods of authentication are OAuth 1.0a or WordPress cookie authentication. For information on these, see the following:
 
 [Gravity Forms REST API Authentication](https://www.gravityhelp.com/documentation/article/web-api/#authentication)
 
