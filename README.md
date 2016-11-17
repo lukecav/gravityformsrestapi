@@ -32,7 +32,8 @@ WordPress' authentication, the following resources are available:
 ```php
 function calculate_signature($string, $private_key) {
     $hash = hash_hmac("sha1", $string, $private_key, true);
-    $sig = rawurlencode(base64_encode($hash));
+    $sig  = rawurlencode(base64_encode($hash));
+    
     return $sig;
 }
     
@@ -49,92 +50,97 @@ The signature would then be located within the *$sig* variable.
 
 #### JavaScript
 
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
-    <script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
-    <script type="text/javascript">
-    
-        function CalculateSig(stringToSign, privateKey){
-            var hash = CryptoJS.HmacSHA1(stringToSign, privateKey);
-            var base64 = hash.toString(CryptoJS.enc.Base64);
-            return encodeURIComponent(base64);
-        }
-    
-        var d = new Date,
-             expiration = 3600 // 1 hour,
-             unixtime = parseInt(d.getTime() / 1000),
-             future_unixtime = unixtime + expiration,
-             publicKey = "1234",
-             privateKey = "abcd",
-             method = "GET",
-             route = "forms/1/entries";
-    
-        stringToSign = publicKey + ":" + method + ":" + route + ":" + future_unixtime;
-        sig = CalculateSig(stringToSign, privateKey);
-    </script>
-    
+```html
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
+<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
+<script type="text/javascript">
+   
+    function CalculateSig(stringToSign, privateKey){
+        var hash = CryptoJS.HmacSHA1(stringToSign, privateKey);
+        var base64 = hash.toString(CryptoJS.enc.Base64);
+        return encodeURIComponent(base64);
+    }
+ 
+    var d = new Date,
+         expiration = 3600 // 1 hour,
+         unixtime = parseInt(d.getTime() / 1000),
+         future_unixtime = unixtime + expiration,
+         publicKey = "1234",
+         privateKey = "abcd",
+         method = "GET",
+         route = "forms/1/entries";
+  
+    stringToSign = publicKey + ":" + method + ":" + route + ":" + future_unixtime;
+    sig = CalculateSig(stringToSign, privateKey);
+</script>
+```
 The signature would then be located within the *sig* variable.
 
 #### CLI
 
-    echo -n "PUBLIC_KEY:METHOD:ROUTE:EXPIRES" | openssl dgst -sha1 -hmac "PRIVATE_KEY"
-
-    echo -n "1234:GET:forms/1/entries:3600" | openssl dgst -sha1 -hmac "abcd"
-    
+```bash
+echo -n "PUBLIC_KEY:METHOD:ROUTE:EXPIRES" | openssl dgst -sha1 -hmac "PRIVATE_KEY"
+```
+```bash
+echo -n "1234:GET:forms/1/entries:3600" | openssl dgst -sha1 -hmac "abcd"
+```
 Here, the signature would be output within your terminal.
     
 Note that the string will still need to be URL encoded. Encoding can be done using the --data-urlencode flag in curl.
 
 #### C#
 
-    using System;
-    using System.Web;
-    using System.Security.Cryptography;
-    using System.Text;
+```csharp
+using System;
+using System.Web;
+using System.Security.Cryptography;
+using System.Text;
     
-    namespace GravityForms
+namespace GravityForms
+{
+    public class Sample
     {
-        public class Sample
+        public static GenerateSignature()
         {
-            public static GenerateSignature()
-            {
-                string publicKey = "1234";
-                string privateKey = "abcd";
-                string method = "GET";
-                string route = "forms/1/entries";
-                string expires = Security.UtcTimestamp(new TimeSpan(0,1,0));
-                string stringToSign = string.Format("{0}:{1}:{2}:{3}", publicKey, method, route, expires);
+            string publicKey = "1234";
+            string privateKey = "abcd";
+            string method = "GET";
+            string route = "forms/1/entries";
+            string expires = Security.UtcTimestamp(new TimeSpan(0,1,0));
+            string stringToSign = string.Format("{0}:{1}:{2}:{3}", publicKey, method, route, expires);
 
-                var sig = Security.Sign(stringToSign, privateKey);
-            }
-        }
-    
-        public class Security
-        {
-    
-            public static string UrlEncodeTo64(byte[] bytesToEncode)
-            {
-                string returnValue
-                    = System.Convert.ToBase64String(bytesToEncode);
-    
-                return HttpUtility.UrlEncode(returnValue);
-            }
-    
-            public static string Sign(string value, string key)
-            {
-                using (var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(key)))
-                {
-                    return UrlEncodeTo64(hmac.ComputeHash(Encoding.ASCII.GetBytes(value)));
-                }
-            }
-    
-            public static int UtcTimestamp( TimeSpan timeSpanToAdd)
-            {
-                TimeSpan ts = (DateTime.UtcNow.Add(timeSpanToAdd) - new DateTime(1970,1,1,0,0,0));
-                int expires_int =  (int) ts.TotalSeconds;
-                return expires_int;
-            }
+            var sig = Security.Sign(stringToSign, privateKey);
         }
     }
+    
+    public class Security
+    {
+    
+        public static string UrlEncodeTo64(byte[] bytesToEncode)
+        {
+            string returnValue
+                = System.Convert.ToBase64String(bytesToEncode);
+ 
+            return HttpUtility.UrlEncode(returnValue);
+        }
+
+        public static string Sign(string value, string key)
+        {
+            using (var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(key)))
+            {
+                return UrlEncodeTo64(hmac.ComputeHash(Encoding.ASCII.GetBytes(value)));
+            }
+        }
+   
+        public static int UtcTimestamp( TimeSpan timeSpanToAdd)
+        {
+            TimeSpan ts = (DateTime.UtcNow.Add(timeSpanToAdd) - new DateTime(1970,1,1,0,0,0));
+            int expires_int =  (int) ts.TotalSeconds;
+            return expires_int;
+        }
+    }
+}
+```
     
 The signature would then be located within the *sig* variable.
 
@@ -151,34 +157,35 @@ For example, to obtain the Gravity Forms entry with ID 5, your request would be 
 ## Sending Requests
 
 ### PHP
+```php
+// Replace the value of this variable with your signature.
+// See the Signature Generation section for more information.
+$signature = '';
+  
+// Define the URL that will be accessed.
+$url = 'https://localhost/wp-json/gf/v2/entries';
+ 
+// Make the request to the API.
+$response = wp_remote_request( urlencode( $url ), array( 'method' => 'GET' ) );
+ 
+// Check the response code.
+if ( wp_remote_retrieve_response_code( $response ) != 200 || ( empty( wp_remote_retrieve_body( $response ) ) ) ){
+    // If not a 200, HTTP request failed.
+    die( 'There was an error attempting to access the API.' );
+}
+   
+// Result is in the response body and is json encoded.
+$body = json_decode( wp_remote_retrieve_body( $response ), true );
+ 
+// Check the response body.
+if( $body['status'] > 202 ){
+    die( "Could not retrieve forms." );
+}
+   
+// Forms retrieved successfully
+$forms = $body['response'];
+```
 
-    // Replace the value of this variable with your signature.
-    // See the Signature Generation section for more information.
-    $signature = '';
-    
-    // Define the URL that will be accessed.
-    $url = 'https://localhost/wp-json/gf/v2/entries';
-    
-    // Make the request to the API.
-    $response = wp_remote_request( urlencode( $url ), array( 'method' => 'GET' ) );
-    
-    // Check the response code.
-    if ( wp_remote_retrieve_response_code( $response ) != 200 || ( empty( wp_remote_retrieve_body( $response ) ) ) ){
-        // If not a 200, HTTP request failed.
-        die( 'There was an error attempting to access the API.' );
-    }
-    
-    // Result is in the response body and is json encoded.
-    $body = json_decode( wp_remote_retrieve_body( $response ), true );
-    
-    // Check the response body.
-    if( $body['status'] > 202 ){
-        die( "Could not retrieve forms." );
-    }
-    
-    // Forms retrieved successfully
-    $forms = $body['response'];
-    
 In this example, the *$forms* variable contains the response from the API request.
 
 ## Routes
@@ -566,7 +573,9 @@ The content-type application/json must be specified when sending JSON.
 
 #### Example
 
-    curl --data [EXAMPLE_DATA] --header "Content-Type: application/json" https://localhost/wp-json/gf/v2
+```bash
+curl --data [EXAMPLE_DATA] --header "Content-Type: application/json" https://localhost/wp-json/gf/v2
+```
 
 ### No Response Envelope
 
@@ -579,7 +588,35 @@ The WP-API will envelope the response if the _envelope param is included in the 
 
 **Standard response:**
 
-    {
+```json
+{
+    "3": "Drop Down First Choice",
+    "created_by": "1",
+    "currency": "USD",
+    "date_created": "2016-10-10 18:06:12",
+    "form_id": "1",
+    "id": "1",
+    "ip": "127.0.0.1",
+    "is_fulfilled": null,
+    "is_read": 0,
+    "is_starred": 0,
+    "payment_amount": null,
+    "payment_date": null,
+    "payment_method": null,
+    "payment_status": null,
+    "post_id": null,
+    "source_url": "http://gftesting.dev/?gf_page=preview&id=1",
+    "status": "active",
+    "transaction_id": null,
+    "transaction_type": null,
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+}
+```
+**Response with _envelope parameter:**
+
+```json
+{
+    "body": {
         "3": "Drop Down First Choice",
         "created_by": "1",
         "currency": "USD",
@@ -600,38 +637,13 @@ The WP-API will envelope the response if the _envelope param is included in the 
         "transaction_id": null,
         "transaction_type": null,
         "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
-    }
-
-**Response with _envelope parameter:**
-
-    {
-        "body": {
-            "3": "Drop Down First Choice",
-            "created_by": "1",
-            "currency": "USD",
-            "date_created": "2016-10-10 18:06:12",
-            "form_id": "1",
-            "id": "1",
-            "ip": "127.0.0.1",
-            "is_fulfilled": null,
-            "is_read": 0,
-            "is_starred": 0,
-            "payment_amount": null,
-            "payment_date": null,
-            "payment_method": null,
-            "payment_status": null,
-            "post_id": null,
-            "source_url": "http://gftesting.dev/?gf_page=preview&id=1",
-            "status": "active",
-            "transaction_id": null,
-            "transaction_type": null,
-            "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
-        },
-        "headers": {
-            "Allow": "GET, POST, PUT, PATCH, DELETE"
-        },
-        "status": 200
-    }
+    },
+    "headers": {
+        "Allow": "GET, POST, PUT, PATCH, DELETE"
+    },
+    "status": 200
+}
+```
 
 ### WordPress Cookie Authentication Nonce
 
@@ -650,12 +662,14 @@ and source_page.
 
 **Example body of a JSON request:**
 
-    {
-        "input_1": "test",
-        "field_values" : "",
-        "source_page": 1,
-        "target_page": 0
-     }
+```json
+{
+    "input_1": "test",
+    "field_values" : "",
+    "source_page": 1,
+    "target_page": 0
+}
+```
 
 ### POST Single Resources
 
@@ -665,9 +679,12 @@ In order to maintain consistency with the WP API, the POST /entries and POST /fo
 
 The unit tests can be installed from the terminal using:
 
-    ./tests/bin/install.sh [DB_NAME] [DB_USER] [DB_PASSWORD] [DB_HOST]
-
+```bash
+./tests/bin/install.sh [DB_NAME] [DB_USER] [DB_PASSWORD] [DB_HOST]
+```
 
 If you're using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) you can use this command:
 
-	./tests/bin/install.sh wordpress_unit_tests root root localhost
+```bash
+./tests/bin/install.sh wordpress_unit_tests root root localhost
+```
