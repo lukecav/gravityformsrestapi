@@ -161,12 +161,14 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function get_items_permissions_check( $request ) {
+
 		/**
 		 * Filters the capability required to get entries via the REST API.
 		 *
 		 * @since 1.9.2
 		 */
 		$capability = apply_filters( 'gform_web_api_capability_get_entries', 'gravityforms_view_entries', $request );
+
 		return GFAPI::current_user_can_any( $capability );
 	}
 
@@ -181,12 +183,14 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function create_item_permissions_check( $request ) {
+
 		/**
 		 * Filters the capability required to create entries via the REST API.
 		 *
 		 * @since 1.9.2
 		 */
 		$capability = apply_filters( 'gform_web_api_capability_post_entries', 'gravityforms_edit_entries' );
+
 		return GFAPI::current_user_can_any( $capability );
 	}
 
@@ -202,11 +206,13 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	 */
 	protected function prepare_item_for_database( $request ) {
 		$entry = $request->get_json_params();
+
 		if ( empty( $entry ) ) {
 			$entry = $request->get_body_params();
 		}
 
 		$entry = $this->maybe_serialize_list_fields( $entry );
+
 		return $entry;
 	}
 
