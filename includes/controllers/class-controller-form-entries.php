@@ -128,7 +128,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
 	 *
-	 * @return WP_Error|WP_REST_Request
+	 * @return WP_Error|WP_REST_Response
 	 */
 	public function create_item( $request ) {
 
