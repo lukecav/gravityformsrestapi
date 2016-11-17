@@ -422,7 +422,7 @@ The content-type application/json must be specified when sending JSON.
 The response will not be enveloped by default. This means that the response will not be a JSON string containing the
 "status" and "response" - the body will contain the response and the HTTP code will contain the status. 
 
-The WP-API will be envelope the response if the _envelope param is included in the request.
+The WP-API will envelope the response if the _envelope param is included in the request.
 
 #### Example
 
