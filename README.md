@@ -25,6 +25,11 @@ WordPress' authentication, the following resources are available:
 * [WP REST API: Setting Up and Using Basic Authentication](https://code.tutsplus.com/tutorials/wp-rest-api-setting-up-and-using-basic-authentication--cms-24762)
 * [WP REST API: Setting Up and Using OAuth 1.0a Authentication](https://code.tutsplus.com/tutorials/wp-rest-api-setting-up-and-using-oauth-10a-authentication--cms-24797)
 
+
+
+**NOTE: When using a browser to test your API calls, be aware that if you are currently logged in to the WordPress dashboard, the cookie authentication will override any other authentication method. In that situation, any other authentication method will result in a "acess denied" error.**
+
+
 ### Signature Generation
 
 #### PHP
