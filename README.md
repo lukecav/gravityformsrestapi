@@ -27,7 +27,7 @@ WordPress' authentication, the following resources are available:
 
 
 
-**NOTE: When using a browser to test your API calls, be aware that if you are currently logged in to the WordPress dashboard, the cookie authentication will override any other authentication method. In that situation, any other authentication method will result in a "acess denied" error.**
+**NOTE: When using a browser to test your API calls, be aware that if you are currently logged in to the WordPress dashboard, the cookie authentication will override any other authentication method. In that situation, any other authentication method will result in a "access denied" error.**
 
 
 ### Signature Generation
