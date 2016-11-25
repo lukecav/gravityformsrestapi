@@ -568,7 +568,7 @@ Submits the specified form ID with the specified values.
 
 ## Upgrading to Version 2
 
-The API is largely the same as version 1. The endpoints are the same and the same "one-legged" OAuth 1.0a authentication mechanism is still supported.
+The API is largely the same as version 1. The endpoints are the same and the same signature authentication mechanism is still supported.
 
 The following breaking changes are required by clients to consume version 2:
 
