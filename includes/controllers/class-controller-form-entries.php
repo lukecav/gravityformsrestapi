@@ -24,24 +24,24 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 		register_rest_route( $namespace, '/' . $base, array(
 			array(
-				'methods'         => WP_REST_Server::READABLE,
-				'callback'        => array( $this, 'get_items' ),
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_items' ),
 				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				'args'            => $this->get_collection_params(),
+				'args'                => $this->get_collection_params(),
 			),
 			array(
-				'methods'         => WP_REST_Server::CREATABLE,
-				'callback'        => array( $this, 'create_item' ),
+				'methods'             => WP_REST_Server::CREATABLE,
+				'callback'            => array( $this, 'create_item' ),
 				'permission_callback' => array( $this, 'create_item_permissions_check' ),
-				'args'            => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
+				'args'                => $this->get_endpoint_args_for_item_schema( WP_REST_Server::CREATABLE ),
 			),
 		) );
 		register_rest_route( $namespace, '/' . $base . '/fields/(?P<field_ids>[\S]+)', array(
 			array(
-				'methods'         => WP_REST_Server::READABLE,
-				'callback'        => array( $this, 'get_items' ),
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_items' ),
 				'permission_callback' => array( $this, 'get_items_permissions_check' ),
-				'args'            => array(),
+				'args'                => array(),
 			),
 		) );
 	}
@@ -226,19 +226,19 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	 */
 	public function get_collection_params() {
 		return array(
-			'sorting'                   => array(
+			'sorting' => array(
 				'description'        => 'The sorting criteria.',
 				'type'               => 'array',
 			),
-			'paging'               => array(
+			'paging' => array(
 				'description'        => 'The paging criteria.',
 				'type'               => 'array',
 			),
-			'search'                 => array(
+			'search' => array(
 				'description'        => 'The search criteria.',
 				'type'               => 'string',
 			),
-			'labels'                 => array(
+			'labels' => array(
 				'description'        => 'Whether to include the labels.',
 				'type'               => 'integer',
 			),
