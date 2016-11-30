@@ -451,6 +451,8 @@ abstract class WP_REST_Controller {
 	 * @access protected
 	 *
 	 * @param array $schema Schema array.
+	 *
+	 * @return array
 	 */
 	protected function add_additional_fields_schema( $schema ) {
 		if ( empty( $schema['title'] ) ) {
