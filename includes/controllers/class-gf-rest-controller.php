@@ -77,8 +77,8 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 
 		$params = array(
 			'search_criteria' => $search,
-			'paging' => $paging,
-			'sorting' => $sorting,
+			'paging'          => $paging,
+			'sorting'         => $sorting,
 		);
 
 		return $params;
