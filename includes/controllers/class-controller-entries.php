@@ -302,7 +302,15 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 * @return WP_Error|array $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {
+
 		$entry = $request->get_body_params();
+
+		$entry_id = $request['entry_id'];
+
+		if ( ! empty( $entry_id ) ) {
+			$entry['id'] = $entry_id;
+		}
+
 		$entry = $this->maybe_serialize_list_fields( $entry );
 
 		return $entry;

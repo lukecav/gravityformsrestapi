@@ -186,6 +186,8 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 		$entry = $entries[0];
 		$entry_id = $entry['id'];
 
+		unset( $entry['id'] );
+
 		$entry[1] = 'testing';
 
 		$request = new WP_REST_Request( 'PUT', $this->namespace . '/entries/' . $entry_id );
