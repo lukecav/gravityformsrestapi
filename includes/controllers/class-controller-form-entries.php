@@ -103,7 +103,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 					if ( ! empty( $field_ids ) && ! empty( $entry ) ) {
 						$entry = $this->filter_entry_fields( $entry, $field_ids );
 					}
-					if ( $labels && ! empty( $form_ids ) && count( $form_ids ) > 1 ) {
+					if ( $labels && empty( $form_ids ) ) {
 						$form = GFAPI::get_form( $entry['form_id'] );
 						$entry['labels'] = $this->get_entry_labels( $form );
 					}

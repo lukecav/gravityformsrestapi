@@ -55,7 +55,6 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 	}
 
 	function test_the_tests() {
-
 		$t = 1;
 		$this->assertEquals( 1, $t );
 	}
@@ -68,6 +67,20 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 		$data = $response->get_data();
 
 		$this->assertEquals( 50, $data['total_count'] );
+
+		// Repeat the request with labels
+		$request->set_query_params( array( 'labels' => 1 ) );
+
+		$response = $this->server->dispatch( $request );
+		$data = $response->get_data();
+
+		// Double check results
+		$this->assertEquals( 50, $data['total_count'] );
+
+		// Entry level labels when no form is specified
+		$this->assertArrayNotHasKey( 'labels', $data['entries'] );
+		$this->assertArrayHasKey( 'labels', $data['entries'][0] );
+
 	}
 
 	function test_get_single_entry() {
@@ -83,6 +96,15 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 		$entry = $response->get_data();
 
 		$this->assertEquals( $first_entry_id, $entry['id'] );
+		$this->assertArrayNotHasKey( 'labels', $entry );
+
+		// Repeat the request with labels
+		$request->set_query_params( array( 'labels' => 1 ) );
+
+		$response = $this->server->dispatch( $request );
+		$entry = $response->get_data();
+
+		$this->assertArrayHasKey( 'labels', $entry );
 	}
 
 	function test_get_entries_by_ids() {
@@ -166,7 +188,7 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 
 		$entry[1] = 'testing';
 
-		$request = new WP_REST_Request( 'PUT', $this->namespace . '/entries' );
+		$request = new WP_REST_Request( 'PUT', $this->namespace . '/entries/' . $entry_id );
 		$request->set_body_params( $entry );
 		$response = $this->server->dispatch( $request );
 		$result = $response->get_data();
