@@ -552,6 +552,17 @@ Updates an entry based on the specified entry ID.
 
     https://localhost/wp-json/gf/v2/entries/1
     
+#### Required Arguments
+
+  ##### id *[int]*
+  The entry ID to modify.
+  
+  **Example**
+    
+  Sets the entry ID to be updated as *1*.
+    
+    id=1
+    
 #### Optional Arguments
 
   ##### created_by *[string]*
