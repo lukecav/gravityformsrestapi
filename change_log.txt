@@ -1,3 +1,10 @@
 ---------------------------------------------------------------------
+Version 2.0-beta-1.1
+    - Fixed an issue with PUT /entries/[ID]
+    - Added support for optional labels to the GET /entries endpoint.
+    - Removed the PUT /entries endpoint. Use PUT /entries/[ID] instead.
+    - Removed authentication. Use WordPress REST API authentication instead.
+
+---------------------------------------------------------------------
 Version 2.0-beta-1
     - All new

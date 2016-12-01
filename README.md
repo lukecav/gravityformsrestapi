@@ -21,129 +21,6 @@ WordPress' authentication, the following resources are available:
 * [WP REST API: Setting Up and Using OAuth 1.0a Authentication](https://code.tutsplus.com/tutorials/wp-rest-api-setting-up-and-using-oauth-10a-authentication--cms-24797)
 
 
-
-**NOTE: When using a browser to test your API calls, be aware that if you are currently logged in to the WordPress dashboard, the cookie authentication will override any other authentication method. In that situation, any other authentication method will result in a "access denied" error.**
-
-
-### Signature Generation
-
-#### PHP
-
-```php
-function calculate_signature($string, $private_key) {
-    $hash = hash_hmac("sha1", $string, $private_key, true);
-    $sig  = rawurlencode(base64_encode($hash));
-    
-    return $sig;
-}
-    
-$api_key        = "1234";
-$private_key    = "abcd";
-$method         = "GET";
-$route          = "forms/1/entries";
-$expires        = strtotime("+60 mins");
-$string_to_sign = sprintf("%s:%s:%s:%s", $api_key, $method, $route, $expires);
-$sig            = calculate_signature($string_to_sign, $private_key);
-```
-
-The signature would then be located within the *$sig* variable.
-
-#### JavaScript
-
-```html
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/hmac-sha1.js"></script>
-<script src="http://crypto-js.googlecode.com/svn/tags/3.1.2/build/components/enc-base64-min.js"></script>
-<script type="text/javascript">
-   
-    function CalculateSig(stringToSign, privateKey){
-        var hash = CryptoJS.HmacSHA1(stringToSign, privateKey);
-        var base64 = hash.toString(CryptoJS.enc.Base64);
-        return encodeURIComponent(base64);
-    }
- 
-    var d = new Date,
-         expiration = 3600 // 1 hour,
-         unixtime = parseInt(d.getTime() / 1000),
-         future_unixtime = unixtime + expiration,
-         publicKey = "1234",
-         privateKey = "abcd",
-         method = "GET",
-         route = "forms/1/entries";
-  
-    stringToSign = publicKey + ":" + method + ":" + route + ":" + future_unixtime;
-    sig = CalculateSig(stringToSign, privateKey);
-</script>
-```
-The signature would then be located within the *sig* variable.
-
-#### CLI
-
-```bash
-echo -n "PUBLIC_KEY:METHOD:ROUTE:EXPIRES" | openssl dgst -sha1 -hmac "PRIVATE_KEY"
-```
-```bash
-echo -n "1234:GET:forms/1/entries:3600" | openssl dgst -sha1 -hmac "abcd"
-```
-Here, the signature would be output within your terminal.
-    
-Note that the string will still need to be URL encoded. Encoding can be done using the --data-urlencode flag in curl.
-
-#### C#
-
-```csharp
-using System;
-using System.Web;
-using System.Security.Cryptography;
-using System.Text;
-    
-namespace GravityForms
-{
-    public class Sample
-    {
-        public static GenerateSignature()
-        {
-            string publicKey = "1234";
-            string privateKey = "abcd";
-            string method = "GET";
-            string route = "forms/1/entries";
-            string expires = Security.UtcTimestamp(new TimeSpan(0,1,0));
-            string stringToSign = string.Format("{0}:{1}:{2}:{3}", publicKey, method, route, expires);
-
-            var sig = Security.Sign(stringToSign, privateKey);
-        }
-    }
-    
-    public class Security
-    {
-    
-        public static string UrlEncodeTo64(byte[] bytesToEncode)
-        {
-            string returnValue
-                = System.Convert.ToBase64String(bytesToEncode);
- 
-            return HttpUtility.UrlEncode(returnValue);
-        }
-
-        public static string Sign(string value, string key)
-        {
-            using (var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(key)))
-            {
-                return UrlEncodeTo64(hmac.ComputeHash(Encoding.ASCII.GetBytes(value)));
-            }
-        }
-   
-        public static int UtcTimestamp( TimeSpan timeSpanToAdd)
-        {
-            TimeSpan ts = (DateTime.UtcNow.Add(timeSpanToAdd) - new DateTime(1970,1,1,0,0,0));
-            int expires_int =  (int) ts.TotalSeconds;
-            return expires_int;
-        }
-    }
-}
-```
-    
-The signature would then be located within the *sig* variable.
-
 ## API Path
 
 The API can be accessed as route from the WordPress REST API. This should look something like this:
@@ -159,21 +36,17 @@ For example, to obtain the Gravity Forms entry with ID 5, your request would be 
 ### PHP
 
 ```php
-// Replace these values with the public key, expires, and signature variables.
-// See the Signature Generation section for more information.
-$signature = '';
-$api_key   = '';
-$exipires  = '';
-  
 // Define the URL that will be accessed.
-$url = add_query_arg( array(
-    'api_key'   => $api_key,
-    'expires'   => $expires,
-    'signature' => $signature
-), 'https://localhost/wp-json/gf/v2/entries' );
+$url = rest_url( 'gf/v2/entries' );
+
+// Example using Basic Authentication
+$args = array(
+    'Authorization' => 'Basic ' . base64_encode( 'admin' . ':' . '12345' ),
+	'headers'       => array( 'Content-type' => 'application/json' ),
+);
 
 // Make the request to the API.
-$response = wp_remote_request( urlencode( $url ), array( 'method' => 'GET' ) );
+$response = wp_remote_get( $url, $args );
  
 // Check the response code.
 if ( wp_remote_retrieve_response_code( $response ) != 200 || ( empty( wp_remote_retrieve_body( $response ) ) ) ){
@@ -189,13 +62,13 @@ if( $body['status'] > 202 ){
     die( "Could not retrieve forms." );
 }
    
-// Forms retrieved successfully.
-$forms = $body['response'];
+// Entries retrieved successfully.
+$entries = $body['response'];
 ```
 
-In this example, the *$forms* variable contains the response from the API request.
+In this example, the *$entries* variable contains the response from the API request.
 
-## Routes
+## Endpoints
 
 ### GET /entries
 
@@ -1789,9 +1662,20 @@ Submits the specified form ID with the specified values.
 
 ## Upgrading to Version 2
 
-The API is largely the same as version 1. The endpoints are the same and the same signature authentication mechanism is still supported.
+The API is largely the same as version 1. The endpoints are the same, however, authentication is no longer handled by Gravity Forms. 
 
 The following breaking changes are required by clients to consume version 2:
+
+### Authentication
+
+If you're using cookie authentication, WordPress supports cookie authentication out of the box so you'll just need to change the way the nonce is created and sent. Create the nonce using wp_create_nonce( 'wp_rest' ) and send it in the _wpnonce data parameter (either POST data or in the query for GET requests), or via the X-WP-Nonce header.
+
+If you're using signature authentication then you'll need to implement either Basic or OAuth authentication. Further details here:
+
+* [WordPress REST API authentication documentation](http://v2.wp-api.org/guide/authentication/)
+* [WP REST API: Setting Up and Using Basic Authentication](https://code.tutsplus.com/tutorials/wp-rest-api-setting-up-and-using-basic-authentication--cms-24762)
+* [WP REST API: Setting Up and Using OAuth 1.0a Authentication](https://code.tutsplus.com/tutorials/wp-rest-api-setting-up-and-using-oauth-10a-authentication--cms-24797)
+
 
 ### Specify the Content Type when appropriate
 
@@ -1870,12 +1754,6 @@ The WP-API will envelope the response if the _envelope param is included in the 
     "status": 200
 }
 ```
-
-### WordPress Cookie Authentication Nonce
-
-The "gf_api" nonce is no longer supported. Use the WordPress cookie authentication provided by the WP API instead.
-Create the nonce using wp_create_nonce( 'wp_rest' ) and send it in the _wpnonce data parameter (either POST data or in 
-the query for GET requests), or via the X-WP-Nonce header.
 
 ### Form Submissions
 
