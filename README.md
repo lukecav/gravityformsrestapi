@@ -86,25 +86,25 @@ The response will contain a JSON object which contains the entry details. An exa
 
 ```json
 {
-  "id": "71",
-  "form_id": "1",
+  "id":           "71",
+  "form_id":      "1",
   "date_created": "2016-11-28 18:12:17",
-  "is_starred": 0,
-  "is_read": 0,
-  "ip": "127.0.0.1",
-  "source_url": "http:\/\/localhost\/pagename",
-  "post_id": null,
-  "created_by": "2",
-  "user_agent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-  "status": "active",
-  "1": "",
-  "2": "",
-  "3": "",
-  "4": "",
-  "5": "",
-  "6.1": "",
-  "6.2": "",
-  "6.3": ""
+  "is_starred":   0,
+  "is_read":      0,
+  "ip":           "127.0.0.1",
+  "source_url":   "http:\/\/localhost\/pagename",
+  "post_id":      null,
+  "created_by":   "2",
+  "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+  "status":       "active",
+  "1":            "",
+  "2":            "",
+  "3":            "",
+  "4":            "",
+  "5":            "",
+  "6.1":          "",
+  "6.2":          "",
+  "6.3":          ""
 }
 ```
 
@@ -167,32 +167,32 @@ The response will contain a JSON object which contains the entry details. An exa
   
   ```json
   {
-    "id": "71",
-    "form_id": "1",
+    "id":           "71",
+    "form_id":      "1",
     "date_created": "2016-11-28 18:12:17",
-    "is_starred": 0,
-    "is_read": 0,
-    "ip": "127.0.0.1",
-    "source_url": "http:\/\/localhost\/pagename",
-    "post_id": null,
-    "created_by": "2",
-    "user_agent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-    "status": "active",
-    "1": "",
-    "2": "",
-    "3": "",
-    "4": "",
-    "5": "",
-    "6.1": "",
-    "6.2": "",
-    "6.3": "",
+    "is_starred":   0,
+    "is_read":      0,
+    "ip":           "127.0.0.1",
+    "source_url":   "http:\/\/localhost\/pagename",
+    "post_id":      null,
+    "created_by":   "2",
+    "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+    "status":       "active",
+    "1":            "",
+    "2":            "",
+    "3":            "",
+    "4":            "",
+    "5":            "",
+    "6.1":          "",
+    "6.2":          "",
+    "6.3":          "",
     "labels": {
-      "1": "Single Line Text",
-      "2": "Paragraph Text",
+      "1":  "Single Line Text",
+      "2":  "Paragraph Text",
       "13": "File",
-      "3": "Drop Down",
-      "4": "Multi Select",
-      "5": "Number",
+      "3":  "Drop Down",
+      "4":  "Multi Select",
+      "5":  "Number",
       "6": {
         "6.1": "Checkboxes First Choice",
         "6.2": "Checkboxes Second Choice",
@@ -220,8 +220,8 @@ The response will contain a JSON object which contains the entry details. An exa
   ```json
   {
     "field_filters": [{
-      "key": 1,
-      "value": "Field Value",
+      "key":      1,
+      "value":    "Field Value",
       "operator": "contains"
     }]
   }
@@ -456,25 +456,25 @@ The response will contain a JSON object which contains the entry details. An exa
 
 ```json
 {
-  "id": "71",
-  "form_id": "1",
+  "id":           "71",
+  "form_id":      "1",
   "date_created": "2016-11-28 18:12:17",
-  "is_starred": 0,
-  "is_read": 0,
-  "ip": "127.0.0.1",
-  "source_url": "http:\/\/localhost\/pagename",
-  "post_id": null,
-  "created_by": "2",
-  "user_agent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-  "status": "active",
-  "1": "",
-  "2": "",
-  "3": "",
-  "4": "",
-  "5": "",
-  "6.1": "",
-  "6.2": "",
-  "6.3": ""
+  "is_starred":   0,
+  "is_read":      0,
+  "ip":           "127.0.0.1",
+  "source_url":   "http:\/\/localhost\/pagename",
+  "post_id":      null,
+  "created_by":   "2",
+  "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+  "status":       "active",
+  "1":            "",
+  "2":            "",
+  "3":            "",
+  "4":            "",
+  "5":            "",
+  "6.1":          "",
+  "6.2":          "",
+  "6.3":          ""
 }
 ```
 
@@ -507,32 +507,32 @@ The response will contain a JSON object which contains the entry details. An exa
   
   ```json
   {
-    "id": "71",
-    "form_id": "1",
+    "id":           "71",
+    "form_id":      "1",
     "date_created": "2016-11-28 18:12:17",
-    "is_starred": 0,
-    "is_read": 0,
-    "ip": "127.0.0.1",
-    "source_url": "http:\/\/localhost\/pagename",
-    "post_id": null,
-    "created_by": "2",
-    "user_agent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-    "status": "active",
-    "1": "",
-    "2": "",
-    "3": "",
-    "4": "",
-    "5": "",
-    "6.1": "",
-    "6.2": "",
-    "6.3": "",
+    "is_starred":   0,
+    "is_read":      0,
+    "ip":           "127.0.0.1",
+    "source_url":   "http:\/\/localhost\/pagename",
+    "post_id":      null,
+    "created_by":   "2",
+    "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+    "status":       "active",
+    "1":            "",
+    "2":            "",
+    "3":            "",
+    "4":            "",
+    "5":            "",
+    "6.1":          "",
+    "6.2":          "",
+    "6.3":          "",
     "labels": {
-      "1": "Single Line Text",
-      "2": "Paragraph Text",
+      "1":  "Single Line Text",
+      "2":  "Paragraph Text",
       "13": "File",
-      "3": "Drop Down",
-      "4": "Multi Select",
-      "5": "Number",
+      "3":  "Drop Down",
+      "4":  "Multi Select",
+      "5":  "Number",
       "6": {
         "6.1": "Checkboxes First Choice",
         "6.2": "Checkboxes Second Choice",
@@ -718,8 +718,8 @@ Deletes an entry based on the specified entry ID.
 {
   "code":    "gf_cannot_delete",
   "message": "Invalid entry id: 71",
-  "data":    { 
-    "status":500
+  "data":    {
+    "status": 500
   }
 }
 ```
@@ -762,23 +762,23 @@ Gets the details of all forms.
 ```json
 {
   "4": {
-    "id": "4",
-    "title": "Multi-Page Form",
+    "id":      "4",
+    "title":   "Multi-Page Form",
     "entries": "2"
   },
   "1": {
-    "id": "1",
-    "title": "Test Form",
+    "id":      "1",
+    "title":   "Test Form",
     "entries": "60"
   },
   "5": {
-    "id": "5",
-    "title": "Test Form 2",
+    "id":      "5",
+    "title":   "Test Form 2",
     "entries": "2"
   },
   "6": {
-    "id": "6",
-    "title": "Test Form 3",
+    "id":      "6",
+    "title":   "Test Form 3",
     "entries": "2"
   }
 }
@@ -1101,25 +1101,25 @@ The response will contain a JSON object which contains the entry details. An exa
 
 ```json
 {
-  "id": "71",
-  "form_id": "1",
+  "id":           "71",
+  "form_id":      "1",
   "date_created": "2016-11-28 18:12:17",
-  "is_starred": 0,
-  "is_read": 0,
-  "ip": "127.0.0.1",
-  "source_url": "http:\/\/localhost\/pagename",
-  "post_id": null,
-  "created_by": "2",
-  "user_agent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-  "status": "active",
-  "1": "",
-  "2": "",
-  "3": "",
-  "4": "",
-  "5": "",
-  "6.1": "",
-  "6.2": "",
-  "6.3": ""
+  "is_starred":   0,
+  "is_read":      0,
+  "ip":           "127.0.0.1",
+  "source_url":   "http:\/\/localhost\/pagename",
+  "post_id":      null,
+  "created_by":   "2",
+  "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+  "status":       "active",
+  "1":            "",
+  "2":            "",
+  "3":            "",
+  "4":            "",
+  "5":            "",
+  "6.1":          "",
+  "6.2":          "",
+  "6.3":          ""
 }
 ```
     
@@ -1167,32 +1167,32 @@ The response will contain a JSON object which contains the entry details. An exa
   
   ```json
   {
-    "id": "71",
-    "form_id": "1",
+    "id":           "71",
+    "form_id":      "1",
     "date_created": "2016-11-28 18:12:17",
-    "is_starred": 0,
-    "is_read": 0,
-    "ip": "127.0.0.1",
-    "source_url": "http:\/\/localhost\/pagename",
-    "post_id": null,
-    "created_by": "2",
-    "user_agent": "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-    "status": "active",
-    "1": "",
-    "2": "",
-    "3": "",
-    "4": "",
-    "5": "",
-    "6.1": "",
-    "6.2": "",
-    "6.3": "",
+    "is_starred":   0,
+    "is_read":      0,
+    "ip":           "127.0.0.1",
+    "source_url":   "http:\/\/localhost\/pagename",
+    "post_id":      null,
+    "created_by":   "2",
+    "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+    "status":       "active",
+    "1":            "",
+    "2":            "",
+    "3":            "",
+    "4":            "",
+    "5":            "",
+    "6.1":          "",
+    "6.2":          "",
+    "6.3":          "",
     "labels": {
-      "1": "Single Line Text",
-      "2": "Paragraph Text",
+      "1":  "Single Line Text",
+      "2":  "Paragraph Text",
       "13": "File",
-      "3": "Drop Down",
-      "4": "Multi Select",
-      "5": "Number",
+      "3":  "Drop Down",
+      "4":  "Multi Select",
+      "5":  "Number",
       "6": {
         "6.1": "Checkboxes First Choice",
         "6.2": "Checkboxes Second Choice",
@@ -1220,8 +1220,8 @@ The response will contain a JSON object which contains the entry details. An exa
   ```json
   {
     "field_filters": [{
-      "key": 1,
-      "value": "Field Value",
+      "key":      1,
+      "value":    "Field Value",
       "operator": "contains"
     }]
   }
@@ -1256,8 +1256,6 @@ The response will contain a JSON object which contains the entry details. An exa
   **Usage**
   
     https://localhost/wp-json/gf/v2/forms/1/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true
-  
-
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -1442,7 +1440,7 @@ Request to *https://localhost/wp-json/gf/v2/forms/1/entries/70/fields/22.2*
 {
   "70": {
     "22.2": "$200.00"
-    }
+  }
 }
 ```
 
@@ -1462,32 +1460,32 @@ Gets form details, including entry details.
 {
   "entry_count": "60",
   "field_data": {
-    "1": 29,
-    "2": 7,
+    "1":  29,
+    "2":  7,
     "13": 12,
     "3": {
-      "Drop Down First Choice": 52,
+      "Drop Down First Choice":  52,
       "Drop Down Second Choice": 0,
-      "Drop Down Third Choice": 0
+      "Drop Down Third Choice":  0
     },
     "4": {
-      "Multi Select First Choice": 2,
+      "Multi Select First Choice":  2,
       "Multi Select Second Choice": 0,
-      "Multi Select Third Choice": 0
+      "Multi Select Third Choice":  0
     },
     "5": 2,
     "6": {
-      "Checkboxes First Choice": 2,
+      "Checkboxes First Choice":  2,
       "Checkboxes Second Choice": 0,
-      "Checkboxes Third Choice": 0
+      "Checkboxes Third Choice":  0
     },
     "7": {
-      "Radio Buttons First Choice": 0,
+      "Radio Buttons First Choice":  0,
       "Radio Buttons Second Choice": 0,
-      "Radio Buttons Third Choice": 0
+      "Radio Buttons Third Choice":  0
     },
-    "8": 0,
-    "9": 0,
+    "8":  0,
+    "9":  0,
     "10": 0,
     "14": 6,
     "15": 3,
@@ -1501,47 +1499,47 @@ Gets form details, including entry details.
     "23": 1,
     "24": 0
   },
-  "status": "complete",
+  "status":    "complete",
   "timestamp": 1480536695,
   "labels": {
-    "1": "Single Line Text",
-    "2": "Paragraph Text",
+    "1":  "Single Line Text",
+    "2":  "Paragraph Text",
     "13": "File",
     "3": {
       "label": "Drop Down",
       "choices": {
-        "Drop Down First Choice": "Drop Down First Choice",
+        "Drop Down First Choice":  "Drop Down First Choice",
         "Drop Down Second Choice": "Drop Down Second Choice",
-        "Drop Down Third Choice": "Drop Down Third Choice"
+        "Drop Down Third Choice":  "Drop Down Third Choice"
       }
     },
     "4": {
       "label": "Multi Select",
       "choices": {
-        "Multi Select First Choice": "Multi Select First Choice",
+        "Multi Select First Choice":  "Multi Select First Choice",
         "Multi Select Second Choice": "Multi Select Second Choice",
-        "Multi Select Third Choice": "Multi Select Third Choice"
+        "Multi Select Third Choice":  "Multi Select Third Choice"
       }
     },
     "5": "Number",
     "6": {
       "label": "Checkboxes",
       "choices": {
-        "Checkboxes First Choice": "Checkboxes First Choice",
+        "Checkboxes First Choice":  "Checkboxes First Choice",
         "Checkboxes Second Choice": "Checkboxes Second Choice",
-        "Checkboxes Third Choice": "Checkboxes Third Choice"
+        "Checkboxes Third Choice":  "Checkboxes Third Choice"
       }
     },
     "7": {
       "label": "Radio Buttons",
       "choices": {
-        "Radio Buttons First Choice": "Radio Buttons First Choice",
+        "Radio Buttons First Choice":  "Radio Buttons First Choice",
         "Radio Buttons Second Choice": "Radio Buttons Second Choice",
-        "Radio Buttons Third Choice": "Radio Buttons Third Choice"
+        "Radio Buttons Third Choice":  "Radio Buttons Third Choice"
       }
     },
-    "8": "Hidden Field",
-    "9": "HTML Block",
+    "8":  "Hidden Field",
+    "9":  "HTML Block",
     "10": "Section Break",
     "14": "List",
     "15": "Date",
@@ -1578,8 +1576,8 @@ Gets form details, including entry details.
   ```json
   {
     "field_filters": [{
-      "key": 1,
-      "value": "Field Value",
+      "key":      1,
+      "value":    "Field Value",
       "operator": "contains"
     }]
   }
@@ -1637,9 +1635,9 @@ Submits the specified form ID with the specified values.
 
 ```json
 {
-  "is_valid": true,
-  "page_number": 0,
-  "source_page_number": 1,
+  "is_valid":             true,
+  "page_number":          0,
+  "source_page_number":   1,
   "confirmation_message": "<div id='gform_confirmation_wrapper_6' class='gform_confirmation_wrapper '><div id='gform_confirmation_message_6' class='gform_confirmation_message_6 gform_confirmation_message'>Thanks for contacting us! We will get in touch with you shortly.<\/div><\/div>"
 }
 ```
@@ -1700,26 +1698,26 @@ The WP-API will envelope the response if the _envelope param is included in the 
 
 ```json
 {
-    "3": "Drop Down First Choice",
-    "created_by": "1",
-    "currency": "USD",
-    "date_created": "2016-10-10 18:06:12",
-    "form_id": "1",
-    "id": "1",
-    "ip": "127.0.0.1",
-    "is_fulfilled": null,
-    "is_read": 0,
-    "is_starred": 0,
-    "payment_amount": null,
-    "payment_date": null,
-    "payment_method": null,
-    "payment_status": null,
-    "post_id": null,
-    "source_url": "http://localhost?gf_page=preview&id=1",
-    "status": "active",
-    "transaction_id": null,
+    "3":                "Drop Down First Choice",
+    "created_by":       "1",
+    "currency":         "USD",
+    "date_created":     "2016-10-10 18:06:12",
+    "form_id":          "1",
+    "id":               "1",
+    "ip":               "127.0.0.1",
+    "is_fulfilled":     null,
+    "is_read":          0,
+    "is_starred":       0,
+    "payment_amount":   null,
+    "payment_date":     null,
+    "payment_method":   null,
+    "payment_status":   null,
+    "post_id":          null,
+    "source_url":       "http://localhost?gf_page=preview&id=1",
+    "status":           "active",
+    "transaction_id":   null,
     "transaction_type": null,
-    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+    "user_agent":       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
 }
 ```
 **Response with _envelope parameter:**
@@ -1727,26 +1725,26 @@ The WP-API will envelope the response if the _envelope param is included in the 
 ```json
 {
     "body": {
-        "3": "Drop Down First Choice",
-        "created_by": "1",
-        "currency": "USD",
-        "date_created": "2016-10-10 18:06:12",
-        "form_id": "1",
-        "id": "1",
-        "ip": "127.0.0.1",
-        "is_fulfilled": null,
-        "is_read": 0,
-        "is_starred": 0,
-        "payment_amount": null,
-        "payment_date": null,
-        "payment_method": null,
-        "payment_status": null,
-        "post_id": null,
-        "source_url": "http://localhost?gf_page=preview&id=1",
-        "status": "active",
-        "transaction_id": null,
+        "3":                "Drop Down First Choice",
+        "created_by":       "1",
+        "currency":         "USD",
+        "date_created":     "2016-10-10 18:06:12",
+        "form_id":          "1",
+        "id":               "1",
+        "ip":               "127.0.0.1",
+        "is_fulfilled":     null,
+        "is_read":          0,
+        "is_starred":       0,
+        "payment_amount":   null,
+        "payment_date":     null,
+        "payment_method":   null,
+        "payment_status":   null,
+        "post_id":          null,
+        "source_url":       "http://localhost?gf_page=preview&id=1",
+        "status":           "active",
+        "transaction_id":   null,
         "transaction_type": null,
-        "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
+        "user_agent":       "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36"
     },
     "headers": {
         "Allow": "GET, POST, PUT, PATCH, DELETE"
@@ -1769,10 +1767,10 @@ and source_page.
 
 ```json
 {
-    "input_1": "test",
-    "field_values" : "",
-    "source_page": 1,
-    "target_page": 0
+    "input_1":      "test",
+    "field_values": "",
+    "source_page":  1,
+    "target_page":  0
 }
 ```
 
