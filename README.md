@@ -110,44 +110,47 @@ The response will contain a JSON object which contains the entry details. An exa
 
 #### Optional Arguments
 
-  * **form_id** *[int]*  
-    Gets entries only from specific form IDs.
+* **form_id** *[int]*  
+  Gets entries only from specific form IDs.
     
-    * **Usage**  
-      Passing a single form ID:  
-      ```https://localhost/wp-json/gf/v2/entries?form_id=1```  
-      
-      Passing multiple form IDs (semicolon separated, URL encoded):  
-      ```https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4```
-    
-  * **entry_id** *[int]*  
-    Gets specific entries, based on the entry ID.
-    
-    * **Usage**  
-      Passing a single entry ID:  
-      ```https://localhost/wp-json/gf/v2/entries?entry_id=1```
-      
-      Passing multiple form IDs (semicolon separated, URL encoded):  
-      ```https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4```
-    
-  * **field_ids** *[int|string]*  
-  Gets only specific field IDs from the entries.
+  * **Usage**  
   
-    * **Usage**  
-      Passing a single field ID:  
-      ```https://localhost/wp-json/gf/v2/entries?field_id=1```
-    
-      Passing multiple field IDs (semicolon separated, URL encoded):  
-      ```https://localhost/wp-json/gf/v2/entries?field_ids=1%3B2%3B3%3B4```
+     * Passing a single form ID:  
+       ```https://localhost/wp-json/gf/v2/entries?form_id=1```
 
-  * **labels** *[int]*  
-    Enabled the inclusion of field labels in the results.  
+     * Passing multiple form IDs (semicolon separated, URL encoded):  
+       ```https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4```
     
-    * **Usage**  
-    ```https://localhost/wp-json/gf/v2/entries?labels=1```
+* **entry_id** *[int]*  
+  Gets specific entries, based on the entry ID.
     
-    * **Example Response**  
-      ```json
+  * **Usage**  
+  
+     * Passing a single entry ID:  
+       ```https://localhost/wp-json/gf/v2/entries?entry_id=1```
+    
+     * Passing multiple form IDs (semicolon separated, URL encoded):  
+       ```https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4```
+  
+* **field_ids** *[int|string]*  
+Gets only specific field IDs from the entries.
+
+  * **Usage**  
+  
+    Passing a single field ID:  
+    ```https://localhost/wp-json/gf/v2/entries?field_id=1```
+  
+    Passing multiple field IDs (semicolon separated, URL encoded):  
+    ```https://localhost/wp-json/gf/v2/entries?field_ids=1%3B2%3B3%3B4```
+
+* **labels** *[int]*  
+  Enabled the inclusion of field labels in the results.  
+   
+  * **Usage**  
+  ```https://localhost/wp-json/gf/v2/entries?labels=1```
+  
+  * **Example Response**  
+    ```json
       {
         "id":           "71",
         "form_id":      "1",
