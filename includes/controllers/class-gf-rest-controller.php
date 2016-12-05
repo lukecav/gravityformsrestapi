@@ -16,7 +16,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Endpoint namespace.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @var string
@@ -26,7 +26,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	/**
 	 * Route base.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @var string
@@ -35,7 +35,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 
 	/**
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -85,7 +85,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param $entry
@@ -114,7 +114,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param $value
@@ -130,7 +130,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param $entry
@@ -158,7 +158,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	 *
 	 * Returns an array of positive integers.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -188,7 +188,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param      $entry
@@ -218,7 +218,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param $value
@@ -234,7 +234,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param $wp_error
@@ -253,7 +253,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param $message

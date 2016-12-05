@@ -7,7 +7,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Contains an instance of this class, if available.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access private
 	 *
 	 * @var object $_instance If available, contains an instance of this class
@@ -17,7 +17,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Defines the version of the REST API add-on.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @var string $_version Contains the version, defined from restapi.php
@@ -27,7 +27,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Defines the minimum Gravity Forms version required.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @var string $_min_gravityforms_version The minimum version required.
@@ -37,7 +37,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Defines the plugin slug.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @var string $_slug The slug used for this plugin.
@@ -47,7 +47,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Defines the main plugin file.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @var string $_path The path to the main plugin file, relative to the plugins folder.
@@ -57,7 +57,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Defines the full path to this class file.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @var string $_full_path The full path.
@@ -66,7 +66,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Defines the URL where this add-on can be found.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @var string $_url The add-on URL.
@@ -94,7 +94,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * Returns an instance of this class, and stores it in the $_instance property.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @return GF_REST_API $_instance An instance of the GF_REST_API class
@@ -108,7 +108,7 @@ class GF_REST_API extends GFAddOn {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access private
 	 */
 	private function __clone() {
@@ -117,7 +117,7 @@ class GF_REST_API extends GFAddOn {
 	/**
 	 * GF_REST_API constructor.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 */
 	public function __construct() {
@@ -125,7 +125,7 @@ class GF_REST_API extends GFAddOn {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 */
 	public function register_rest_routes() {
