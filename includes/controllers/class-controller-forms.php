@@ -3,7 +3,7 @@
 class GF_REST_Forms_Controller extends GF_REST_Controller {
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @var string
@@ -13,7 +13,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Register the routes for the objects of the controller.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 */
 	public function register_routes() {
@@ -83,7 +83,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Get a collection of items.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -120,7 +120,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Get one item from the collection.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -144,7 +144,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Create one item from the collection.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -172,7 +172,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Update one item from the collection
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -196,7 +196,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Delete one item from the collection
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -218,7 +218,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Check if a given request has access to get items
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -229,16 +229,16 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 		/**
 		 * Filters the capability required to get forms via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_get_forms', 'gravityforms_edit_forms' );
+		$capability = apply_filters( 'gform_rest_api_capability_get_forms', 'gravityforms_edit_forms' );
 		return GFAPI::current_user_can_any( $capability );
 	}
 
 	/**
 	 * Check if a given request has access to get a specific item
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -249,16 +249,16 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 		/**
 		 * Filters the capability required to get forms via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_get_forms', 'gravityforms_edit_forms' );
+		$capability = apply_filters( 'gform_rest_api_capability_get_forms', 'gravityforms_edit_forms' );
 		return GFAPI::current_user_can_any( $capability );
 	}
 
 	/**
 	 * Check if a given request has access to create items
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -269,16 +269,16 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 		/**
 		 * Filters the capability required to create forms via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_post_forms', 'gravityforms_create_form' );
+		$capability = apply_filters( 'gform_rest_api_capability_post_forms', 'gravityforms_create_form' );
 		return GFAPI::current_user_can_any( $capability );
 	}
 
 	/**
 	 * Check if a given request has access to update a specific item.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -289,16 +289,16 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 		/**
 		 * Filters the capability required to update forms via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_put_forms', 'gravityforms_create_form' );
+		$capability = apply_filters( 'gform_rest_api_capability_put_forms', 'gravityforms_create_form' );
 		return GFAPI::current_user_can_any( $capability );
 	}
 
 	/**
 	 * Check if a given request has access to delete a specific item.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -309,9 +309,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 		/**
 		 * Filters the capability required to delete forms via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_delete_forms', 'gravityforms_delete_forms' );
+		$capability = apply_filters( 'gform_rest_api_capability_delete_forms', 'gravityforms_delete_forms' );
 		return GFAPI::current_user_can_any( $capability );
 	}
 
@@ -320,7 +320,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 *
 	 * The Form object must be sent as a JSON string in order to preserve boolean values.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object
@@ -346,7 +346,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Prepare the item for the REST response
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param mixed $item WordPress representation of the item.
@@ -363,7 +363,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	/**
 	 * Get the query params for collections
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @return array

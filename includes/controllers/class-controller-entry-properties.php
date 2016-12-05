@@ -3,7 +3,7 @@
 class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controller {
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @var string
@@ -13,7 +13,7 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	/**
 	 * Register the routes for the objects of the controller.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 */
 	public function register_routes() {
@@ -35,7 +35,7 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	/**
 	 * Update one item from the collection
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -75,7 +75,7 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	/**
 	 * Check if a given request has access to update a specific item
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -86,16 +86,16 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 		/**
 		 * Filters the capability required to update entries via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_put_entries', 'gravityforms_edit_entries' );
+		$capability = apply_filters( 'gform_rest_api_capability_put_entries', 'gravityforms_edit_entries' );
 		return GFAPI::current_user_can_any( $capability );
 	}
 
 	/**
 	 * Prepare the item for create or update operation
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object
@@ -114,7 +114,7 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	/**
 	 * Get the query params for collections
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @return array
@@ -126,7 +126,7 @@ class GF_REST_Entry_Properties_Controller extends GF_REST_Form_Entries_Controlle
 	/**
 	 * Get the Entry Property schema, conforming to JSON Schema.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @return array

@@ -3,7 +3,7 @@
 class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @var string
@@ -13,7 +13,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Register the routes for the objects of the controller.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 */
 	public function register_routes() {
@@ -49,7 +49,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Get a collection of entries
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -123,7 +123,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Create one item from the collection
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -153,7 +153,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Check if a given request has access to get items
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -165,9 +165,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 		/**
 		 * Filters the capability required to get entries via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_get_entries', 'gravityforms_view_entries', $request );
+		$capability = apply_filters( 'gform_rest_api_capability_get_entries', 'gravityforms_view_entries', $request );
 
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -175,7 +175,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Check if a given request has access to create items
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -187,9 +187,9 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 		/**
 		 * Filters the capability required to create entries via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_post_entries', 'gravityforms_edit_entries' );
+		$capability = apply_filters( 'gform_rest_api_capability_post_entries', 'gravityforms_edit_entries' );
 
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -197,7 +197,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Prepare the item for create or update operation
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object
@@ -219,7 +219,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Get the query params for collections
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @return array
@@ -248,7 +248,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	/**
 	 * Get the Entry schema, conforming to JSON Schema.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @return array
@@ -351,7 +351,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @param       $form
@@ -416,7 +416,7 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 	}
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access private
 	 *
 	 * @param $form
