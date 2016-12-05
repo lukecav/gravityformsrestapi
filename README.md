@@ -112,7 +112,9 @@ The response will contain a JSON object which contains the entry details. An exa
 
 * **form_id** *[int]*  
     Gets entries only from specific form IDs.  
+    
     * **Usage**  
+    
         * Passing a single form ID:  
         ``https://localhost/wp-json/gf/v2/entries?form_id=1``  
 
