@@ -633,16 +633,15 @@ Deletes an entry based on the specified entry ID.
 
 * **Success** *[string]*  
   "Entry deleted successfully"
-    
 * **Failure** *[json]*  
   ```json
-    {
-      "code":    "gf_cannot_delete",
-      "message": "Invalid entry id: 71",
-      "data":    {
-        "status": 500
-      }
+  {
+    "code":    "gf_cannot_delete",
+    "message": "Invalid entry id: 71",
+    "data":    {
+      "status": 500
     }
+  }
   ```
 
 ------------------------------------------------------------------------------------------------------------------------
