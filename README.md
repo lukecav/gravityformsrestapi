@@ -645,8 +645,9 @@ Deletes an entry based on the specified entry ID.
     }
     ```
 
+
 ------------------------------------------------------------------------------------------------------------------------
-    
+
 ### GET /entries/[ENTRY_ID]/fields/[FIELD_ID]
 
 Gets a specific field from an entry.
