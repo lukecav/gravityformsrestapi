@@ -110,15 +110,18 @@ The response will contain a JSON object which contains the entry details. An exa
 
 #### Optional Arguments
 
-* **form_id** *[int]*  
+* **form_id** *[int]*
+
     Gets entries only from specific form IDs.  
     
-    * **Usage**  
+    * **Usage**
     
-        * Passing a single form ID:  
+        * Passing a single form ID:
+        
                 https://localhost/wp-json/gf/v2/entries?form_id=1
 
-        * Passing multiple form IDs (semicolon separated, URL encoded):  
+        * Passing multiple form IDs (semicolon separated, URL encoded):
+          
                 https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4
     
 * **entry_id** *[int]*  
