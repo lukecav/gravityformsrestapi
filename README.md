@@ -112,6 +112,7 @@ The response will contain a JSON object which contains the entry details. An exa
 
   * **form_id** *[int]*  
     Gets entries only from specific form IDs.
+    
     * **Usage**  
       Passing a single form ID:  
       ```https://localhost/wp-json/gf/v2/entries?form_id=1```  
@@ -121,6 +122,7 @@ The response will contain a JSON object which contains the entry details. An exa
     
   * **entry_id** *[int]*  
     Gets specific entries, based on the entry ID.
+    
     * **Usage**  
       Passing a single entry ID:  
       ```https://localhost/wp-json/gf/v2/entries?entry_id=1```
@@ -130,8 +132,9 @@ The response will contain a JSON object which contains the entry details. An exa
     
   * **field_ids** *[int|string]*  
   Gets only specific field IDs from the entries.
+  
     * **Usage**  
-      Passing a single field ID:
+      Passing a single field ID:  
       ```https://localhost/wp-json/gf/v2/entries?field_id=1```
     
       Passing multiple field IDs (semicolon separated, URL encoded):  
@@ -139,6 +142,7 @@ The response will contain a JSON object which contains the entry details. An exa
 
   * **labels** *[int]*  
     Enabled the inclusion of field labels in the results.  
+    
     * **Usage**  
     ```https://localhost/wp-json/gf/v2/entries?labels=1```
     
