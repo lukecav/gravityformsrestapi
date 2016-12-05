@@ -1,7 +1,9 @@
 ---------------------------------------------------------------------
 Version 2.0-beta-1.1
-    - Fixed an issue with PUT /entries/[ID]
     - Added support for optional labels to the GET /entries endpoint.
+    - Added support for entry trashing. Entries can only be deleted by sending the force param.
+    - Changed DELETE /entries to return the deleted entry.
+    - Fixed an issue with PUT /entries/[ID].
     - Removed the PUT /entries endpoint. Use PUT /entries/[ID] instead.
     - Removed authentication. Use WordPress REST API authentication instead.
 
