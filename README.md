@@ -635,7 +635,7 @@ Deletes an entry based on the specified entry ID.
   "Entry deleted successfully"
     
 * **Failure** *[json]*  
-    ```json
+  ```json
     {
       "code":    "gf_cannot_delete",
       "message": "Invalid entry id: 71",
@@ -643,8 +643,7 @@ Deletes an entry based on the specified entry ID.
         "status": 500
       }
     }
-    ```
-
+  ```
 
 ------------------------------------------------------------------------------------------------------------------------
 
