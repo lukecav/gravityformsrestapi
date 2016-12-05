@@ -201,6 +201,11 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 	}
 
 	function test_delete_entry() {
+
+		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/entries/99999999' );
+		$response = $this->server->dispatch( $request );
+		$result = $response->get_data();
+
 		$this->_create_entries();
 
 		$entries = GFAPI::get_entries( 0 );
@@ -211,6 +216,26 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/entries/' . $entry_id );
 		$response = $this->server->dispatch( $request );
 		$result = $response->get_data();
+
+		$verify_entry = GFAPI::get_entry( $entry_id );
+
+		$this->assertEquals( 'trash', $verify_entry['status'] );
+
+		// Repeating delete results in error
+
+		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/entries/' . $entry_id );
+		$response = $this->server->dispatch( $request );
+		$status = $response->get_status();
+
+		$verify_entry = GFAPI::get_entry( $entry_id );
+
+		$this->assertEquals( 'trash', $verify_entry['status'] );
+		$this->assertEquals( 410, $status ); // 410 = gone
+
+		// Test force delete
+		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/entries/' . $entry_id );
+		$request->set_query_params( array( 'force' => 1 ) );
+		$response = $this->server->dispatch( $request );
 
 		$verify_entry = GFAPI::get_entry( $entry_id );
 

@@ -3,7 +3,7 @@
 class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 	/**
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @var string
@@ -13,7 +13,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Register the routes for the objects of the controller.
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 */
 	public function register_routes() {
@@ -81,7 +81,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Get a collection of entries
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -95,7 +95,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Get one item from the collection
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -131,7 +131,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Create one item from the collection
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -145,7 +145,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Update one item from the collection
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -170,7 +170,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Delete one item from the collection
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -179,20 +179,40 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 */
 	public function delete_item( $request ) {
 		$entry_id = $request['entry_id'];
-		$data = GFAPI::delete_entry( $entry_id );
 
-		if ( is_wp_error( $data ) ) {
-			$message = $data->get_error_message();
-			return new WP_Error( 'gf_cannot_delete', $message, array( 'status' => 500 ) );
+		$entry = GFAPI::get_entry( $entry_id );
+		if ( is_wp_error( $entry ) ) {
+			return new WP_Error( 'gf_entry_invalid_id', __( 'Invalid entry id.', 'gravityforms' ), array( 'status' => 404 ) );
 		}
 
-		return new WP_REST_Response( __( 'Entry deleted successfully', 'gravityforms' ), 200 );
+		$force = isset( $request['force'] ) ? (bool) $request['force'] : false;
+
+		if ( $force ) {
+			$result = GFAPI::delete_entry( $entry_id );
+
+			if ( is_wp_error( $result ) ) {
+				$message = $result->get_error_message();
+				return new WP_Error( 'gf_cannot_delete', $message, array( 'status' => 500 ) );
+			}
+		} else {
+			if ( rgar( $entry, 'status' ) == 'trash' ) {
+				$message = __( 'The entry has already been deleted.', 'gravityforms' );
+				return new WP_Error( 'gf_already_trashed', $message, array( 'status' => 410 ) );
+			}
+
+			// Trash the entry
+			GFAPI::update_entry_property( $entry_id, 'status', 'trash' );
+		}
+
+		$response = rest_ensure_response( $entry );
+
+		return $response;
 	}
 
 	/**
 	 * Check if a given request has access to get items
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -204,9 +224,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 		/**
 		 * Filters the capability required to get entries via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_get_entries', 'gravityforms_view_entries', $request );
+		$capability = apply_filters( 'gform_rest_api_capability_get_entries', 'gravityforms_view_entries', $request );
 
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -214,7 +234,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Check if a given request has access to get a specific item
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -228,7 +248,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Check if a given request has access to create items
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -240,9 +260,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 		/**
 		 * Filters the capability required to create entries via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_post_entries', 'gravityforms_edit_entries' );
+		$capability = apply_filters( 'gform_rest_api_capability_post_entries', 'gravityforms_edit_entries' );
 
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -250,7 +270,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Check if a given request has access to update a specific item
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -262,9 +282,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 		/**
 		 * Filters the capability required to update entries via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_put_entries', 'gravityforms_edit_entries' );
+		$capability = apply_filters( 'gform_rest_api_capability_put_entries', 'gravityforms_edit_entries' );
 
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -272,7 +292,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Check if a given request has access to delete a specific item
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
@@ -284,9 +304,9 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 		/**
 		 * Filters the capability required to delete entries via the REST API.
 		 *
-		 * @since 1.9.2
+		 * @since 2.0-beta-2
 		 */
-		$capability = apply_filters( 'gform_web_api_capability_delete_entries', 'gravityforms_delete_entries' );
+		$capability = apply_filters( 'gform_rest_api_capability_delete_entries', 'gravityforms_delete_entries' );
 
 		return GFAPI::current_user_can_any( $capability );
 	}
@@ -294,7 +314,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Prepare the item for create or update operation
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access protected
 	 *
 	 * @param WP_REST_Request $request Request object
@@ -319,7 +339,7 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	/**
 	 * Prepare the item for the REST response
 	 *
-	 * @since  1.0-beta-1
+	 * @since  2.0-beta-1
 	 * @access public
 	 *
 	 * @param mixed           $item    WordPress representation of the item.
