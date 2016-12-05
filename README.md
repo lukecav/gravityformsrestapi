@@ -433,9 +433,10 @@ The response will contain a JSON object which contains the entry details. An exa
   * **field_ids** *[int|string]*  
     Gets only specific field IDs from the entries.
   
-  * **Usage**  
+  * **Usage**
+    
     * Passing a single field ID:  
-      ```https://localhost/wp-json/gf/v2/entries/5?field_id=1```
+      ``https://localhost/wp-json/gf/v2/entries/5?field_id=1``
     
     * Passing multiple field IDs (semicolon separated, URL encoded):  
       ```https://localhost/wp-json/gf/v2/entries/5?field_ids=1%3B2%3B3%3B4```
