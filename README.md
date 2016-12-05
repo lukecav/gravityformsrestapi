@@ -110,152 +110,127 @@ The response will contain a JSON object which contains the entry details. An exa
 
 #### Optional Arguments
 
-  ##### form_id *[int]*
-  
-  Gets entries only from specific form IDs.
-  
-  **Usage**
-  
-  Passing a single form ID:
-  
-    https://localhost/wp-json/gf/v2/entries?form_id=1
-    
-  Passing multiple form IDs (semicolon separated, URL encoded):  
-  Before encoding: *form_id=1;2;3;4*
-  
-    https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4
-    
-  ##### entry_id *[int]*
-  
-  Gets specific entries, based on the entry ID.
-  
-  **Usage**
-  
-  Passing a single entry ID:
-  
-    https://localhost/wp-json/gf/v2/entries?entry_id=1
-    
-  Passing multiple form IDs (semicolon separated, URL encoded):  
-  Before encoding: *entry_id=1;2;3;4*
+  * **form_id** *[int]*  
+    Gets entries only from specific form IDs.
+    * **Usage**  
+      Passing a single form ID:  
+      ```https://localhost/wp-json/gf/v2/entries?form_id=1```  
       
-    https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4
+      Passing multiple form IDs (semicolon separated, URL encoded):  
+      ```https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4```
     
-  ##### field_ids *[int|string]*
-  
+  * **entry_id** *[int]*  
+    Gets specific entries, based on the entry ID.
+    * **Usage**  
+      Passing a single entry ID:  
+      ```https://localhost/wp-json/gf/v2/entries?entry_id=1```
+      
+      Passing multiple form IDs (semicolon separated, URL encoded):  
+      ```https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4```
+    
+  * **field_ids** *[int|string]*  
   Gets only specific field IDs from the entries.
-  
-  **Usage**
-  
-  Passing a single field ID:
-  
-    https://localhost/wp-json/gf/v2/entries?field_id=1
+    * **Usage**  
+      Passing a single field ID:
+      ```https://localhost/wp-json/gf/v2/entries?field_id=1```
     
-  Passing multiple field IDs (semicolon separated, URL encoded):  
-  Before encoding: *field_ids=1;2;3;4*
-  
-    https://localhost/wp-json/gf/v2/entries?field_ids=1%3B2%3B3%3B4
+      Passing multiple field IDs (semicolon separated, URL encoded):  
+      ```https://localhost/wp-json/gf/v2/entries?field_ids=1%3B2%3B3%3B4```
 
-  ##### labels *[int]*
-
-  Whether to include the labels.
-  
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/entries?labels=1
+  * **labels** *[int]*  
+    Enabled the inclusion of field labels in the results.  
+    * **Usage**  
+    ```https://localhost/wp-json/gf/v2/entries?labels=1```
     
-  **Example Response**
-  
-  ```json
-  {
-    "id":           "71",
-    "form_id":      "1",
-    "date_created": "2016-11-28 18:12:17",
-    "is_starred":   0,
-    "is_read":      0,
-    "ip":           "127.0.0.1",
-    "source_url":   "http:\/\/localhost\/pagename",
-    "post_id":      null,
-    "created_by":   "2",
-    "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-    "status":       "active",
-    "1":            "",
-    "2":            "",
-    "3":            "",
-    "4":            "",
-    "5":            "",
-    "6.1":          "",
-    "6.2":          "",
-    "6.3":          "",
-    "labels": {
-      "1":  "Single Line Text",
-      "2":  "Paragraph Text",
-      "13": "File",
-      "3":  "Drop Down",
-      "4":  "Multi Select",
-      "5":  "Number",
-      "6": {
-        "6.1": "Checkboxes First Choice",
-        "6.2": "Checkboxes Second Choice",
-        "6.3": "Checkboxes Third Choice"
+    * **Example Response**  
+      ```json
+      {
+        "id":           "71",
+        "form_id":      "1",
+        "date_created": "2016-11-28 18:12:17",
+        "is_starred":   0,
+        "is_read":      0,
+        "ip":           "127.0.0.1",
+        "source_url":   "http:\/\/localhost\/pagename",
+        "post_id":      null,
+        "created_by":   "2",
+        "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+        "status":       "active",
+        "1":            "",
+        "2":            "",
+        "3":            "",
+        "4":            "",
+        "5":            "",
+        "6.1":          "",
+        "6.2":          "",
+        "6.3":          "",
+        "labels": {
+          "1":  "Single Line Text",
+          "2":  "Paragraph Text",
+          "13": "File",
+          "3":  "Drop Down",
+          "4":  "Multi Select",
+          "5":  "Number",
+          "6": {
+            "6.1": "Checkboxes First Choice",
+            "6.2": "Checkboxes Second Choice",
+            "6.3": "Checkboxes Third Choice"
+          }
+        }
       }
-    }
-  }
-  ```
+      ```
 
-  ##### search *[json]*
+  * **search** *[json]*  
+    The search criteria.  
+    
+    * **Properties**
+      * **field_filters** *[array]*  
+        An array of filters to search by.
+      * **key** *[int|float]*  
+        The field ID.
+      * **value**  *[string]*  
+        The value to search for.
+      * **operator** *[string]*  
+        The comparison operator to use.
+  
+    * **Usage**
+      ```json
+      {
+        "field_filters": [{
+          "key":      1,
+          "value":    "Field Value",
+          "operator": "contains"
+        }]
+      }
+      ```
 
-  The search criteria.
-  
-  **Usage**
-  
-  * **field_filters** *array*  
-    An array of filters to search by.
-    * **key** *int|float*  
-    The field ID.
-    * **value**  *string*  
-    The value to search for.
-    * **operator** *string*  
-    The comparison operator to use.
-  
-  ```json
-  {
-    "field_filters": [{
-      "key":      1,
-      "value":    "Field Value",
-      "operator": "contains"
-    }]
-  }
-  ```
+  * **paging** *[array]*
+    The paging criteria.
+    
+    * **Properties**
+      * **page_size** *[int]*  
+        The number of results per page.
+      * **current_page** *[int]*  
+        The current page to pull details from.
+      * **offset** *[int]*  
+        The offset to begin with.
+        
+    * **Usage**  
+      ```https://localhost/wp-json/gf/v2/entries?paging[page_size]=20&paging[current_page]=2&paging[offset]=30```
 
-  ##### paging *[array]*
-
-  The paging criteria.
+  * **sorting** *[array]*  
+    The sorting criteria.
   
-  * **page_size** *int*  
-    The number of results per page.
-  * **current_page** *int*  
-    The current page to pull details from.
-  * **offset** *int*  
-    The offset to begin with.
+    * **Properties**
+      * **key** *[string|int]*    
+        The key to sort by.
+      * **direction** *[string]*  
+        The direction. Either *ASC* or *DESC*.
+      * **is_numeric** *[bool]*  
+        If the key is numeric.
   
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/entries?paging[page_size]=20&paging[current_page]=2&paging[offset]=30
-
-  ##### sorting *[array]*
-
-  The sorting criteria.
-  
-  * **key** *string|int*  
-    The key to sort by.
-  * **direction** *string*  
-    The direction. Either *ASC* or *DESC*.
-  * **is_numeric** *bool*  
-    If the key is numeric.
-  
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true
+    * **Usage**  
+      ```https://localhost/wp-json/gf/v2/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true```
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -268,169 +243,146 @@ Creates an entry.
     https://localhost/wp-json/gf/v2/entries
     
 #### Response *[int]*
-
 When creating an entry, the response body will contain the created entry ID.
 
-**Example Response**
-
-    59
+**Example Response**  
+```59```
     
 #### Required Arguments
 
-  ##### form_id *[int]*  
-  The Form ID for the entry.
+  * **form_id** *[int]*  
+    The Form ID for the entry.
   
-  **Example**  
-  
-  Associates the entry with form ID *1*.
-  
-    form_id=1
+    * **Example**  
+      Associates the entry with form ID *1*.  
+      ```form_id=1```
 
 #### Optional Arguments
 
-  ##### created_by *[string]*
-  The user ID of the entry submitter.
+  * **created_by** *[string]*  
+    The user ID of the entry submitter.
   
-  **Example**
-  
-  Sets the entry submitter as the user with user ID *1*.
-  
-    created_by=1
+    * **Example**
+      Sets the entry submitter as the user with user ID *1*.  
+      ```created_by=1```
 
-  ##### date_created *[string]*
-  The date the entry was created, in UTC.
+  * **date_created** *[string]*
+    The date the entry was created, in UTC.
   
-  **Example**
-  
-  Sets the date created as *2016-11-28 18:12:17*.
-  
-    date_created=2016-11-28+18%3A12%3A17
+    * **Example**  
+      Sets the date created as *2016-11-28 18:12:17*.  
+      ```date_created=2016-11-28+18%3A12%3A17```
 
-  ##### ip *[string]*
-  The IP address of the entry creator.
+  * **ip** *[string]*  
+    The IP address of the entry creator.
   
-  **Example**
-  
-  Sets the entry IP as *127.0.0.1*.
-  
-    ip=127.0.0.1
+    **Example**
+    Sets the entry IP as *127.0.0.1*.  
+    ```ip=127.0.0.1```
 
-  ##### is_fulfilled *[bool]*
-  Whether the transaction has been fulfilled, if applicable.
+  * **is_fulfilled** *[bool]*  
+    Whether the transaction has been fulfilled, if applicable.
   
-  **Example**
-  
-  Sets the entry as fulfilled.
-  
-    is_fulfilled=1
+    **Example**  
+    Sets the entry as fulfilled.  
+    ```is_fulfilled=1```
 
-  ##### is_read *[bool]*
-  Whether the entry has been read.
+  * **is_read** *[bool]*  
+    Whether the entry has been read.
   
-  **Example**
+    **Example**  
+    Marks the entry as read.  
+    ```is_read=1```
+
+  * **is_starred** *[bool]*
+    Whether the entry is starred.
   
-  Marks the entry as read.
+    **Example**  
+    Stars the entry.  
+    ```is_starred=1```
+
+  * **source_url** *[string]*
+    The URL where the form was embedded.
     
-    is_read=1
+    * **Examples**
+      * Set the source URL as *http://localhost/pagename*:  
+      ```source_url=http%3A%2F%2Flocalhost%2Fpagename```
 
-  ##### is_starred *[bool]*
-  Whether the entry is starred.
+  * **status** *[string]*
+    The status of the entry.
   
-  **Example**
-  
-  Stars the entry.
-      
-    is_starred=1
+    * **Examples**
+      * Sets the status to *active*:  
+        ```status=active```
 
-  ##### source_url *[string]*
-  The URL where the form was embedded.
-  
-  **Example**
-  
-  Sets the source URL as *http://localhost/pagename*.
-  
-    source_url=http%3A%2F%2Flocalhost%2Fpagename
-
-  ##### status *[string]*
-  The status of the entry.
-  
-  **Example**
-  
-  Sets the status to *active*.
+  * **user_agent** *[string]*
+    The user agent string for the browser used to submit the entry.
     
-    status=active
-
-  ##### user_agent *[string]*
-  The user agent string for the browser used to submit the entry.
-  
-  **Example**
-  
-  Sets the user agent as:  
-  *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*
-  
-    user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36
+    **Examples**  
+    * Sets the user agent as *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*
+      ```user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36```
 
 #### Payment Arguments
 
-  ##### payment_amount *[int]*
-
+  * **payment_amount** *[int]*  
   The amount of the payment, if applicable.
   
-  **Example**
-  
-  Sets the payment amount of *$2500*.
-  
-    payment_amount=2500
-
-  ##### payment_date *[string]*
-
-  The date of the payment, if applicable.
-  
-  **Example**
-  
-  Sets the payment date as *2016-11-28 18:12:17*.
-    
-    payment_date=2016-11-28+18%3A12%3A17
-
-  ##### payment_method *[string]*
-
-  The payment method for the payment, if applicable.
-  
-  **Example**
-    
-  Sets the payment method as *Stripe*.
+    * **Limitations**  
+      Only applies when payment fields are present.
       
-    payment_method=Stripe
+    * **Examples**  
+      Sets the payment amount of *$2500*.  
+      ```payment_amount=2500```
 
-  ##### payment_status *[string]*
-
-  The status of the payment, if applicable.
-  
-  **Example**
+  * **payment_date** *[string]*  
+    The date of the payment, if applicable.
     
-  Sets the payment status as *Paid*.
-      
-    payment_status=Paid
+    * **Limitations**  
+          Only applies when payment fields are present.
+    
+    * **Example**
+      Sets the payment date as *2016-11-28 18:12:17*.  
+      ```payment_date=2016-11-28+18%3A12%3A17```
 
-  ##### transaction_id *[string]*
-
-  The transaction ID for the payment, if applicable.
+  * **payment_method** *[string]*  
+    The payment method for the payment, if applicable.
   
-  **Example**
-      
-  Sets the transaction ID as *1234*.
-        
-    transaction_id=1234
-
-  ##### transaction_type *[string]*
-
-  The type of the transaction, if applicable.
+    * **Limitations**  
+      Only applies when payment fields are present.
   
-  **Example**
-        
-  Sets the *Subscription* transaction type.
-          
-    transaction_type=Subscription
+    * **Example**
+      Sets the payment method as *Stripe*.
+      ```payment_method=Stripe```
+
+  * **payment_status** *[string]*  
+    The status of the payment, if applicable.
+    
+    * **Limitations**  
+      Only applies when payment fields are present.
+      
+    * **Example**
+      Sets the payment status as *Paid*.
+      ```payment_status=Paid```
+
+  * **transaction_id** *[string]*
+    The transaction ID for the payment, if applicable.
+  
+    * **Limitations**  
+      Only applies when payment fields are present.
+      
+    * **Example**  
+      Sets the transaction ID as *1234*.  
+    ```transaction_id=1234```
+
+  * **transaction_type** *[string]*
+    The type of the transaction, if applicable.
+  
+    * **Limitations**  
+      Only applies when payment fields are present.
+  
+    * **Example**
+      Sets the *Subscription* transaction type.  
+      ```transaction_type=Subscription```
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -440,71 +392,18 @@ Gets an entry based on the entry ID.
 
 #### Path
 
-Single entry:
+* **Single entry**  
+  ```https://localhost/wp-json/gf/v2/entries/1```
     
-    https://localhost/wp-json/gf/v2/entries/1
-    
-Multiple entries (semicolon separated):
-
-    https://localhost/wp-json/gf/v2/entries/1;2;3;4
+* **Multiple entries (semicolon separated)**  
+  ```https://localhost/wp-json/gf/v2/entries/1;2;3;4```
     
 #### Response *[json]*
 
 The response will contain a JSON object which contains the entry details. An example can be found below:
 
-**Example Response**
+* **Example**
 
-```json
-{
-  "id":           "71",
-  "form_id":      "1",
-  "date_created": "2016-11-28 18:12:17",
-  "is_starred":   0,
-  "is_read":      0,
-  "ip":           "127.0.0.1",
-  "source_url":   "http:\/\/localhost\/pagename",
-  "post_id":      null,
-  "created_by":   "2",
-  "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-  "status":       "active",
-  "1":            "",
-  "2":            "",
-  "3":            "",
-  "4":            "",
-  "5":            "",
-  "6.1":          "",
-  "6.2":          "",
-  "6.3":          ""
-}
-```
-
-#### Optional Arguments
-
-  ##### field_ids *[int|string]*
-  
-  Gets only specific field IDs from the entries.
-  
-  **Usage**
-  
-  Passing a single field ID:
-  
-    https://localhost/wp-json/gf/v2/entries/5?field_id=1
-    
-  Passing multiple field IDs (semicolon separated, URL encoded):  
-  Before encoding: *field_ids=1;2;3;4*
-  
-    https://localhost/wp-json/gf/v2/entries/5?field_ids=1%3B2%3B3%3B4
-
-  ##### labels *[int]*
-
-  Whether to include the labels.
-  
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/entries/5?labels=1
-    
-  **Example Response**
-  
   ```json
   {
     "id":           "71",
@@ -525,22 +424,66 @@ The response will contain a JSON object which contains the entry details. An exa
     "5":            "",
     "6.1":          "",
     "6.2":          "",
-    "6.3":          "",
-    "labels": {
-      "1":  "Single Line Text",
-      "2":  "Paragraph Text",
-      "13": "File",
-      "3":  "Drop Down",
-      "4":  "Multi Select",
-      "5":  "Number",
-      "6": {
-        "6.1": "Checkboxes First Choice",
-        "6.2": "Checkboxes Second Choice",
-        "6.3": "Checkboxes Third Choice"
-      }
-    }
+    "6.3":          ""
   }
   ```
+
+#### Optional Arguments
+
+  * **field_ids** *[int|string]*  
+    Gets only specific field IDs from the entries.
+  
+  * **Usage**  
+    * Passing a single field ID:  
+      ```https://localhost/wp-json/gf/v2/entries/5?field_id=1```
+    
+    * Passing multiple field IDs (semicolon separated, URL encoded):  
+      ```https://localhost/wp-json/gf/v2/entries/5?field_ids=1%3B2%3B3%3B4```
+
+  * **labels** *[int]*
+    Whether to include the labels.
+  
+    * **Usage**  
+      ```https://localhost/wp-json/gf/v2/entries/5?labels=1```
+    
+    * **Example Response**
+  
+        ```json
+        {
+         "id":           "71",
+         "form_id":      "1",
+         "date_created": "2016-11-28 18:12:17",
+         "is_starred":   0,
+         "is_read":      0,
+         "ip":           "127.0.0.1",
+         "source_url":   "http:\/\/localhost\/pagename",
+         "post_id":      null,
+         "created_by":   "2",
+         "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+         "status":       "active",
+         "1":            "",
+         "2":            "",
+         "3":            "",
+         "4":            "",
+         "5":            "",
+         "6.1":          "",
+         "6.2":          "",
+         "6.3":          "",
+         "labels": {
+           "1":  "Single Line Text",
+           "2":  "Paragraph Text",
+           "13": "File",
+           "3":  "Drop Down",
+           "4":  "Multi Select",
+           "5":  "Number",
+           "6": {
+             "6.1": "Checkboxes First Choice",
+             "6.2": "Checkboxes Second Choice",
+             "6.3": "Checkboxes Third Choice"
+           }
+         }
+       }
+       ```
 
 ------------------------------------------------------------------------------------------------------------------------
   
@@ -549,165 +492,124 @@ The response will contain a JSON object which contains the entry details. An exa
 Updates an entry based on the specified entry ID.
 
 #### Path
-
-    https://localhost/wp-json/gf/v2/entries/1
+```https://localhost/wp-json/gf/v2/entries/1```
     
 #### Required Arguments
 
-  ##### id *[int]*
+  * **id** *[int]*
   The entry ID to modify.
   
-  **Example**
-    
-  Sets the entry ID to be updated as *1*.
-    
-    id=1
+    * **Example**
+      Sets the entry ID to be updated as *1*.  
+      ```id=1```
     
 #### Optional Arguments
 
-  ##### created_by *[string]*
+  * **created_by** *[string]*
   The user ID of the entry submitter.
   
-  **Example**
-  
-  Sets the entry submitter as the user with user ID *1*.
-  
-    created_by=1
+    * **Example**  
+      Sets the entry submitter as the user with user ID *1*.  
+    ```created_by=1```
 
-  ##### date_created *[string]*
-  The date the entry was created, in UTC.
-  
-  **Example**
-  
-  Sets the date created as *2016-11-28 18:12:17*.
-  
-    date_created=2016-11-28+18%3A12%3A17
+    * **date_created** *[string]*  
+      The date the entry was created, in UTC.  
+      * **Example**  
+        Sets the date created as *2016-11-28 18:12:17*.  
+        ```date_created=2016-11-28+18%3A12%3A17```
 
-  ##### ip *[string]*
-  The IP address of the entry creator.
-  
-  **Example**
-  
-  Sets the entry IP as *127.0.0.1*.
-  
-    ip=127.0.0.1
-
-  ##### is_fulfilled *[bool]*
-  Whether the transaction has been fulfilled, if applicable.
-  
-  **Example**
-  
-  Sets the entry as fulfilled.
-  
-    is_fulfilled=1
-
-  ##### is_read *[bool]*
-  Whether the entry has been read.
-  
-  **Example**
-  
-  Marks the entry as read.
-    
-    is_read=1
-
-  ##### is_starred *[bool]*
-  Whether the entry is starred.
-  
-  **Example**
-  
-  Stars the entry.
+    * **ip** *[string]*  
+      The IP address of the entry creator.  
       
-    is_starred=1
+      * **Example**  
+        Sets the entry IP as *127.0.0.1*.  
+        ```ip=127.0.0.1```
 
-  ##### source_url *[string]*
-  The URL where the form was embedded.
+    * **is_fulfilled** *[bool]*  
+      Whether the transaction has been fulfilled, if applicable.  
   
-  **Example**
-  
-  Sets the source URL as *http://localhost/pagename*.
-  
-    source_url=http%3A%2F%2Flocalhost%2Fpagename
+      * **Example**  
+        Sets the entry as fulfilled.  
+        ```is_fulfilled=1```
 
-  ##### status *[string]*
-  The status of the entry.
+    * **is_read** *[bool]*  
+      Whether the entry has been read.  
   
-  **Example**
-  
-  Sets the status to *active*.
-    
-    status=active
+      * **Example**
+        Marks the entry as read.  
+        ```is_read=1```  
 
-  ##### user_agent *[string]*
-  The user agent string for the browser used to submit the entry.
+      * **is_starred** *[bool]*  
+        Whether the entry is starred.  
   
-  **Example**
+        * **Example**  
+          Stars the entry.  
+          ```is_starred=1```  
+
+      * **source_url** *[string]*  
+        The URL where the form was embedded.  
   
-  Sets the user agent as:  
-  *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*
+        * **Example**  
+          Sets the source URL as *http://localhost/pagename*.  
+          ```source_url=http%3A%2F%2Flocalhost%2Fpagename```  
+
+      * **status** *[string]*  
+        The status of the entry.  
   
-    user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36
+        * **Example**  
+          Sets the status to *active*.  
+          ```status=active```
+
+      * **user_agent** *[string]*  
+        The user agent string for the browser used to submit the entry.  
+  
+        * **Example**
+          Sets the user agent as *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*  
+          ```user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36```
 
 #### Payment Arguments
 
-  ##### payment_amount *[int]*
-
-  The amount of the payment, if applicable.
-  
-  **Example**
-  
-  Sets the payment amount of *$2500*.
-  
-    payment_amount=2500
-
-  ##### payment_date *[string]*
-
-  The date of the payment, if applicable.
-  
-  **Example**
-  
-  Sets the payment date as *2016-11-28 18:12:17*.
+  * **payment_amount** *[int]*  
+    The amount of the payment, if applicable.  
     
-    payment_date=2016-11-28+18%3A12%3A17
+    * **Example**  
+      Sets the payment amount of *$2500*.  
+      ```payment_amount=2500```
 
-  ##### payment_method *[string]*
-
-  The payment method for the payment, if applicable.
-  
-  **Example**
+  * **payment_date** *[string]*
+    The date of the payment, if applicable.  
     
-  Sets the payment method as *Stripe*.
-      
-    payment_method=Stripe
+    * **Example**  
+      Sets the payment date as *2016-11-28 18:12:17*.  
+      ```payment_date=2016-11-28+18%3A12%3A17```  
 
-  ##### payment_status *[string]*
-
-  The status of the payment, if applicable.
-  
-  **Example**
+  * **payment_method** *[string]*  
+    The payment method for the payment, if applicable.  
     
-  Sets the payment status as *Paid*.
-      
-    payment_status=Paid
+    * **Example**
+      Sets the payment method as *Stripe*.  
+      ```payment_method=Stripe```  
 
-  ##### transaction_id *[string]*
+  * **payment_status** *[string]*
+    The status of the payment, if applicable.
+    
+    * **Example**  
+      Sets the payment status as *Paid*.  
+      ```payment_status=Paid```
 
-  The transaction ID for the payment, if applicable.
+  * **transaction_id** *[string]*
+    The transaction ID for the payment, if applicable.  
   
-  **Example**
-      
-  Sets the transaction ID as *1234*.
-        
-    transaction_id=1234
+    * **Example**  
+      Sets the transaction ID as *1234*.    
+      ```transaction_id=1234```
 
-  ##### transaction_type *[string]*
-
-  The type of the transaction, if applicable.
+  * **transaction_type** *[string]*  
+  The type of the transaction, if applicable.  
   
-  **Example**
-        
-  Sets the *Subscription* transaction type.
-          
-    transaction_type=Subscription
+    * **Example**  
+      Sets the *Subscription* transaction type.  
+      ```transaction_type=Subscription```
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -721,19 +623,19 @@ Deletes an entry based on the specified entry ID.
     
 #### Response *[string|json]*
 
-**Success** *[string]*  
-    "Entry deleted successfully"
+* **Success** *[string]*  
+  "Entry deleted successfully"
     
-**Failure** *[json]*
-```json
-{
-  "code":    "gf_cannot_delete",
-  "message": "Invalid entry id: 71",
-  "data":    {
-    "status": 500
+* **Failure** *[json]*  
+  ```json
+  {
+    "code":    "gf_cannot_delete",
+    "message": "Invalid entry id: 71",
+    "data":    {
+      "status": 500
+    }
   }
-}
-```
+  ```
 
 ------------------------------------------------------------------------------------------------------------------------
     
@@ -807,35 +709,34 @@ Creates a form.
     
 #### Response
 
-**Success** *[int]*
+* **Success** *[int]*
+  The newly created from ID.
+  ```42```
 
-The newly created from ID.
+* **Failure** *[json]*
 
-    42
-
-**Failure** *[json]*
-
-```json
-{
-  "code":    "missing_form_json",
-  "message": "The Form object must be sent as a JSON string in the request body with the content-type header set to application\/json.",
-  "data": {
+  ```json
+  {
+    "code":    "missing_form_json",
+    "message": "The Form object must be sent as a JSON string in the request body with the content-type header set to application\/json.",
+    "data": {
     "status": 400
+    }
   }
-}
-```
+  ```
 
 #### Required Arguments
 
-  ##### title *[string]*
+  * **title** *[string]*  
   The form title.
   
-  **Example**  
-  Sets the form title as *Form Title*  
-     
-    {
-      "title": "Form Title"
-    }
+    * **Example**  
+      Sets the form title as *Form Title*  
+      ```json
+      {
+        "title": "Form Title"
+      }
+      ```
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -1136,137 +1037,121 @@ The response will contain a JSON object which contains the entry details. An exa
     
 #### Optional Arguments
     
-  ##### entry_id *[int]*
+  * **entry_id** *[int]*  
+    Gets specific entries, based on the entry ID.
   
-  Gets specific entries, based on the entry ID.
-  
-  **Usage**
-  
-  Passing a single entry ID:
-  
-    https://localhost/wp-json/gf/v2/forms/1/entries?entry_id=1
-    
-  Passing multiple entry IDs (semicolon separated, URL encoded):  
-  Before encoding: *entry_id=1;2;3;4*
+    * **Usage**  
       
-    https://localhost/wp-json/gf/v2/forms/1/entries?form_id=1%3B2%3B3%3B4
+      * Passing a single entry ID:  
+        ```https://localhost/wp-json/gf/v2/forms/1/entries?entry_id=1```
     
-  ##### field_ids *[int|string]*
-  
-  Gets only specific field IDs from the entries.
-  
-  **Usage**
-  
-  Passing a single field ID:
-  
-    https://localhost/wp-json/gf/v2/forms/1/entries?field_id=1
+      * Passing multiple entry IDs (semicolon separated, URL encoded):  
+        ```https://localhost/wp-json/gf/v2/forms/1/entries?form_id=1%3B2%3B3%3B4```
     
-  Passing multiple field IDs (semicolon separated, URL encoded):  
-  Before encoding: *field_ids=1;2;3;4*
-  
-    https://localhost/wp-json/gf/v2/forms/1/entries?field_ids=1%3B2%3B3%3B4
+  * **field_ids** *[int|string]*  
+    Gets only specific field IDs from the entries.
+    
+    * **Usage**  
+    
+      * Passing a single field ID:  
+        ```https://localhost/wp-json/gf/v2/forms/1/entries?field_id=1```  
+    
+      * Passing multiple field IDs (semicolon separated, URL encoded):  
+        ```https://localhost/wp-json/gf/v2/forms/1/entries?field_ids=1%3B2%3B3%3B4```
 
-  ##### labels *[int]*
-
-  Whether to include the labels.
+  * **labels** *[int]*  
+    Whether to include the labels.
   
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/forms/1/entries?labels=1
+    * **Usage**  
+      ```https://localhost/wp-json/gf/v2/forms/1/entries?labels=1```
     
-  **Example Response**
-  
-  ```json
-  {
-    "id":           "71",
-    "form_id":      "1",
-    "date_created": "2016-11-28 18:12:17",
-    "is_starred":   0,
-    "is_read":      0,
-    "ip":           "127.0.0.1",
-    "source_url":   "http:\/\/localhost\/pagename",
-    "post_id":      null,
-    "created_by":   "2",
-    "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
-    "status":       "active",
-    "1":            "",
-    "2":            "",
-    "3":            "",
-    "4":            "",
-    "5":            "",
-    "6.1":          "",
-    "6.2":          "",
-    "6.3":          "",
-    "labels": {
-      "1":  "Single Line Text",
-      "2":  "Paragraph Text",
-      "13": "File",
-      "3":  "Drop Down",
-      "4":  "Multi Select",
-      "5":  "Number",
-      "6": {
-        "6.1": "Checkboxes First Choice",
-        "6.2": "Checkboxes Second Choice",
-        "6.3": "Checkboxes Third Choice"
+    * **Example Response**  
+      ```json
+      {
+        "id":           "71",
+        "form_id":      "1",
+        "date_created": "2016-11-28 18:12:17",
+        "is_starred":   0,
+        "is_read":      0,
+        "ip":           "127.0.0.1",
+        "source_url":   "http:\/\/localhost\/pagename",
+        "post_id":      null,
+        "created_by":   "2",
+        "user_agent":   "Mozilla\/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/54.0.2840.87 Safari\/537.36",
+        "status":       "active",
+        "1":            "",
+        "2":            "",
+        "3":            "",
+        "4":            "",
+        "5":            "",
+        "6.1":          "",
+        "6.2":          "",
+        "6.3":          "",
+        "labels": {
+          "1":  "Single Line Text",
+          "2":  "Paragraph Text",
+          "13": "File",
+          "3":  "Drop Down",
+          "4":  "Multi Select",
+          "5":  "Number",
+          "6": {
+            "6.1": "Checkboxes First Choice",
+            "6.2": "Checkboxes Second Choice",
+            "6.3": "Checkboxes Third Choice"
+          }
+        }
       }
-    }
-  }
-  ```
+      ```
 
-  ##### search *[json]*
+  * **search** *[json]*  
+    The search criteria.
+  
+    * **Usage**
+  
+      * **field_filters** *array*  
+        An array of filters to search by.
+      * **key** *int|float*  
+        The field ID.
+      * **value**  *string*  
+        The value to search for.
+      * **operator** *string*  
+        The comparison operator to use.
+  
+      ```json
+      {
+        "field_filters": [{
+        "key":      1,
+        "value":    "Field Value",
+        "operator": "contains"
+        }]
+      }
+      ```
 
-  The search criteria.
+  * **paging** *[array]*  
+    The paging criteria.
   
-  **Usage**
+    * **page_size** *[int]*  
+      The number of results per page.
+    * **current_page** *[int]*  
+      The current page to pull details from.
+    * **offset** *[int]*  
+      The offset to begin with.
   
-  * **field_filters** *array*  
-    An array of filters to search by.
-    * **key** *int|float*  
-    The field ID.
-    * **value**  *string*  
-    The value to search for.
-    * **operator** *string*  
-    The comparison operator to use.
-  
-  ```json
-  {
-    "field_filters": [{
-      "key":      1,
-      "value":    "Field Value",
-      "operator": "contains"
-    }]
-  }
-  ```
+    * **Usage**  
+      ```https://localhost/wp-json/gf/v2/forms/1/entries?paging[page_size]=20&paging[current_page]=2&paging[offset]=30```
 
-  ##### paging *[array]*
-
-  The paging criteria.
+  * **sorting** *[array]*
+    The sorting criteria.
   
-  * **page_size** *int*  
-    The number of results per page.
-  * **current_page** *int*  
-    The current page to pull details from.
-  * **offset** *int*  
-    The offset to begin with.
+    * **key** *[string|int]*  
+      The key to sort by.
+    * **direction** *[string]*  
+      The direction. Either *ASC* or *DESC*.
+    * **is_numeric** *[bool]*  
+      If the key is numeric.
   
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/forms/1/entries?paging[page_size]=20&paging[current_page]=2&paging[offset]=30
-
-  ##### sorting *[array]*
-
-  The sorting criteria.
-  
-  * **key** *string|int*  
-    The key to sort by.
-  * **direction** *string*  
-    The direction. Either *ASC* or *DESC*.
-  * **is_numeric** *bool*  
-    If the key is numeric.
-  
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/forms/1/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true
+    * **Usage**  
+      ```https://localhost/wp-json/gf/v2/forms/1/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true```
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -1282,155 +1167,118 @@ Creates an entry based on the specified form ID.
 
 When creating an entry, the response body will contain the created entry ID.
 
-**Example Response**
-
-    59
+* **Example Response**
+  59
 
 #### Optional Arguments
 
-  ##### created_by *[string]*
-  The user ID of the entry submitter.
+  * **created_by** *[string]*
+    The user ID of the entry submitter.
   
-  **Example**
-  
-  Sets the entry submitter as the user with user ID *1*.
-  
-    created_by=1
+    * **Example**  
+      Sets the entry submitter as the user with user ID *1*.  
+      ```created_by=1```
 
-  ##### date_created *[string]*
-  The date the entry was created, in UTC.
+  * **date_created** *[string]*  
+    The date the entry was created, in UTC.  
   
-  **Example**
-  
-  Sets the date created as *2016-11-28 18:12:17*.
-  
-    date_created=2016-11-28+18%3A12%3A17
+    * **Example**  
+      Sets the date created as *2016-11-28 18:12:17*.  
+      ```date_created=2016-11-28+18%3A12%3A17```
 
-  ##### ip *[string]*
-  The IP address of the entry creator.
+  * **ip** *[string]*  
+    The IP address of the entry creator.  
   
-  **Example**
-  
-  Sets the entry IP as *127.0.0.1*.
-  
-    ip=127.0.0.1
+    * **Example**
+      Sets the entry IP as *127.0.0.1*.  
+      ```ip=127.0.0.1```
 
-  ##### is_fulfilled *[bool]*
-  Whether the transaction has been fulfilled, if applicable.
+  * **is_fulfilled** *[bool]*  
+    Whether the transaction has been fulfilled, if applicable.  
   
-  **Example**
-  
-  Sets the entry as fulfilled.
-  
-    is_fulfilled=1
+    * **Example**  
+      Sets the entry as fulfilled.  
+      ```is_fulfilled=1```
 
-  ##### is_read *[bool]*
-  Whether the entry has been read.
+  * **is_read** *[bool]*  
+    Whether the entry has been read.  
   
-  **Example**
-  
-  Marks the entry as read.
-    
-    is_read=1
+    * **Example**  
+      Marks the entry as read.  
+      ```is_read=1```
 
-  ##### is_starred *[bool]*
-  Whether the entry is starred.
+  * **is_starred** *[bool]*  
+    Whether the entry is starred.  
   
-  **Example**
-  
-  Stars the entry.
-      
-    is_starred=1
+    * **Example**  
+      Stars the entry.  
+      ```is_starred=1```
 
-  ##### source_url *[string]*
-  The URL where the form was embedded.
+  * **source_url** *[string]*  
+    The URL where the form was embedded.  
   
-  **Example**
-  
-  Sets the source URL as *http://localhost/pagename*.
-  
-    source_url=http%3A%2F%2Flocalhost%2Fpagename
+    * **Example**  
+      Sets the source URL as *http://localhost/pagename*.  
+      ```source_url=http%3A%2F%2Flocalhost%2Fpagename```
 
-  ##### status *[string]*
-  The status of the entry.
+  * **status** *[string]*  
+    The status of the entry.  
   
-  **Example**
-  
-  Sets the status to *active*.
-    
-    status=active
+    * **Example**
+      Sets the status to *active*.  
+      ```status=active```  
 
-  ##### user_agent *[string]*
-  The user agent string for the browser used to submit the entry.
+  * **user_agent** *[string]*  
+    The user agent string for the browser used to submit the entry.  
   
-  **Example**
-  
-  Sets the user agent as:  
-  *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*
-  
-    user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36
+  * **Example**  
+    Sets the user agent as:  
+    *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*  
+    ```user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36```
 
 #### Payment Arguments
 
-  ##### payment_amount *[int]*
-
-  The amount of the payment, if applicable.
+  * **payment_amount** *[int]*  
+    The amount of the payment, if applicable.  
   
-  **Example**
+    * **Example**  
+      Sets the payment amount of *$2500*.  
+      ```payment_amount=2500```
+
+  * **payment_date** *[string]*  
+    The date of the payment, if applicable.
   
-  Sets the payment amount of *$2500*.
+    * **Example**  
+      Sets the payment date as *2016-11-28 18:12:17*.  
+      ```payment_date=2016-11-28+18%3A12%3A17```
+
+  * **payment_method** *[string]*  
+    The payment method for the payment, if applicable.  
   
-    payment_amount=2500
+    * **Example**  
+      Sets the payment method as *Stripe*.  
+    ```payment_method=Stripe```
 
-  ##### payment_date *[string]*
-
-  The date of the payment, if applicable.
+  * **payment_status** *[string]*  
+    The status of the payment, if applicable.  
   
-  **Example**
+    * **Example**  
+      Sets the payment status as *Paid*.  
+      ```payment_status=Paid```
+
+  * **transaction_id** *[string]*  
+    The transaction ID for the payment, if applicable.  
   
-  Sets the payment date as *2016-11-28 18:12:17*.
-    
-    payment_date=2016-11-28+18%3A12%3A17
+    * **Example**  
+      Sets the transaction ID as *1234*.  
+      ```transaction_id=1234```
 
-  ##### payment_method *[string]*
-
-  The payment method for the payment, if applicable.
+  * **transaction_type** *[string]*  
+    The type of the transaction, if applicable.  
   
-  **Example**
-    
-  Sets the payment method as *Stripe*.
-      
-    payment_method=Stripe
-
-  ##### payment_status *[string]*
-
-  The status of the payment, if applicable.
-  
-  **Example**
-    
-  Sets the payment status as *Paid*.
-      
-    payment_status=Paid
-
-  ##### transaction_id *[string]*
-
-  The transaction ID for the payment, if applicable.
-  
-  **Example**
-      
-  Sets the transaction ID as *1234*.
-        
-    transaction_id=1234
-
-  ##### transaction_type *[string]*
-
-  The type of the transaction, if applicable.
-  
-  **Example**
-        
-  Sets the *Subscription* transaction type.
-          
-    transaction_type=Subscription
+    * **Example**  
+      Sets the *Subscription* transaction type.  
+      ```transaction_type=Subscription```
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -1569,60 +1417,55 @@ Gets form details, including entry details.
 
 #### Optional Arguments
 
-  ##### search *[json]*
+  * **search** *[json]*
+    The search criteria.
+  
+    * **Usage**
+  
+      * **field_filters** *[array]*  
+        An array of filters to search by.
+      * **key** *[int|float]*  
+        The field ID.
+      * **value**  *[string]*  
+        The value to search for.
+      * **operator** *[string]*  
+        The comparison operator to use.
+  
+      ```json
+      {
+        "field_filters": [{
+          "key":      1,
+          "value":    "Field Value",
+          "operator": "contains"
+        }]
+      }
+      ```
 
-  The search criteria.
+  * **paging** *[array]*  
+    The paging criteria.
   
-  **Usage**
+    * **page_size** *int*  
+      The number of results per page.
+    * **current_page** *int*  
+      The current page to pull details from.
+    * **offset** *int*  
+      The offset to begin with.
   
-  * **field_filters** *array*  
-    An array of filters to search by.
-    * **key** *int|float*  
-    The field ID.
-    * **value**  *string*  
-    The value to search for.
-    * **operator** *string*  
-    The comparison operator to use.
-  
-  ```json
-  {
-    "field_filters": [{
-      "key":      1,
-      "value":    "Field Value",
-      "operator": "contains"
-    }]
-  }
-  ```
+    * **Usage**  
+      ```https://localhost/wp-json/gf/v2/forms/1/results?paging[page_size]=20&paging[current_page]=2&paging[offset]=30```
 
-  ##### paging *[array]*
-
-  The paging criteria.
+  * **sorting** *[array]*
+    The sorting criteria.
   
-  * **page_size** *int*  
-    The number of results per page.
-  * **current_page** *int*  
-    The current page to pull details from.
-  * **offset** *int*  
-    The offset to begin with.
+    * **key** *string|int*  
+      The key to sort by.
+    * **direction** *string*  
+      The direction. Either *ASC* or *DESC*.
+    * **is_numeric** *bool*  
+      If the key is numeric.
   
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/forms/1/results?paging[page_size]=20&paging[current_page]=2&paging[offset]=30
-
-  ##### sorting *[array]*
-
-  The sorting criteria.
-  
-  * **key** *string|int*  
-    The key to sort by.
-  * **direction** *string*  
-    The direction. Either *ASC* or *DESC*.
-  * **is_numeric** *bool*  
-    If the key is numeric.
-  
-  **Usage**
-  
-    https://localhost/wp-json/gf/v2/forms/1/results?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true
+    * **Usage**  
+      ```https://localhost/wp-json/gf/v2/forms/1/results?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true```
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -1638,9 +1481,8 @@ Submits the specified form ID with the specified values.
 
 #### Required Arguments
 
-  ##### input_[FIELD_ID] *[string]*
-  
-  The input values. Replace field ID with the input that you want to submit data for.
+  * **input_[FIELD_ID]** *[string]*  
+    The input values. Replace field ID with the input that you want to submit data for.
   
 #### Returns
 
@@ -1655,17 +1497,14 @@ Submits the specified form ID with the specified values.
 
 #### Optional Arguments
 
-  ##### field_values *[string]*
+  * **field_values** *[string]*  
+    The field values.
   
-  The field values.
+  * **source_page** *[string]*  
+    The source page number.
   
-  ##### source_page *[string]*
-  
-  The source page number.
-  
-  ##### target_page *[string]*
-  
-  The target page number.
+  * **target_page** *[string]*  
+    The target page number.
 
 ------------------------------------------------------------------------------------------------------------------------
 
