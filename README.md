@@ -122,15 +122,15 @@ The response will contain a JSON object which contains the entry details. An exa
         ``https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4``
     
 * **entry_id** *[int]*  
-  Gets specific entries, based on the entry ID.
-    
-  * **Usage**  
+    Gets specific entries, based on the entry ID.
+
+    * **Usage**  
   
-     * Passing a single entry ID:  
-       ```https://localhost/wp-json/gf/v2/entries?entry_id=1```
+        * Passing a single entry ID:  
+           ``https://localhost/wp-json/gf/v2/entries?entry_id=1``
     
-     * Passing multiple form IDs (semicolon separated, URL encoded):  
-       ```https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4```
+        * Passing multiple form IDs (semicolon separated, URL encoded):  
+           ``https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4``
   
 * **field_ids** *[int|string]*  
 Gets only specific field IDs from the entries.
@@ -138,16 +138,16 @@ Gets only specific field IDs from the entries.
   * **Usage**  
   
     Passing a single field ID:  
-    ```https://localhost/wp-json/gf/v2/entries?field_id=1```
+    ``https://localhost/wp-json/gf/v2/entries?field_id=1``
   
     Passing multiple field IDs (semicolon separated, URL encoded):  
-    ```https://localhost/wp-json/gf/v2/entries?field_ids=1%3B2%3B3%3B4```
+    ``https://localhost/wp-json/gf/v2/entries?field_ids=1%3B2%3B3%3B4``
 
 * **labels** *[int]*  
   Enabled the inclusion of field labels in the results.  
    
   * **Usage**  
-  ```https://localhost/wp-json/gf/v2/entries?labels=1```
+  ``https://localhost/wp-json/gf/v2/entries?labels=1``
   
   * **Example Response**  
     ```json
@@ -223,7 +223,7 @@ Gets only specific field IDs from the entries.
         The offset to begin with.
         
     * **Usage**  
-      ```https://localhost/wp-json/gf/v2/entries?paging[page_size]=20&paging[current_page]=2&paging[offset]=30```
+      ``https://localhost/wp-json/gf/v2/entries?paging[page_size]=20&paging[current_page]=2&paging[offset]=30``
 
   * **sorting** *[array]*  
     The sorting criteria.
@@ -237,7 +237,7 @@ Gets only specific field IDs from the entries.
         If the key is numeric.
   
     * **Usage**  
-      ```https://localhost/wp-json/gf/v2/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true```
+      ``https://localhost/wp-json/gf/v2/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true``
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -253,7 +253,7 @@ Creates an entry.
 When creating an entry, the response body will contain the created entry ID.
 
 **Example Response**  
-```59```
+``59``
     
 #### Required Arguments
 
@@ -262,7 +262,7 @@ When creating an entry, the response body will contain the created entry ID.
   
     * **Example**  
       Associates the entry with form ID *1*.  
-      ```form_id=1```
+      ``form_id=1``
 
 #### Optional Arguments
 
@@ -271,63 +271,63 @@ When creating an entry, the response body will contain the created entry ID.
   
     * **Example**
       Sets the entry submitter as the user with user ID *1*.  
-      ```created_by=1```
+      ``created_by=1``
 
   * **date_created** *[string]*
     The date the entry was created, in UTC.
   
     * **Example**  
       Sets the date created as *2016-11-28 18:12:17*.  
-      ```date_created=2016-11-28+18%3A12%3A17```
+      ``date_created=2016-11-28+18%3A12%3A17``
 
   * **ip** *[string]*  
     The IP address of the entry creator.
   
     **Example**
     Sets the entry IP as *127.0.0.1*.  
-    ```ip=127.0.0.1```
+    ``ip=127.0.0.1``
 
   * **is_fulfilled** *[bool]*  
     Whether the transaction has been fulfilled, if applicable.
   
     **Example**  
     Sets the entry as fulfilled.  
-    ```is_fulfilled=1```
+    ``is_fulfilled=1``
 
   * **is_read** *[bool]*  
     Whether the entry has been read.
   
     **Example**  
     Marks the entry as read.  
-    ```is_read=1```
+    ``is_read=1``
 
   * **is_starred** *[bool]*
     Whether the entry is starred.
   
     **Example**  
     Stars the entry.  
-    ```is_starred=1```
+    ``is_starred=1``
 
   * **source_url** *[string]*
     The URL where the form was embedded.
     
     * **Examples**
       * Set the source URL as *http://localhost/pagename*:  
-      ```source_url=http%3A%2F%2Flocalhost%2Fpagename```
+      ``source_url=http%3A%2F%2Flocalhost%2Fpagename``
 
   * **status** *[string]*
     The status of the entry.
   
     * **Examples**
       * Sets the status to *active*:  
-        ```status=active```
+        ``status=active``
 
   * **user_agent** *[string]*
     The user agent string for the browser used to submit the entry.
     
     **Examples**  
     * Sets the user agent as *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*
-      ```user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36```
+      ``user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36``
 
 #### Payment Arguments
 
@@ -339,7 +339,7 @@ When creating an entry, the response body will contain the created entry ID.
       
     * **Examples**  
       Sets the payment amount of *$2500*.  
-      ```payment_amount=2500```
+      ``payment_amount=2500``
 
   * **payment_date** *[string]*  
     The date of the payment, if applicable.
@@ -349,7 +349,7 @@ When creating an entry, the response body will contain the created entry ID.
     
     * **Example**
       Sets the payment date as *2016-11-28 18:12:17*.  
-      ```payment_date=2016-11-28+18%3A12%3A17```
+      ``payment_date=2016-11-28+18%3A12%3A17``
 
   * **payment_method** *[string]*  
     The payment method for the payment, if applicable.
@@ -359,7 +359,7 @@ When creating an entry, the response body will contain the created entry ID.
   
     * **Example**
       Sets the payment method as *Stripe*.
-      ```payment_method=Stripe```
+      ``payment_method=Stripe``
 
   * **payment_status** *[string]*  
     The status of the payment, if applicable.
@@ -369,7 +369,7 @@ When creating an entry, the response body will contain the created entry ID.
       
     * **Example**
       Sets the payment status as *Paid*.
-      ```payment_status=Paid```
+      ``payment_status=Paid``
 
   * **transaction_id** *[string]*
     The transaction ID for the payment, if applicable.
@@ -379,7 +379,7 @@ When creating an entry, the response body will contain the created entry ID.
       
     * **Example**  
       Sets the transaction ID as *1234*.  
-    ```transaction_id=1234```
+    ``transaction_id=1234``
 
   * **transaction_type** *[string]*
     The type of the transaction, if applicable.
@@ -389,7 +389,7 @@ When creating an entry, the response body will contain the created entry ID.
   
     * **Example**
       Sets the *Subscription* transaction type.  
-      ```transaction_type=Subscription```
+      ``transaction_type=Subscription``
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -400,10 +400,10 @@ Gets an entry based on the entry ID.
 #### Path
 
 * **Single entry**  
-  ```https://localhost/wp-json/gf/v2/entries/1```
+  ``https://localhost/wp-json/gf/v2/entries/1``
     
 * **Multiple entries (semicolon separated)**  
-  ```https://localhost/wp-json/gf/v2/entries/1;2;3;4```
+  ``https://localhost/wp-json/gf/v2/entries/1;2;3;4``
     
 #### Response *[json]*
 
@@ -446,13 +446,13 @@ The response will contain a JSON object which contains the entry details. An exa
       ``https://localhost/wp-json/gf/v2/entries/5?field_id=1``
     
     * Passing multiple field IDs (semicolon separated, URL encoded):  
-      ```https://localhost/wp-json/gf/v2/entries/5?field_ids=1%3B2%3B3%3B4```
+      ``https://localhost/wp-json/gf/v2/entries/5?field_ids=1%3B2%3B3%3B4``
 
   * **labels** *[int]*
     Whether to include the labels.
   
     * **Usage**  
-      ```https://localhost/wp-json/gf/v2/entries/5?labels=1```
+      ``https://localhost/wp-json/gf/v2/entries/5?labels=1``
     
     * **Example Response**
   
@@ -500,7 +500,7 @@ The response will contain a JSON object which contains the entry details. An exa
 Updates an entry based on the specified entry ID.
 
 #### Path
-```https://localhost/wp-json/gf/v2/entries/1```
+``https://localhost/wp-json/gf/v2/entries/1``
     
 #### Required Arguments
 
@@ -509,7 +509,7 @@ Updates an entry based on the specified entry ID.
   
     * **Example**
       Sets the entry ID to be updated as *1*.  
-      ```id=1```
+      ``id=1``
     
 #### Optional Arguments
 
@@ -518,62 +518,62 @@ Updates an entry based on the specified entry ID.
   
     * **Example**  
       Sets the entry submitter as the user with user ID *1*.  
-    ```created_by=1```
+    ``created_by=1``
 
     * **date_created** *[string]*  
       The date the entry was created, in UTC.  
       * **Example**  
         Sets the date created as *2016-11-28 18:12:17*.  
-        ```date_created=2016-11-28+18%3A12%3A17```
+        ``date_created=2016-11-28+18%3A12%3A17``
 
     * **ip** *[string]*  
       The IP address of the entry creator.  
       
       * **Example**  
         Sets the entry IP as *127.0.0.1*.  
-        ```ip=127.0.0.1```
+        ``ip=127.0.0.1``
 
     * **is_fulfilled** *[bool]*  
       Whether the transaction has been fulfilled, if applicable.  
   
       * **Example**  
         Sets the entry as fulfilled.  
-        ```is_fulfilled=1```
+        ``is_fulfilled=1``
 
     * **is_read** *[bool]*  
       Whether the entry has been read.  
   
       * **Example**
         Marks the entry as read.  
-        ```is_read=1```  
+        ``is_read=1``  
 
       * **is_starred** *[bool]*  
         Whether the entry is starred.  
   
         * **Example**  
           Stars the entry.  
-          ```is_starred=1```  
+          ``is_starred=1``  
 
       * **source_url** *[string]*  
         The URL where the form was embedded.  
   
         * **Example**  
           Sets the source URL as *http://localhost/pagename*.  
-          ```source_url=http%3A%2F%2Flocalhost%2Fpagename```  
+          ``source_url=http%3A%2F%2Flocalhost%2Fpagename``  
 
       * **status** *[string]*  
         The status of the entry.  
   
         * **Example**  
           Sets the status to *active*.  
-          ```status=active```
+          ``status=active``
 
       * **user_agent** *[string]*  
         The user agent string for the browser used to submit the entry.  
   
         * **Example**
           Sets the user agent as *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*  
-          ```user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36```
+          ``user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36``
 
 #### Payment Arguments
 
@@ -582,42 +582,42 @@ Updates an entry based on the specified entry ID.
     
     * **Example**  
       Sets the payment amount of *$2500*.  
-      ```payment_amount=2500```
+      ``payment_amount=2500``
 
   * **payment_date** *[string]*
     The date of the payment, if applicable.  
     
     * **Example**  
       Sets the payment date as *2016-11-28 18:12:17*.  
-      ```payment_date=2016-11-28+18%3A12%3A17```  
+      ``payment_date=2016-11-28+18%3A12%3A17``  
 
   * **payment_method** *[string]*  
     The payment method for the payment, if applicable.  
     
     * **Example**
       Sets the payment method as *Stripe*.  
-      ```payment_method=Stripe```  
+      ``payment_method=Stripe``  
 
   * **payment_status** *[string]*
     The status of the payment, if applicable.
     
     * **Example**  
       Sets the payment status as *Paid*.  
-      ```payment_status=Paid```
+      ``payment_status=Paid``
 
   * **transaction_id** *[string]*
     The transaction ID for the payment, if applicable.  
   
     * **Example**  
       Sets the transaction ID as *1234*.    
-      ```transaction_id=1234```
+      ``transaction_id=1234``
 
   * **transaction_type** *[string]*  
   The type of the transaction, if applicable.  
   
     * **Example**  
       Sets the *Subscription* transaction type.  
-      ```transaction_type=Subscription```
+      ``transaction_type=Subscription``
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -719,7 +719,7 @@ Creates a form.
 
 * **Success** *[int]*
   The newly created from ID.
-  ```42```
+  ``42``
 
 * **Failure** *[json]*
 
@@ -1051,10 +1051,10 @@ The response will contain a JSON object which contains the entry details. An exa
     * **Usage**  
       
       * Passing a single entry ID:  
-        ```https://localhost/wp-json/gf/v2/forms/1/entries?entry_id=1```
+        ``https://localhost/wp-json/gf/v2/forms/1/entries?entry_id=1``
     
       * Passing multiple entry IDs (semicolon separated, URL encoded):  
-        ```https://localhost/wp-json/gf/v2/forms/1/entries?form_id=1%3B2%3B3%3B4```
+        ``https://localhost/wp-json/gf/v2/forms/1/entries?form_id=1%3B2%3B3%3B4``
     
   * **field_ids** *[int|string]*  
     Gets only specific field IDs from the entries.
@@ -1062,16 +1062,16 @@ The response will contain a JSON object which contains the entry details. An exa
     * **Usage**  
     
       * Passing a single field ID:  
-        ```https://localhost/wp-json/gf/v2/forms/1/entries?field_id=1```  
+        ``https://localhost/wp-json/gf/v2/forms/1/entries?field_id=1``  
     
       * Passing multiple field IDs (semicolon separated, URL encoded):  
-        ```https://localhost/wp-json/gf/v2/forms/1/entries?field_ids=1%3B2%3B3%3B4```
+        ``https://localhost/wp-json/gf/v2/forms/1/entries?field_ids=1%3B2%3B3%3B4``
 
   * **labels** *[int]*  
     Whether to include the labels.
   
     * **Usage**  
-      ```https://localhost/wp-json/gf/v2/forms/1/entries?labels=1```
+      ``https://localhost/wp-json/gf/v2/forms/1/entries?labels=1``
     
     * **Example Response**  
       ```json
@@ -1146,7 +1146,7 @@ The response will contain a JSON object which contains the entry details. An exa
       The offset to begin with.
   
     * **Usage**  
-      ```https://localhost/wp-json/gf/v2/forms/1/entries?paging[page_size]=20&paging[current_page]=2&paging[offset]=30```
+      ``https://localhost/wp-json/gf/v2/forms/1/entries?paging[page_size]=20&paging[current_page]=2&paging[offset]=30``
 
   * **sorting** *[array]*
     The sorting criteria.
@@ -1159,7 +1159,7 @@ The response will contain a JSON object which contains the entry details. An exa
       If the key is numeric.
   
     * **Usage**  
-      ```https://localhost/wp-json/gf/v2/forms/1/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true```
+      ``https://localhost/wp-json/gf/v2/forms/1/entries?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true``
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -1185,56 +1185,56 @@ When creating an entry, the response body will contain the created entry ID.
   
     * **Example**  
       Sets the entry submitter as the user with user ID *1*.  
-      ```created_by=1```
+      ``created_by=1``
 
   * **date_created** *[string]*  
     The date the entry was created, in UTC.  
   
     * **Example**  
       Sets the date created as *2016-11-28 18:12:17*.  
-      ```date_created=2016-11-28+18%3A12%3A17```
+      ``date_created=2016-11-28+18%3A12%3A17``
 
   * **ip** *[string]*  
     The IP address of the entry creator.  
   
     * **Example**
       Sets the entry IP as *127.0.0.1*.  
-      ```ip=127.0.0.1```
+      ``ip=127.0.0.1``
 
   * **is_fulfilled** *[bool]*  
     Whether the transaction has been fulfilled, if applicable.  
   
     * **Example**  
       Sets the entry as fulfilled.  
-      ```is_fulfilled=1```
+      ``is_fulfilled=1``
 
   * **is_read** *[bool]*  
     Whether the entry has been read.  
   
     * **Example**  
       Marks the entry as read.  
-      ```is_read=1```
+      ``is_read=1``
 
   * **is_starred** *[bool]*  
     Whether the entry is starred.  
   
     * **Example**  
       Stars the entry.  
-      ```is_starred=1```
+      ``is_starred=1``
 
   * **source_url** *[string]*  
     The URL where the form was embedded.  
   
     * **Example**  
       Sets the source URL as *http://localhost/pagename*.  
-      ```source_url=http%3A%2F%2Flocalhost%2Fpagename```
+      ``source_url=http%3A%2F%2Flocalhost%2Fpagename``
 
   * **status** *[string]*  
     The status of the entry.  
   
     * **Example**
       Sets the status to *active*.  
-      ```status=active```  
+      ``status=active``  
 
   * **user_agent** *[string]*  
     The user agent string for the browser used to submit the entry.  
@@ -1242,7 +1242,7 @@ When creating an entry, the response body will contain the created entry ID.
   * **Example**  
     Sets the user agent as:  
     *Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36*  
-    ```user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36```
+    ``user_agent=Mozilla%2F5.0+%28Macintosh%3B+Intel+Mac+OS+X+10_12_2%29+AppleWebKit%2F537.36+%28KHTML%2C+like+Gecko%29+Chrome%2F54.0.2840.87+Safari%2F537.36``
 
 #### Payment Arguments
 
@@ -1251,42 +1251,42 @@ When creating an entry, the response body will contain the created entry ID.
   
     * **Example**  
       Sets the payment amount of *$2500*.  
-      ```payment_amount=2500```
+      ``payment_amount=2500``
 
   * **payment_date** *[string]*  
     The date of the payment, if applicable.
   
     * **Example**  
       Sets the payment date as *2016-11-28 18:12:17*.  
-      ```payment_date=2016-11-28+18%3A12%3A17```
+      ``payment_date=2016-11-28+18%3A12%3A17``
 
   * **payment_method** *[string]*  
     The payment method for the payment, if applicable.  
   
     * **Example**  
       Sets the payment method as *Stripe*.  
-    ```payment_method=Stripe```
+    ``payment_method=Stripe``
 
   * **payment_status** *[string]*  
     The status of the payment, if applicable.  
   
     * **Example**  
       Sets the payment status as *Paid*.  
-      ```payment_status=Paid```
+      ``payment_status=Paid``
 
   * **transaction_id** *[string]*  
     The transaction ID for the payment, if applicable.  
   
     * **Example**  
       Sets the transaction ID as *1234*.  
-      ```transaction_id=1234```
+      ``transaction_id=1234``
 
   * **transaction_type** *[string]*  
     The type of the transaction, if applicable.  
   
     * **Example**  
       Sets the *Subscription* transaction type.  
-      ```transaction_type=Subscription```
+      ``transaction_type=Subscription``
 
 ------------------------------------------------------------------------------------------------------------------------
 
@@ -1460,7 +1460,7 @@ Gets form details, including entry details.
       The offset to begin with.
   
     * **Usage**  
-      ```https://localhost/wp-json/gf/v2/forms/1/results?paging[page_size]=20&paging[current_page]=2&paging[offset]=30```
+      ``https://localhost/wp-json/gf/v2/forms/1/results?paging[page_size]=20&paging[current_page]=2&paging[offset]=30``
 
   * **sorting** *[array]*
     The sorting criteria.
@@ -1473,7 +1473,7 @@ Gets form details, including entry details.
       If the key is numeric.
   
     * **Usage**  
-      ```https://localhost/wp-json/gf/v2/forms/1/results?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true```
+      ``https://localhost/wp-json/gf/v2/forms/1/results?sorting[key]=id&sorting[direction]=ASC&sorting[is_numeric]=true``
 
 ------------------------------------------------------------------------------------------------------------------------
 
