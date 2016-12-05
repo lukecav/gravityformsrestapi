@@ -116,10 +116,14 @@ The response will contain a JSON object which contains the entry details. An exa
     * **Usage**  
     
         * Passing a single form ID:  
-        ``https://localhost/wp-json/gf/v2/entries?form_id=1``  
+            ```
+            https://localhost/wp-json/gf/v2/entries?form_id=1
+            ```
 
         * Passing multiple form IDs (semicolon separated, URL encoded):  
-        ``https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4``
+            ```
+            https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4
+            ```
     
 * **entry_id** *[int]*  
     Gets specific entries, based on the entry ID.
@@ -133,25 +137,25 @@ The response will contain a JSON object which contains the entry details. An exa
            ``https://localhost/wp-json/gf/v2/entries?form_id=1%3B2%3B3%3B4``
   
 * **field_ids** *[int|string]*  
-Gets only specific field IDs from the entries.
+    Gets only specific field IDs from the entries.
 
-  * **Usage**  
+    * **Usage**  
   
-    Passing a single field ID:  
-    ``https://localhost/wp-json/gf/v2/entries?field_id=1``
+        * Passing a single field ID:  
+           ``https://localhost/wp-json/gf/v2/entries?field_id=1``
   
-    Passing multiple field IDs (semicolon separated, URL encoded):  
-    ``https://localhost/wp-json/gf/v2/entries?field_ids=1%3B2%3B3%3B4``
+        * Passing multiple field IDs (semicolon separated, URL encoded):  
+           ``https://localhost/wp-json/gf/v2/entries?field_ids=1%3B2%3B3%3B4``
 
 * **labels** *[int]*  
-  Enabled the inclusion of field labels in the results.  
+    Enabled the inclusion of field labels in the results.  
    
-  * **Usage**  
-  ``https://localhost/wp-json/gf/v2/entries?labels=1``
+    * **Usage**  
+        ``https://localhost/wp-json/gf/v2/entries?labels=1``
   
-  * **Example Response**  
-    ```json
-      {
+    * **Example Response**  
+        ```json
+        {
         "id":           "71",
         "form_id":      "1",
         "date_created": "2016-11-28 18:12:17",
