@@ -134,10 +134,8 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 		$entry = $this->prepare_item_for_database( $request );
 
-		$form_id = $this->maybe_explode_url_param( $request, 'form_id' );
-
-		if ( $form_id && ! is_array( $form_id ) ) {
-			$entry['form_id'] = absint( $form_id );
+		if ( is_wp_error( $entry ) ) {
+			return $entry;
 		}
 
 		$entry_id = GFAPI::add_entry( $entry );
@@ -147,7 +145,14 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 			return new WP_Error( $entry_id->get_error_code(), $entry_id->get_error_message(), array( 'status' => $status ) );
 		}
 
-		return new WP_REST_Response( $entry_id, 201 );
+		$entry['id'] = $entry_id;
+
+		$response = rest_ensure_response( $entry );
+
+		$response->set_status( 201 );
+		$response->header( 'Location', rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $entry_id ) ) );
+
+		return $response;
 	}
 
 	/**
@@ -209,6 +214,16 @@ class GF_REST_Form_Entries_Controller extends GF_REST_Controller {
 
 		if ( empty( $entry ) ) {
 			$entry = $request->get_body_params();
+		}
+
+		if ( empty( $entry ) ) {
+			return new WP_Error( 'missing_entry', __( 'Missing entry', 'gravityforms' ) );
+		}
+
+		$form_id = $this->maybe_explode_url_param( $request, 'form_id' );
+
+		if ( $form_id && ! is_array( $form_id ) ) {
+			$entry['form_id'] = absint( $form_id );
 		}
 
 		$entry = $this->maybe_serialize_list_fields( $entry );
