@@ -153,18 +153,25 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function update_item( $request ) {
-		$item = $this->prepare_item_for_database( $request );
+		$entry = $this->prepare_item_for_database( $request );
 
-		$data = GFAPI::update_entry( $item );
-
-		if ( is_wp_error( $data ) ) {
-			$status = $this->get_error_status( $data );
-			return new WP_Error( $data->get_error_code(), $data->get_error_message(), array( 'status' => $status ) );
+		if ( is_wp_error( $entry ) ) {
+			return $entry;
 		}
 
-		$message = empty( $data ) ? __( 'Entries updated successfully', 'gravityforms' ) : __( 'Entry updated successfully', 'gravityforms' );
+		$result = GFAPI::update_entry( $entry );
 
-		return new WP_REST_Response( $message, 200 );
+		if ( is_wp_error( $result ) ) {
+			$status = $this->get_error_status( $result );
+			return new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => $status ) );
+		}
+
+
+		$updated_entry = GFAPI::get_entry( $entry['id'] );
+
+		$response = $this->prepare_item_for_response( $updated_entry, $request );
+
+		return rest_ensure_response( $response );
 	}
 
 	/**
@@ -194,6 +201,10 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 				$message = $result->get_error_message();
 				return new WP_Error( 'gf_cannot_delete', $message, array( 'status' => 500 ) );
 			}
+
+			$previous = $this->prepare_item_for_response( $entry, $request );
+			$response = new WP_REST_Response();
+			$response->set_data( array( 'deleted' => true, 'previous' => $previous->get_data() ) );
 		} else {
 			if ( rgar( $entry, 'status' ) == 'trash' ) {
 				$message = __( 'The entry has already been deleted.', 'gravityforms' );
@@ -202,9 +213,10 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 
 			// Trash the entry
 			GFAPI::update_entry_property( $entry_id, 'status', 'trash' );
-		}
 
-		$response = rest_ensure_response( $entry );
+			$entry = GFAPI::get_entry( $entry_id );
+			$response = rest_ensure_response( $entry );
+		}
 
 		return $response;
 	}
@@ -323,7 +335,15 @@ class GF_REST_Entries_Controller extends GF_REST_Form_Entries_Controller {
 	 */
 	protected function prepare_item_for_database( $request ) {
 
-		$entry = $request->get_body_params();
+		$entry = $request->get_json_params();
+
+		if ( empty( $entry ) ) {
+			$entry = $request->get_body_params();
+		}
+
+		if ( empty( $entry ) ) {
+			return new WP_Error( 'missing_entry', __( 'Missing entry', 'gravityforms' ) );
+		}
 
 		$entry_id = $request['entry_id'];
 
