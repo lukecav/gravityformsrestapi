@@ -201,7 +201,7 @@ abstract class GF_REST_Controller extends WP_REST_Controller {
 			$form_id = $entry['form_id'];
 		}
 		$form = GFAPI::get_form( $form_id );
-		if ( ! empty ( $form['fields'] ) && is_array( $form['fields'] ) ) {
+		if ( ! empty( $form['fields'] ) && is_array( $form['fields'] ) ) {
 			foreach ( $form['fields'] as $field ) {
 				/* @var GF_Field $field */
 				if ( $field->get_input_type() == 'list' && isset( $entry[ $field->id ] ) ) {
