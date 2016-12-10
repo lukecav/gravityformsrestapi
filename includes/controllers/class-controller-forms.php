@@ -128,12 +128,9 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|WP_REST_Response
 	 */
 	public function get_item( $request ) {
-		//get parameters from request
 		$form_id = $request['id'];
 		$form = GFAPI::get_form( $form_id );
 
-
-		//return a response or error based on some conditional
 		if ( $form ) {
 			return new WP_REST_Response( $form, 200 );
 		} else {
@@ -166,7 +163,16 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 			return new WP_Error( $form_id->get_error_code(), $form_id->get_error_message(), array( 'status' => $status ) );
 		}
 
-		return new WP_REST_Response( $form_id, 201 );
+		$form = GFAPI::get_form( $form_id );
+
+		$response = $this->prepare_item_for_response( $form, $request );
+
+		$response = rest_ensure_response( $response );
+
+		$response->set_status( 201 );
+		$response->header( 'Location', rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $form_id ) ) );
+
+		return $response;
 	}
 
 	/**
@@ -183,6 +189,10 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 		$form_id = $request['id'];
 		$form = $this->prepare_item_for_database( $request );
 
+		if ( is_wp_error( $form ) ) {
+			return $form;
+		}
+
 		$result = GFAPI::update_form( $form, $form_id );
 
 		if ( is_wp_error( $result ) ) {
@@ -190,7 +200,11 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 			return new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => $status ) );
 		}
 
-		return new WP_REST_Response( __( 'Form updated successfully', 'gravityforms' ), 200 );
+		$form = GFAPI::get_form( $form_id );
+
+		$response = $this->prepare_item_for_response( $form, $request );
+
+		return rest_ensure_response( $response );
 	}
 
 	/**
@@ -204,15 +218,42 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|WP_REST_Request
 	 */
 	public function delete_item( $request ) {
-		$form_id = $request['id'];
-		$result = GFAPI::delete_form( $form_id );
 
-		if ( is_wp_error( $result ) ) {
-			$status = $this->get_error_status( $result );
-			return new WP_Error( $result->get_error_code(), $result->get_error_message(), array( 'status' => $status ) );
+		$form_id = $request['id'];
+
+		$form = GFAPI::get_form( $form_id );
+		if ( empty( $form ) ) {
+			return new WP_Error( 'gf_form_invalid_id', __( 'Invalid form id.', 'gravityforms' ), array( 'status' => 404 ) );
 		}
 
-		return new WP_REST_Response( __( 'Form deleted successfully', 'gravityforms' ), 200 );
+		$force = isset( $request['force'] ) ? (bool) $request['force'] : false;
+
+		if ( $force ) {
+			$result = GFAPI::delete_form( $form_id );
+
+			if ( is_wp_error( $result ) ) {
+				$message = $result->get_error_message();
+				return new WP_Error( 'gf_cannot_delete', $message, array( 'status' => 500 ) );
+			}
+
+			$previous = $this->prepare_item_for_response( $form, $request );
+			$response = new WP_REST_Response();
+			$response->set_data( array( 'deleted' => true, 'previous' => $previous->get_data() ) );
+
+		} else {
+			if ( rgar( $form, 'is_trash' ) ) {
+				$message = __( 'The form has already been deleted.', 'gravityforms' );
+				return new WP_Error( 'gf_already_trashed', $message, array( 'status' => 410 ) );
+			}
+
+			// Trash the form
+			GFAPI::update_form_property( $form_id, 'is_trash', 1 );
+
+			$form = GFAPI::get_form( $form_id );
+			$response = rest_ensure_response( $form );
+		}
+
+		return $response;
 	}
 
 	/**
@@ -334,7 +375,7 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 			$form_json = $request->get_body_params();
 
 			if ( empty( $form_json ) || is_array( $form_json ) ) {
-				return new WP_Error( 'missing_form_json', __( 'The Form object must be sent as a JSON string in the request body with the content-type header set to application/json.', 'gravityforms' ) );
+				return new WP_Error( 'missing_form', __( 'The Form object must be sent as a JSON string in the request body with the content-type header set to application/json.', 'gravityforms' ) );
 			}
 
 			$form = json_decode( $form_json, true );
