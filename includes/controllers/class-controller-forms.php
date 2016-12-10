@@ -369,17 +369,16 @@ class GF_REST_Forms_Controller extends GF_REST_Controller {
 	 * @return WP_Error|object $prepared_item
 	 */
 	protected function prepare_item_for_database( $request ) {
-		$form = $request->get_json_params();
-		if ( ! $form ) {
+		$form_json = $request->get_json_params();
+		if ( ! $form_json ) {
 
 			$form_json = $request->get_body_params();
 
 			if ( empty( $form_json ) || is_array( $form_json ) ) {
 				return new WP_Error( 'missing_form', __( 'The Form object must be sent as a JSON string in the request body with the content-type header set to application/json.', 'gravityforms' ) );
 			}
-
-			$form = json_decode( $form_json, true );
 		}
+		$form = json_decode( $form_json, true );
 
 		return $form;
 	}
