@@ -134,7 +134,7 @@ class Tests_GF_REST_API_Forms extends GF_UnitTestCase {
 
 		$response = $this->server->dispatch( $request );
 		$response_form = $response->get_data();
-
+		echo print_r( $response_form, 1 );
 		$new_form_id = $response_form['id'];
 
 		$verify_form = GFAPI::get_form( $new_form_id );
