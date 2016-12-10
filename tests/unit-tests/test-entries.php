@@ -170,8 +170,12 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 		$request = new WP_REST_Request( 'POST', $this->namespace . '/entries' );
 		$request->set_body_params( $entry );
 		$response = $this->server->dispatch( $request );
-		$entry_id = $response->get_data();
+		$updated_entry = $response->get_data();
 
+		$this->assertEquals( '2016-07-19 11:00:00', $updated_entry['date_created'] );
+		$this->assertEquals( 'Second Choice', $updated_entry['2.2'] );
+
+		$entry_id = $updated_entry['id'];
 		$verify_entry = GFAPI::get_entry( $entry_id );
 
 		$this->assertEquals( '2016-07-19 11:00:00', $verify_entry['date_created'] );
@@ -195,6 +199,10 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 		$response = $this->server->dispatch( $request );
 		$result = $response->get_data();
 
+		// Successful update returns the updated entry.
+		$this->assertEquals( 'testing', $result[1] );
+
+		// Double check the entry was actually updated.
 		$verify_entry = GFAPI::get_entry( $entry_id );
 
 		$this->assertEquals( 'testing', $verify_entry[1] );
@@ -215,7 +223,9 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 
 		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/entries/' . $entry_id );
 		$response = $this->server->dispatch( $request );
-		$result = $response->get_data();
+		$deleted_entry = $response->get_data();
+
+		$this->assertEquals( 'trash', $deleted_entry['status'] );
 
 		$verify_entry = GFAPI::get_entry( $entry_id );
 
@@ -236,11 +246,24 @@ class Tests_GF_REST_API_Entries extends GF_UnitTestCase {
 		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/entries/' . $entry_id );
 		$request->set_query_params( array( 'force' => 1 ) );
 		$response = $this->server->dispatch( $request );
+		$result = $response->get_data();
+
+		$this->assertArrayHasKey( 'deleted', $result );
+		$this->assertTrue( $result['deleted'] );
+		$this->assertArrayHasKey( 'previous', $result );
+		$deleted_entry = $result['previous'];
+		$this->assertEquals( 'trash', $deleted_entry['status'] );
 
 		$verify_entry = GFAPI::get_entry( $entry_id );
 
 		$this->assertWPError( $verify_entry );
 		$this->assertEquals( 'not_found', $verify_entry->get_error_code() );
+
+		// Repeat delete = 404
+		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/entries/' . $entry_id );
+		$response = $this->server->dispatch( $request );
+
+		$this->assertEquals( 404, $response->get_status() );
 	}
 
 	/* HELPERS */

@@ -133,7 +133,9 @@ class Tests_GF_REST_API_Forms extends GF_UnitTestCase {
 		$request->set_header( 'content-type', 'application/json' );
 
 		$response = $this->server->dispatch( $request );
-		$new_form_id = $response->get_data();
+		$response_form = $response->get_data();
+
+		$new_form_id = $response_form['id'];
 
 		$verify_form = GFAPI::get_form( $new_form_id );
 
@@ -154,10 +156,38 @@ class Tests_GF_REST_API_Forms extends GF_UnitTestCase {
 
 	function test_delete_form() {
 		$form_id = $this->get_form_id();
+		$form = GFAPI::get_form( $form_id );
 		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/forms/' . absint( $form_id ) );
+		$response = $this->server->dispatch( $request );
+		$deleted_form = $response->get_data();
+
+		$this->assertEquals( 1, $deleted_form['is_trash'] );
+
+		$verify_entry = GFAPI::get_form( $form_id );
+
+		$this->assertEquals( 1, $verify_entry['is_trash'] );
+
+		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/forms/' . absint( $form_id ) );
+		$response = $this->server->dispatch( $request );
+		$status = $response->get_status();
+
+		$this->assertEquals( 410, $status ); // 410 = gone
+
+		$verify_form = GFAPI::get_form( $form_id );
+		$this->assertEquals( 1, $verify_form['is_trash'] );
+
+		$request = new WP_REST_Request( 'DELETE', $this->namespace . '/forms/' . absint( $form_id ) );
+		$request->set_query_params( array( 'force' => 1 ) );
 		$response = $this->server->dispatch( $request );
 
 		$this->assertEquals( 200, $response->get_status() );
+		$result = $response->get_data();
+
+		$this->assertArrayHasKey( 'deleted', $result );
+		$this->assertTrue( $result['deleted'] );
+		$this->assertArrayHasKey( 'previous', $result );
+		$deleted_form = $result['previous'];
+		$this->assertEquals( 1, $deleted_form['is_trash'] );
 	}
 
 	/* HELPERS */

@@ -90,9 +90,9 @@ class Tests_GF_REST_API_Form_Entries extends GF_UnitTestCase {
 		$request = new WP_REST_Request( 'POST', $this->namespace . '/forms/' . $form_id .'/entries' );
 		$request->set_body_params( $entry );
 		$response = $this->server->dispatch( $request );
-		$entry_id = $response->get_data();
+		$entry = $response->get_data();
 
-		$verify_entry = GFAPI::get_entry( $entry_id );
+		$verify_entry = GFAPI::get_entry( $entry['id'] );
 
 		$this->assertEquals( '2016-07-19 11:00:00', $verify_entry['date_created'] );
 		$this->assertEquals( 'Second Choice', $verify_entry['2.2'] );

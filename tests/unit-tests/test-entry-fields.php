@@ -70,8 +70,6 @@ class Tests_GF_REST_API_Entry_Fields extends GF_UnitTestCase {
 
 		$entry_id = $entry['id'];
 
-
-
 		$request = new WP_REST_Request( 'GET', $this->namespace . '/entries/' . $entry_id . '/fields/1;13.6' );
 
 		$response = $this->server->dispatch( $request );
