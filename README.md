@@ -1908,11 +1908,11 @@ collections. This means that it's no longer possible to create multiple entries 
 The unit tests can be installed from the terminal using:
 
 ```bash
-./tests/bin/install.sh [DB_NAME] [DB_USER] [DB_PASSWORD] [DB_HOST]
+bash tests/bin/install.sh [DB_NAME] [DB_USER] [DB_PASSWORD] [DB_HOST]
 ```
 
 If you're using [VVV](https://github.com/Varying-Vagrant-Vagrants/VVV) you can use this command:
 
 ```bash
-./tests/bin/install.sh wordpress_unit_tests root root localhost
+bash tests/bin/install.sh wordpress_unit_tests root root localhost
 ```
