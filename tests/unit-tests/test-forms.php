@@ -130,11 +130,10 @@ class Tests_GF_REST_API_Forms extends GF_UnitTestCase {
 		$request = new WP_REST_Request( 'POST', $this->namespace . '/forms' );
 		$form_json = json_encode( $form );
 		$request->set_body_params( $form_json );
-		$request->set_header( 'content-type', 'application/json' );
+		//$request->set_header( 'content-type', 'application/json' );
 
 		$response = $this->server->dispatch( $request );
 		$response_form = $response->get_data();
-		echo print_r( $response_form, 1 );
 		$new_form_id = $response_form['id'];
 
 		$verify_form = GFAPI::get_form( $new_form_id );
